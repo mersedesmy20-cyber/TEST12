@@ -1,0 +1,117 @@
+import { Destination } from '@/types/destination'
+
+export const destinations: Destination[] = [
+  {
+    id: 'turkey',
+    name: 'Туреччина',
+    season: 'Травень - Жовтень',
+    seasonIcon: '☀️',
+    image: 'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?q=80&w=2071&auto=format&fit=crop',
+    flag: '🇹🇷',
+    icon: '🏖️',
+    desc: 'Країна, де схід зустрічається із заходом',
+    price: 'від 300$',
+    highlights: ['Все включено', 'Історичні пам\'ятки', 'Шопінг', 'Сімейний відпочинок'],
+    tags: ['Море', 'Європа'],
+    gridClass: 'large'
+  },
+  {
+    id: 'egypt',
+    name: 'Єгипет',
+    season: 'Жовтень - Травень',
+    seasonIcon: '☀️',
+    image: 'https://images.unsplash.com/photo-1572252009286-268acec5ca0a?q=80&w=2070&auto=format&fit=crop',
+    flag: '🇪🇬',
+    icon: '🏜️',
+    desc: 'Колиска цивілізації та найкращий дайвінг',
+    price: 'від 400$',
+    highlights: ['Дайвінг та снорклінг', 'Піраміди', 'Пустельні сафарі', 'Доступні ціни'],
+    tags: ['Море', 'Екзотика'],
+    gridClass: ''
+  },
+  {
+    id: 'spain',
+    name: 'Іспанія',
+    season: 'Червень - Вересень',
+    seasonIcon: '☀️',
+    image: 'https://images.unsplash.com/photo-1543783207-ec64e4d95325?q=80&w=2070&auto=format&fit=crop',
+    flag: '🇪🇸',
+    icon: '🏛️',
+    desc: 'Пристрасть, фламенко та архітектура Гауді',
+    price: 'від 350$',
+    highlights: ['Архітектура', 'Гастрономія', 'Нічне життя', 'Культура'],
+    tags: ['Європа', 'Море'],
+    gridClass: ''
+  },
+  {
+    id: 'bulgaria',
+    name: 'Болгарія',
+    season: 'Червень - Вересень',
+    seasonIcon: '☀️',
+    image: 'https://images.unsplash.com/photo-1534008897995-27a23e859048?q=80&w=2070&auto=format&fit=crop',
+    flag: '🇧🇬',
+    icon: '🏖️',
+    desc: 'Золоті піски та гостинність',
+    price: 'від 250$',
+    highlights: ['Золоті Піски', 'Бюджетний відпочинок', 'Смачна кухня', 'Близький переліт'],
+    tags: ['Море', 'Європа'],
+    gridClass: ''
+  },
+  {
+    id: 'montenegro',
+    name: 'Чорногорія',
+    season: 'Червень - Вересень',
+    seasonIcon: '☀️',
+    image: 'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?q=80&w=2070&auto=format&fit=crop',
+    flag: '🇲🇪',
+    icon: '⛰️',
+    desc: 'Перлина Адріатики з неймовірною природою',
+    price: 'від 400$',
+    highlights: ['Неймовірна природа', 'Адріатичне море', 'Старі міста', 'Екскурсії'],
+    tags: ['Море', 'Гори', 'Європа'],
+    gridClass: 'large'
+  },
+  {
+    id: 'dominican',
+    name: 'Домінікана',
+    season: 'Цілий рік',
+    seasonIcon: '☀️',
+    image: 'https://images.unsplash.com/photo-1587595431973-160d0d94add1?q=80&w=2076&auto=format&fit=crop',
+    flag: '🇩🇴',
+    icon: '🏝️',
+    desc: 'Рай на землі з білосніжним піском',
+    price: 'від 800$',
+    highlights: ['Карибське море', 'Білий пісок', 'Екзотика', 'Все включено'],
+    tags: ['Море', 'Екзотика'],
+    gridClass: ''
+  },
+  {
+    id: 'uae',
+    name: 'ОАЕ',
+    season: 'Жовтень - Квітень',
+    seasonIcon: '☀️',
+    image: 'https://images.unsplash.com/photo-1546412414-e1885259563a?q=80&w=1974&auto=format&fit=crop',
+    flag: '🇦🇪',
+    icon: '🏙️',
+    desc: 'Майбутнє вже тут - розкіш та сучасність',
+    price: 'від 600$',
+    highlights: ['Розкіш', 'Шопінг', 'Сучасна архітектура', 'Безпека'],
+    tags: ['Екзотика'],
+    gridClass: ''
+  },
+  {
+    id: 'thailand',
+    name: 'Таїланд',
+    season: 'Листопад - Березень',
+    seasonIcon: '☀️',
+    image: 'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?q=80&w=2039&auto=format&fit=crop',
+    flag: '🇹🇭',
+    icon: '🏝️',
+    desc: 'Країна посмішок та екзотичних храмів',
+    price: 'від 700$',
+    highlights: ['Екзотика', 'Пляжі', 'Їжа', 'Масаж'],
+    tags: ['Екзотика', 'Море'],
+    gridClass: ''
+  }
+]
+

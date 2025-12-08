@@ -3,34 +3,21 @@
 import { useEffect, useRef } from 'react'
 import Link from 'next/link'
 import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null)
   const textRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger)
-
     const ctx = gsap.context(() => {
-      gsap.to('.hero-bg', {
-        yPercent: 30,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: heroRef.current,
-          start: 'top top',
-          end: 'bottom top',
-          scrub: true
-        }
-      })
-
+      // Simple entrance animation without ScrollTrigger
       gsap.from(textRef.current?.children || [], {
-        y: 100,
+        y: 60,
         opacity: 0,
-        duration: 2.5,
-        stagger: 0.1,
-        ease: 'power4.out',
-        delay: 0.5
+        duration: 1.2,
+        stagger: 0.15,
+        ease: 'power3.out',
+        delay: 0.3
       })
     }, heroRef)
 
@@ -39,12 +26,13 @@ export default function Hero() {
 
   return (
     <section ref={heroRef} className="relative h-screen min-h-[800px] flex items-center justify-center overflow-hidden text-center bg-slate-950">
-      {/* Dynamic Background */}
+      {/* Dynamic Background with CSS Parallax */}
       <div className="absolute inset-0 overflow-hidden">
         <div
-          className="hero-bg absolute inset-0 bg-cover bg-center scale-110"
+          className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: "url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=2070&auto=format&fit=crop')"
+            backgroundImage: "url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=2070&auto=format&fit=crop')",
+            backgroundAttachment: 'fixed'
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-slate-950/30 via-transparent to-slate-950/90" />

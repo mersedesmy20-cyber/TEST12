@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { destinations } from '@/data/destinations'
 import { Destination } from '@/types/destination'
 import { useModal } from '@/context/ModalContext'
@@ -75,10 +76,15 @@ function DestinationCard({
         }`}
       onClick={onClick}
     >
-      <div
-        className="h-[60%] bg-cover bg-center relative transition-transform duration-700 group-hover:scale-110"
-        style={{ backgroundImage: `url('${destination.image}')` }}
-      >
+      <div className="h-[60%] relative overflow-hidden">
+        <Image
+          src={destination.image}
+          alt={destination.name}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="object-cover transition-transform duration-700 group-hover:scale-110"
+          loading="lazy"
+        />
         <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-80" />
 
         <div

@@ -4,20 +4,47 @@ import { destinations } from '@/data/destinations'
 import { Destination } from '@/types/destination'
 import { useModal } from '@/context/ModalContext'
 
-export default function Destinations() {
+export default function Destinations({
+  activeFilter,
+  onResetFilter,
+}: {
+  activeFilter?: string | null
+  onResetFilter?: () => void
+}) {
   const { openModal } = useModal()
 
-  const filteredDestinations = destinations
+  const filteredDestinations = activeFilter
+    ? destinations.filter((dest) => dest.tags.includes(activeFilter))
+    : destinations
 
   return (
-    <section id="destinations" className="py-24 px-[5%]">
+    <section id="destinations" className="py-24 px-[5%] relative overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-[100px] -z-10" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[100px] -z-10" />
+
       <div className="max-w-[1400px] mx-auto">
-        <h2 className="text-[clamp(2rem,4vw,3.5rem)] font-extrabold text-center mb-4 text-text tracking-tight fade-in">
-          Where Are We Going?
+        <h2 className="text-[clamp(2rem,4vw,3.5rem)] font-extrabold text-center mb-4 text-white tracking-tight fade-in drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+          Куди ми їдемо?
         </h2>
-        <p className="text-center text-text-light text-xl mb-16 fade-in">
-          Discover amazing destinations around the world
-        </p>
+
+        {activeFilter ? (
+          <div className="text-center mb-16 fade-in">
+            <p className="text-slate-400 text-xl mb-4 font-light">
+              Показані напрямки для: <span className="text-indigo-400 font-semibold">{activeFilter}</span>
+            </p>
+            <button
+              onClick={onResetFilter}
+              className="px-6 py-2 rounded-full border border-indigo-500/30 text-indigo-300 hover:bg-indigo-500/10 transition-colors"
+            >
+              Показати всі
+            </button>
+          </div>
+        ) : (
+          <p className="text-center text-slate-400 text-xl mb-16 fade-in font-light">
+            Відкрийте неймовірні напрямки по всьому світу
+          </p>
+        )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-12">
           {filteredDestinations.map((dest) => (
@@ -42,43 +69,46 @@ function DestinationCard({
 }) {
   return (
     <div
-      className={`destination-card bg-bg-secondary rounded-3xl overflow-hidden cursor-pointer transition-all duration-300 shadow-md hover:shadow-2xl hover:-translate-y-2 ${
-        destination.gridClass === 'large'
-          ? 'md:col-span-2 md:row-span-2 h-[500px]'
-          : 'h-[400px]'
-      }`}
+      className={`destination-card group relative bg-slate-900/50 backdrop-blur-md border border-white/5 rounded-3xl overflow-hidden cursor-pointer transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(99,102,241,0.2)] ${destination.gridClass === 'large'
+        ? 'md:col-span-2 md:row-span-2 h-[500px]'
+        : 'h-[400px]'
+        }`}
       onClick={onClick}
     >
       <div
-        className="h-[60%] bg-cover bg-center relative transition-transform duration-500 hover:scale-110"
+        className="h-[60%] bg-cover bg-center relative transition-transform duration-700 group-hover:scale-110"
         style={{ backgroundImage: `url('${destination.image}')` }}
       >
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-80" />
+
         <div
-          className="absolute top-4 right-4 w-10 h-10 rounded-full border-[3px] border-white shadow-md bg-cover bg-center"
-          style={{
-            backgroundImage: `url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>${destination.flag}</text></svg>')`,
-          }}
-        />
+          className="absolute top-4 right-4 w-12 h-12 rounded-full border-2 border-white/20 shadow-lg bg-cover bg-center backdrop-blur-sm bg-white/10 flex items-center justify-center text-2xl"
+        >
+          {destination.flag}
+        </div>
       </div>
-      <div className="h-[40%] p-6 flex flex-col justify-between">
-        <div>
-          <div className="flex justify-between items-start mb-3">
-            <h3 className="text-2xl font-bold text-text m-0">
+
+      <div className="absolute inset-x-0 bottom-0 h-[50%] bg-gradient-to-t from-slate-950 via-slate-900/90 to-transparent p-6 flex flex-col justify-end">
+        <div className="transform transition-transform duration-300 group-hover:-translate-y-2">
+          <div className="flex justify-between items-start mb-2">
+            <h3 className="text-2xl font-bold text-white m-0 group-hover:text-indigo-300 transition-colors">
               {destination.name}
             </h3>
-            <span className="text-2xl">{destination.icon}</span>
+            <span className="text-2xl filter drop-shadow-lg">{destination.icon}</span>
           </div>
-          <p className="text-text-light text-sm leading-relaxed mb-4">
+
+          <p className="text-slate-300 text-sm leading-relaxed mb-4 line-clamp-2 opacity-80 group-hover:opacity-100 transition-opacity">
             {destination.desc}
           </p>
-        </div>
-        <div className="flex justify-between items-center pt-4 border-t border-black/5">
-          <div className="flex items-center gap-2 text-sm text-text-muted">
-            <span>{destination.seasonIcon}</span>
-            <span>{destination.season}</span>
-          </div>
-          <div className="text-lg font-bold text-primary">
-            {destination.price}
+
+          <div className="flex justify-between items-center pt-4 border-t border-white/10">
+            <div className="flex items-center gap-2 text-sm text-slate-400">
+              <span>{destination.seasonIcon}</span>
+              <span>{destination.season}</span>
+            </div>
+            <div className="text-lg font-bold text-indigo-400 group-hover:text-indigo-300 group-hover:text-glow transition-all">
+              {destination.price}
+            </div>
           </div>
         </div>
       </div>

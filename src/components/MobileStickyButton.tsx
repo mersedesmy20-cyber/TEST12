@@ -9,7 +9,7 @@ export default function MobileStickyButton() {
       target="_blank"
       className="fixed bottom-8 left-1/2 -translate-x-1/2 bg-primary text-white px-8 py-4 rounded-full font-semibold shadow-2xl z-[999] md:hidden flex items-center gap-2 transition-all hover:shadow-glow hover:-translate-y-1"
     >
-      <span>Find a Tour</span>
+      <span>Підібрати тур</span>
     </Link>
   )
 }

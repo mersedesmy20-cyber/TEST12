@@ -76,7 +76,7 @@ export default function Reviews() {
                             </div>
 
                             <p className="text-slate-300 italic leading-relaxed">
-                                "{review.text}"
+                                &ldquo;{review.text}&rdquo;
                             </p>
 
                             <div className="mt-6 pt-6 border-t border-white/5 flex items-center gap-2 opacity-50 text-sm text-slate-500">

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import Navigation from '@/components/Navigation'
 import Hero from '@/components/Hero'
 import Destinations from '@/components/Destinations'
+import Reviews from '@/components/Reviews'
 import VibeSection from '@/components/VibeSection'
 import Contact from '@/components/Contact'
 import Footer from '@/components/Footer'
@@ -34,6 +35,7 @@ export default function Home() {
       <Hero />
       <Destinations activeFilter={filter} onResetFilter={() => setFilter(null)} />
       <VibeSection onFilterSelect={handleFilterChange} />
+      <Reviews />
       <Contact />
       <Footer />
       <MobileStickyButton />

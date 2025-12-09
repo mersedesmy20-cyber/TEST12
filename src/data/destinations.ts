@@ -22,7 +22,7 @@ export const destinations: Destination[] = [
     name: 'Єгипет',
     season: 'Жовтень - Травень',
     seasonIcon: '☀️',
-    image: 'https://images.unsplash.com/photo-1539650116455-251d4d065549?q=80&w=2000&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1566438480900-0609be27a4be?q=80&w=2000&auto=format&fit=crop', // Pyramids
     flag: '🇪🇬',
     icon: '🐫',
     desc: 'Колиска цивілізації. Відкрийте для себе велич пірамід та красу Червоного моря.',
@@ -38,7 +38,7 @@ export const destinations: Destination[] = [
     name: 'Іспанія',
     season: 'Червень - Вересень',
     seasonIcon: '☀️',
-    image: 'https://images.unsplash.com/photo-1543783207-ec64e4d95325?q=80&w=2000&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1543783207-ec64e4d95325?q=80&w=2000&auto=format&fit=crop', // Madrid
     flag: '🇪🇸',
     icon: '💃',
     desc: 'Фієста, фламенко та неймовірна архітектура. Від Барселони до Тенеріфе.',
@@ -54,7 +54,7 @@ export const destinations: Destination[] = [
     name: 'Греція',
     season: 'Червень - Вересень',
     seasonIcon: '☀️',
-    image: 'https://images.unsplash.com/photo-1533105079780-92b9be482077?q=80&w=2000&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1533105079780-92b9be482077?q=80&w=2000&auto=format&fit=crop', // Santorini
     flag: '🇬🇷',
     icon: '🏺',
     desc: 'Білосніжні будинки Санторіні та антична історія Афін.',
@@ -70,7 +70,7 @@ export const destinations: Destination[] = [
     name: 'Чорногорія',
     season: 'Червень - Вересень',
     seasonIcon: '☀️',
-    image: 'https://images.unsplash.com/photo-1565620808383-7c83c27195c6?q=80&w=2000&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?q=80&w=2000&auto=format&fit=crop', // Kotor Bay
     flag: '🇲🇪',
     icon: '⛰️',
     desc: 'Перлина Адріатики. Де гори зустрічаються з морем у неймовірних бухтах.',
@@ -86,7 +86,7 @@ export const destinations: Destination[] = [
     name: 'Домінікана',
     season: 'Цілий рік',
     seasonIcon: '🌴',
-    image: 'https://images.unsplash.com/photo-1597424214216-2c5e88455dec?q=80&w=2000&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1588665793010-2b109cc46059?q=80&w=2000&auto=format&fit=crop', // Caribbean
     flag: '🇩🇴',
     icon: '🥥',
     desc: 'Справжній карибський рай. Білий пісок, пальми та безтурботність.',
@@ -102,7 +102,7 @@ export const destinations: Destination[] = [
     name: 'ОАЕ',
     season: 'Жовтень - Квітень',
     seasonIcon: '🏙️',
-    image: 'https://images.unsplash.com/photo-1512453979798-5ea904acfb5a?q=80&w=2000&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?q=80&w=2000&auto=format&fit=crop', // Dubai
     flag: '🇦🇪',
     icon: '🌃',
     desc: 'Дубай - місто майбутнього. Розкіш, хмарочоси та пустеля.',
@@ -118,7 +118,7 @@ export const destinations: Destination[] = [
     name: 'Таїланд',
     season: 'Листопад - Березень',
     seasonIcon: '🍜',
-    image: 'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?q=80&w=2000&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?q=80&w=2000&auto=format&fit=crop', // Thailand
     flag: '🇹🇭',
     icon: '🐘',
     desc: 'Країна посмішок. Екзотичні храми, неймовірна природа та смачна їжа.',

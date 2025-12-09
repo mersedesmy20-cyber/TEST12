@@ -15,6 +15,29 @@ export default function Contact() {
           Напишіть нам, і ми організуємо вашу ідеальну відпустку.
         </p>
 
+        {/* Instagram Block */}
+        <div className="flex justify-center mb-16 fade-in">
+          <Link
+            href="https://www.instagram.com/lizazakharchenko?igsh=Nnl4MG9tcjVxMzcw"
+            target="_blank"
+            className="group relative w-full max-w-2xl bg-gradient-to-r from-purple-600/20 to-pink-600/20 border border-white/10 rounded-3xl p-8 flex items-center justify-between overflow-hidden hover:border-pink-500/50 transition-all hover:scale-[1.02]"
+          >
+            <div className="relative z-10 flex flex-col gap-2">
+              <div className="flex items-center gap-3 mb-2">
+                <span className="text-3xl">📸</span>
+                <h3 className="text-2xl font-bold text-white group-hover:text-pink-300 transition-colors">Слідкуйте за нами в Instagram</h3>
+              </div>
+              <p className="text-slate-300 text-lg">Дивіться свіжі звіти туристів, огляди готелів та гарячі пропозиції в сторіз директора!</p>
+              <div className="flex items-center gap-2 text-pink-400 font-semibold mt-2 group-hover:translate-x-2 transition-transform">
+                <span>Перейти до профілю</span>
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+              </div>
+            </div>
+            <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-gradient-to-l from-pink-600/20 to-transparent -z-0" />
+            <div className="absolute -right-10 -bottom-10 text-9xl opacity-10 rotate-12">📷</div>
+          </Link>
+        </div>
+
         <div className="flex justify-center gap-8 mt-12 flex-wrap mb-16">
           <ContactCard
             icon="✈️"

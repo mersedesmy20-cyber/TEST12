@@ -1,2 +1,3 @@
-# glorious-travel
+# Glorious Travel UA
 
+Туристичне агентство - подорожі вашої мрії! ✈️

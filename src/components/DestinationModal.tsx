@@ -30,13 +30,6 @@ export default function DestinationModal() {
         style={{ transform: isOpen ? 'translateY(0)' : 'translateY(50px)' }}
         onClick={(e) => e.stopPropagation()}
       >
-        <button
-          onClick={closeModal}
-          className="absolute top-6 right-6 w-11 h-11 rounded-full bg-slate-800/50 backdrop-blur-sm border border-white/10 text-xl text-white cursor-pointer z-10 flex items-center justify-center shadow-lg hover:rotate-90 hover:bg-indigo-600 hover:border-indigo-500 transition-all"
-        >
-          &times;
-        </button>
-
         <div className="flex flex-col overflow-y-auto custom-scrollbar">
           <div
             className="w-full h-[300px] bg-cover bg-center relative"
@@ -103,7 +96,7 @@ export default function DestinationModal() {
             </div>
 
             <Link
-              href="https://t.me/lizazakharchenko"
+              href={`https://t.me/lizazakharchenko?text=${encodeURIComponent(`Доброго дня! Мене цікавить тур до ${selectedDestination.name}. Розкажіть детальніше.`)}`}
               target="_blank"
               className="block bg-indigo-600 text-white px-12 py-5 rounded-full font-semibold text-center transition-all shadow-[0_0_20px_rgba(99,102,241,0.4)] hover:shadow-[0_0_30px_rgba(99,102,241,0.6)] hover:-translate-y-1 hover:bg-indigo-500 w-full"
             >
@@ -111,6 +104,13 @@ export default function DestinationModal() {
             </Link>
           </div>
         </div>
+
+        <button
+          onClick={closeModal}
+          className="absolute top-6 right-6 w-11 h-11 rounded-full bg-slate-800/50 backdrop-blur-sm border border-white/10 text-xl text-white cursor-pointer z-50 flex items-center justify-center shadow-lg hover:rotate-90 hover:bg-indigo-600 hover:border-indigo-500 transition-all"
+        >
+          &times;
+        </button>
       </div>
     </div>
   )

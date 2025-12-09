@@ -33,13 +33,13 @@ export default function Navigation() {
           </Link>
 
           <div className="hidden md:flex items-center gap-8">
-            {['Destinations', 'Vibe', 'Contact'].map((item) => (
+            {['Destinations', 'Seasonal', 'Vibe', 'Contact'].map((item) => (
               <Link
                 key={item}
-                href={`#${item.toLowerCase()}`}
+                href={item === 'Seasonal' ? '/seasonal' : `/#${item.toLowerCase()}`}
                 className="text-sm font-medium text-slate-300 hover:text-white transition-colors relative group"
               >
-                {item === 'Destinations' ? 'Напрямки' : item === 'Vibe' ? 'Вайб' : 'Контакти'}
+                {item === 'Destinations' ? 'Напрямки' : item === 'Seasonal' ? 'Сезонні' : item === 'Vibe' ? 'Вайб' : 'Контакти'}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-500 transition-all group-hover:w-full shadow-[0_0_10px_rgba(99,102,241,0.8)]"></span>
               </Link>
             ))}
@@ -80,14 +80,14 @@ export default function Navigation() {
           }`}
       >
         <div className="px-[5%] py-8 flex flex-col gap-6">
-          {['Destinations', 'Vibe', 'Contact'].map((item) => (
+          {['Destinations', 'Seasonal', 'Vibe', 'Contact'].map((item) => (
             <Link
               key={item}
-              href={`#${item.toLowerCase()}`}
+              href={item === 'Seasonal' ? '/seasonal' : `/#${item.toLowerCase()}`}
               className="text-lg font-semibold text-slate-200 hover:text-indigo-400 transition-colors pb-3 border-b border-white/5"
               onClick={() => setMobileMenuOpen(false)}
             >
-              {item === 'Destinations' ? 'Напрямки' : item === 'Vibe' ? 'Вайб' : 'Контакти'}
+              {item === 'Destinations' ? 'Напрямки' : item === 'Seasonal' ? 'Сезонні' : item === 'Vibe' ? 'Вайб' : 'Контакти'}
             </Link>
           ))}
           <Link

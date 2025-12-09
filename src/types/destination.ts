@@ -10,6 +10,8 @@ export interface Destination {
   price: string
   highlights: string[]
   tags: string[]
+  whatToSee: string[]
+  whatToBuy: string[]
   gridClass?: string
 }
 

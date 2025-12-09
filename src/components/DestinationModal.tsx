@@ -61,7 +61,7 @@ export default function DestinationModal() {
             </p>
 
             <h3 className="text-2xl font-bold mb-4 text-white">Чому варто відвідати:</h3>
-            <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 list-none">
+            <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10 list-none">
               {selectedDestination.highlights.map((highlight, index) => (
                 <li
                   key={index}
@@ -71,6 +71,36 @@ export default function DestinationModal() {
                 </li>
               ))}
             </ul>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+              <div className="bg-white/5 p-6 rounded-2xl border border-white/5">
+                <h4 className="text-xl font-bold text-indigo-300 mb-4 flex items-center gap-2">
+                  <span>📷</span> Що подивитися
+                </h4>
+                <ul className="space-y-2">
+                  {selectedDestination.whatToSee?.map((item, index) => (
+                    <li key={index} className="text-slate-300 text-sm flex items-start gap-2">
+                      <span className="text-indigo-500 mt-1">•</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="bg-white/5 p-6 rounded-2xl border border-white/5">
+                <h4 className="text-xl font-bold text-pink-300 mb-4 flex items-center gap-2">
+                  <span>🛍️</span> Що купити
+                </h4>
+                <ul className="space-y-2">
+                  {selectedDestination.whatToBuy?.map((item, index) => (
+                    <li key={index} className="text-slate-300 text-sm flex items-start gap-2">
+                      <span className="text-pink-500 mt-1">•</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
 
             <Link
               href="https://t.me/lizazakharchenko"

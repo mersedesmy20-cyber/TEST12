@@ -6,13 +6,15 @@ export const destinations: Destination[] = [
     name: 'Туреччина',
     season: 'Травень - Жовтень',
     seasonIcon: '☀️',
-    image: 'https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?q=80&w=2000&auto=format&fit=crop', // Cappadocia/Turkey vibe
+    image: 'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?q=80&w=2000&auto=format&fit=crop', // Istanbul
     flag: '🇹🇷',
     icon: '🏝️',
     desc: 'Країна, де схід зустрічається із заходом. Неймовірні пляжі Анталії та магія Каппадокії.',
     price: 'від 350$',
     highlights: ['Все включено', 'Історичні пам\'ятки', 'Політ на кулях', 'Сімейний відпочинок'],
     tags: ['Море', 'Європа'],
+    whatToSee: ['Собор Святої Софії (Стамбул)', 'Каппадокія (повітряні кулі)', 'Памуккале (травертини)', 'Античне місто Ефес'],
+    whatToBuy: ['Турецькі солодощі (рахат-лукум)', 'Килими та текстиль', 'Вироби зі шкіри', 'Кераміка та спеції'],
     gridClass: 'large'
   },
   {
@@ -20,13 +22,15 @@ export const destinations: Destination[] = [
     name: 'Єгипет',
     season: 'Жовтень - Травень',
     seasonIcon: '☀️',
-    image: 'https://images.unsplash.com/photo-1539650116455-251d4d065549?q=80&w=2000&auto=format&fit=crop', // Pyramids
+    image: 'https://images.unsplash.com/photo-1572252009289-9ef997e5cE4f?q=80&w=2000&auto=format&fit=crop', // Pyramids
     flag: '🇪🇬',
     icon: '🐫',
     desc: 'Колиска цивілізації. Відкрийте для себе велич пірамід та красу Червоного моря.',
     price: 'від 400$',
     highlights: ['Дайвінг та снорклінг', 'Піраміди', 'Пустельні сафарі', 'Круїз Нілом'],
     tags: ['Море', 'Екзотика'],
+    whatToSee: ['Піраміди Гізи та Сфінкс', 'Луксорський храм', 'Долина царів', 'Рифи Шарм-ель-Шейху'],
+    whatToBuy: ['Папірус', 'Ароматичні олії', 'Бавовняні вироби', 'Спеції та чай каркаде'],
     gridClass: ''
   },
   {
@@ -34,13 +38,15 @@ export const destinations: Destination[] = [
     name: 'Іспанія',
     season: 'Червень - Вересень',
     seasonIcon: '☀️',
-    image: 'https://images.unsplash.com/photo-1539037116277-4db20889f2d4?q=80&w=2000&auto=format&fit=crop', // Madrid/Barcelona architecture
+    image: 'https://images.unsplash.com/photo-1543783207-ec64e4d95325?q=80&w=2000&auto=format&fit=crop', // Madrid
     flag: '🇪🇸',
     icon: '💃',
     desc: 'Фієста, фламенко та неймовірна архітектура. Від Барселони до Тенеріфе.',
     price: 'від 450$',
     highlights: ['Архітектура Гауді', 'Тапас та вино', 'Нічне життя', 'Пляжі'],
     tags: ['Європа', 'Море'],
+    whatToSee: ['Саграда Фамілія (Барселона)', 'Парк Гуель', 'Альгамбра (Гранада)', 'Королівський палац у Мадриді'],
+    whatToBuy: ['Хамон', 'Оливкова олія', 'Вино (Ріоха)', 'Віяла та кастаньєти'],
     gridClass: ''
   },
   {
@@ -55,6 +61,8 @@ export const destinations: Destination[] = [
     price: 'від 400$',
     highlights: ['Санторіні', 'Античні руїни', 'Острови', 'Середземноморська кухня'],
     tags: ['Море', 'Європа'],
+    whatToSee: ['Акрополь (Афіни)', 'Острів Санторіні', 'Метеори', 'Кноський палац (Крит)'],
+    whatToBuy: ['Оливкова олія та косметика', 'Грецький мед', 'Сир Фета', 'Шкіряні сандалі'],
     gridClass: ''
   },
   {
@@ -62,13 +70,15 @@ export const destinations: Destination[] = [
     name: 'Чорногорія',
     season: 'Червень - Вересень',
     seasonIcon: '☀️',
-    image: 'https://images.unsplash.com/photo-1565620808383-7c83c27195c6?q=80&w=2000&auto=format&fit=crop', // Kotor Bay
+    image: 'https://images.unsplash.com/photo-1565620808383-7c83c27195c6?q=80&w=2000&auto=format&fit=crop', // Kotor
     flag: '🇲🇪',
     icon: '⛰️',
     desc: 'Перлина Адріатики. Де гори зустрічаються з морем у неймовірних бухтах.',
     price: 'від 380$',
     highlights: ['Которська затока', 'Будва', 'Національні парки', 'Рафтинг'],
     tags: ['Море', 'Гори', 'Європа'],
+    whatToSee: ['Которська затока', 'Старе місто Будва', 'Острів Светого Стефана', 'Національний парк Дурмітор'],
+    whatToBuy: ['Пршут (м\'ясний делікатес)', 'Місцеве вино (Вранац)', 'Сир (Негушський)', 'Оливкова олія'],
     gridClass: 'large'
   },
   {
@@ -76,13 +86,15 @@ export const destinations: Destination[] = [
     name: 'Домінікана',
     season: 'Цілий рік',
     seasonIcon: '🌴',
-    image: 'https://images.unsplash.com/photo-1597424214216-2c5e88455dec?q=80&w=2000&auto=format&fit=crop', // Caribbean beach
+    image: 'https://images.unsplash.com/photo-1597424214216-2c5e88455dec?q=80&w=2000&auto=format&fit=crop', // Caribbean
     flag: '🇩🇴',
     icon: '🥥',
     desc: 'Справжній карибський рай. Білий пісок, пальми та безтурботність.',
     price: 'від 900$',
     highlights: ['Пунта-Кана', 'Саона', 'Карибське море', 'Все включено'],
     tags: ['Море', 'Екзотика'],
+    whatToSee: ['Острів Саона', 'Альтос-де-Чавон', 'Пляж Баваро', 'Водоспад Ель-Лимон'],
+    whatToBuy: ['Ром та сигари', 'Кава', 'Прикраси з ларімару', 'Вироби з бурштину'],
     gridClass: ''
   },
   {
@@ -90,13 +102,15 @@ export const destinations: Destination[] = [
     name: 'ОАЕ',
     season: 'Жовтень - Квітень',
     seasonIcon: '🏙️',
-    image: 'https://images.unsplash.com/photo-1512453979798-5ea904acfb5a?q=80&w=2000&auto=format&fit=crop', // Dubai Burj Khalifa
+    image: 'https://images.unsplash.com/photo-1512453979798-5ea904acfb5a?q=80&w=2000&auto=format&fit=crop', // Dubai
     flag: '🇦🇪',
     icon: '🌃',
     desc: 'Дубай - місто майбутнього. Розкіш, хмарочоси та пустеля.',
     price: 'від 550$',
     highlights: ['Бурдж Халіфа', 'Шопінг', 'Джип-сафарі', 'Пляжі'],
     tags: ['Екзотика', 'Шопінг'],
+    whatToSee: ['Бурдж Халіфа', 'Мечеть шейха Заїда', 'Дубай Молл', 'Пальма Джумейра'],
+    whatToBuy: ['Золото та прикраси', 'Парфуми', 'Фініки', 'Електроніка'],
     gridClass: ''
   },
   {
@@ -104,13 +118,15 @@ export const destinations: Destination[] = [
     name: 'Таїланд',
     season: 'Листопад - Березень',
     seasonIcon: '🍜',
-    image: 'https://images.unsplash.com/photo-1528181304800-259b08848526?q=80&w=2000&auto=format&fit=crop', // Thai temple/beach
+    image: 'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?q=80&w=2000&auto=format&fit=crop', // Thailand
     flag: '🇹🇭',
     icon: '🐘',
     desc: 'Країна посмішок. Екзотичні храми, неймовірна природа та смачна їжа.',
     price: 'від 750$',
     highlights: ['Пхукет', 'Бангкок', 'Тайський масаж', 'Острови'],
     tags: ['Екзотика', 'Море'],
+    whatToSee: ['Королівський палац (Бангкок)', 'Острови Пхі-Пхі', 'Храм Істини', 'Пляж Рейлі'],
+    whatToBuy: ['Тайський шовк', 'Кокосова олія', 'Спеції', 'Вироби з дерева'],
     gridClass: ''
   }
 ]

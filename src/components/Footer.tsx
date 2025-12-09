@@ -14,11 +14,14 @@ export default function Footer() {
         </p>
 
         <div className="flex gap-6 mb-12">
-          {['Instagram', 'Telegram', 'Facebook'].map((social) => (
-            <div key={social} className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-indigo-600 hover:border-indigo-500 hover:scale-110 transition-all cursor-pointer group">
-              <span className="text-slate-400 group-hover:text-white text-sm">{social[0]}</span>
-            </div>
-          ))}
+          <div className="flex gap-6 mb-12">
+            <a href="https://www.instagram.com/lizazakharchenko?igsh=Nnl4MG9tcjVxMzcw" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-indigo-600 hover:border-indigo-500 hover:scale-110 transition-all cursor-pointer group">
+              <span className="text-slate-400 group-hover:text-white text-xl">📸</span>
+            </a>
+            <a href="https://t.me/lizazakharchenko" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-indigo-600 hover:border-indigo-500 hover:scale-110 transition-all cursor-pointer group">
+              <span className="text-slate-400 group-hover:text-white text-xl">✈️</span>
+            </a>
+          </div>
         </div>
 
         <div className="text-slate-600 text-sm">

@@ -15,7 +15,7 @@ export default function Contact() {
           Напишіть нам, і ми організуємо вашу ідеальну відпустку.
         </p>
 
-        <div className="flex justify-center gap-8 mt-12 flex-wrap">
+        <div className="flex justify-center gap-8 mt-12 flex-wrap mb-16">
           <ContactCard
             icon="✈️"
             title="Telegram"
@@ -30,6 +30,32 @@ export default function Contact() {
             href="tel:+380939362967"
             gradient="from-purple-500 to-pink-500"
           />
+        </div>
+
+        {/* Map Section */}
+        <div className="bg-slate-900/50 backdrop-blur-xl border border-white/10 rounded-3xl p-4 md:p-8">
+          <div className="flex flex-col md:flex-row gap-8 items-center">
+            <div className="w-full md:w-1/3 text-left">
+              <h3 className="text-2xl font-bold text-white mb-4">Завітайте до нас</h3>
+              <p className="text-slate-400 mb-2">Ми знаходимось за адресою:</p>
+              <p className="text-xl text-white font-semibold mb-6">Київ, вул. Михайла Драгоманова, 2</p>
+              <div className="inline-flex items-center gap-2 text-indigo-400">
+                <span className="text-2xl">📍</span>
+                <span>Glorious Travel Agency</span>
+              </div>
+            </div>
+            <div className="w-full md:w-2/3 h-[300px] md:h-[400px] rounded-2xl overflow-hidden border border-white/5">
+              <iframe
+                src="https://maps.google.com/maps?q=Mykhaila+Drahomanova+St,+2,+Kyiv,+02000&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                width="100%"
+                height="100%"
+                style={{ border: 0, filter: 'invert(90%) hue-rotate(180deg)' }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </section>

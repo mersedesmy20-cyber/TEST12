@@ -20,7 +20,8 @@ export default function SearchTour() {
 
     const handleSearch = async () => {
         setIsSearching(true)
-        setResults([])
+        setResults([]) // Clear previous
+
         try {
             const response = await fetch('/api/search-tours', {
                 method: 'POST',
@@ -29,9 +30,13 @@ export default function SearchTour() {
                 },
                 body: JSON.stringify(searchParams),
             })
+
             const data = await response.json()
+
             if (data.success) {
                 setResults(data.data)
+            } else {
+                console.error('API Error:', data.error)
             }
         } catch (error) {
             console.error('Search failed', error)
@@ -151,7 +156,7 @@ export default function SearchTour() {
             {/* Results Display */}
             {results.length > 0 && (
                 <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl overflow-hidden shadow-2xl p-6 mb-8 animate-in fade-in slide-in-from-bottom-4">
-                    <h3 className="text-2xl font-bold text-white mb-6">Знайдені тури:</h3>
+                    <h3 className="text-2xl font-bold text-white mb-6">Знайдені тури (Join UP API):</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         {results.map((tour, i) => (
                             <a
@@ -170,7 +175,10 @@ export default function SearchTour() {
                                 </div>
                                 <div className="p-4">
                                     <h4 className="font-bold text-lg text-white mb-2 line-clamp-2">{tour.hotelName}</h4>
-                                    <p className="text-indigo-400 font-bold text-xl">{tour.price}</p>
+                                    <div className="flex items-center justify-between mt-2">
+                                        <p className="text-indigo-400 font-bold text-xl">{tour.price}</p>
+                                        <span className="text-slate-400 text-sm">{tour.duration} ночей</span>
+                                    </div>
                                 </div>
                             </a>
                         ))}

@@ -154,7 +154,7 @@ export default function SearchTour() {
             </div>
 
             {/* Results Display */}
-            {results.length > 0 && (
+            {results.length > 0 ? (
                 <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl overflow-hidden shadow-2xl p-6 mb-8 animate-in fade-in slide-in-from-bottom-4">
                     <h3 className="text-2xl font-bold text-white mb-6">Знайдені тури (Join UP API):</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -184,7 +184,7 @@ export default function SearchTour() {
                         ))}
                     </div>
                 </div>
-            )}
+            ) : null}
         </div>
     )
 }

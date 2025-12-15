@@ -16,25 +16,40 @@ export default function SearchTour() {
     })
     const [isSearching, setIsSearching] = useState(false)
 
+    const [results, setResults] = useState<any[]>([])
+
     const handleSearch = async () => {
         setIsSearching(true)
-        // Simulate API call/"parsing"
-        await new Promise(resolve => setTimeout(resolve, 1500))
-        setIsSearching(false)
-        const element = document.getElementById('destinations')
-        if (element) element.scrollIntoView({ behavior: 'smooth' })
+        setResults([])
+        try {
+            const response = await fetch('/api/search-tours', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(searchParams),
+            })
+            const data = await response.json()
+            if (data.success) {
+                setResults(data.data)
+            }
+        } catch (error) {
+            console.error('Search failed', error)
+        } finally {
+            setIsSearching(false)
+        }
     }
 
     return (
-        <div className="w-full max-w-[1200px] mx-auto -mt-24 relative z-20 px-4">
+        <div id="search" className="w-full max-w-[1200px] mx-auto -mt-24 relative z-20 px-4">
             <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl overflow-hidden shadow-2xl">
                 {/* Tabs */}
                 <div className="flex border-b border-white/10">
                     <button
                         onClick={() => setActiveTab('regular')}
                         className={`flex-1 py-4 text-center font-bold text-lg transition-colors ${activeTab === 'regular'
-                                ? 'bg-white text-slate-900'
-                                : 'text-white hover:bg-white/5'
+                            ? 'bg-white text-slate-900'
+                            : 'text-white hover:bg-white/5'
                             }`}
                     >
                         Пошук туру
@@ -42,8 +57,8 @@ export default function SearchTour() {
                     <button
                         onClick={() => setActiveTab('ai')}
                         className={`flex-1 py-4 text-center font-bold text-lg transition-colors flex items-center justify-center gap-2 ${activeTab === 'ai'
-                                ? 'bg-white text-slate-900'
-                                : 'text-white hover:bg-white/5'
+                            ? 'bg-white text-slate-900'
+                            : 'text-white hover:bg-white/5'
                             }`}
                     >
                         <span className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white text-xs px-2 py-0.5 rounded-full">AI</span>
@@ -132,6 +147,36 @@ export default function SearchTour() {
                     </button>
                 </div>
             </div>
+
+            {/* Results Display */}
+            {results.length > 0 && (
+                <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl overflow-hidden shadow-2xl p-6 mb-8 animate-in fade-in slide-in-from-bottom-4">
+                    <h3 className="text-2xl font-bold text-white mb-6">Знайдені тури:</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {results.map((tour, i) => (
+                            <a
+                                key={i}
+                                href={tour.link}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="block bg-slate-900/50 rounded-xl overflow-hidden hover:bg-slate-900/70 transition-colors group"
+                            >
+                                <div className="h-48 relative bg-slate-800">
+                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                    <img src={tour.image} alt={tour.hotelName} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                                    <div className="absolute top-2 right-2 bg-indigo-600 text-white text-xs font-bold px-2 py-1 rounded">
+                                        Join UP!
+                                    </div>
+                                </div>
+                                <div className="p-4">
+                                    <h4 className="font-bold text-lg text-white mb-2 line-clamp-2">{tour.hotelName}</h4>
+                                    <p className="text-indigo-400 font-bold text-xl">{tour.price}</p>
+                                </div>
+                            </a>
+                        ))}
+                    </div>
+                </div>
+            )}
         </div>
     )
 }

@@ -3,8 +3,14 @@
 export function initSmoothScroll() {
   if (typeof window === 'undefined') return
 
-  // Dynamic import for Lenis
-  import('@studio-freight/lenis').then(({ default: Lenis }) => {
+  // Dynamic import for Lenis and GSAP
+  Promise.all([
+    import('@studio-freight/lenis'),
+    import('gsap'),
+    import('gsap/ScrollTrigger')
+  ]).then(([{ default: Lenis }, { default: gsap }, { ScrollTrigger }]) => {
+    gsap.registerPlugin(ScrollTrigger)
+
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -15,11 +21,16 @@ export function initSmoothScroll() {
       touchMultiplier: 2,
     })
 
-    function raf(time: number) {
-      lenis.raf(time)
-      requestAnimationFrame(raf)
-    }
-    requestAnimationFrame(raf)
+    // Sync Lenis and ScrollTrigger
+    lenis.on('scroll', ScrollTrigger.update)
+
+    // Use GSAP's ticker for animation frames
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000)
+    })
+
+    // Disable lag smoothing for instant response
+    gsap.ticker.lagSmoothing(0)
   })
 }
 

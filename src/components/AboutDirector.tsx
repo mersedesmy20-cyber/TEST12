@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 export default function AboutDirector() {
     return (
-        <section className="py-24 px-[5%] relative overflow-hidden">
+        <section id="about" className="py-24 px-[5%] relative overflow-hidden">
             {/* Background */}
             <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-indigo-950/10 to-slate-950 -z-10" />
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-600/10 rounded-full blur-[120px]" />

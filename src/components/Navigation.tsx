@@ -36,12 +36,12 @@ export default function Navigation() {
             {[
               { label: 'Пошук туру', href: '/#search' },
               { label: 'Країни', href: '/#destinations' },
-              { label: 'Готелі', href: '/#hotels' },
+              { label: 'Готелі', href: '/#destinations' },
               { label: 'Гарячі тури', href: '/seasonal' },
-              { label: 'Новини', href: '/#news' },
-              { label: 'Інформація', href: '/#info' },
+              { label: 'Новини', href: '/#reviews' },
+              { label: 'Інформація', href: '/#about' },
               { label: 'Де купити', href: '/#contact' },
-              { label: 'Агентам', href: '/#agents' },
+              { label: 'Агентам', href: '/#contact' },
             ].map((item) => (
               <Link
                 key={item.label}

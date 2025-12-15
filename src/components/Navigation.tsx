@@ -32,25 +32,26 @@ export default function Navigation() {
             </div>
           </Link>
 
-          <div className="hidden md:flex items-center gap-8">
-            {['Destinations', 'Seasonal', 'Vibe', 'Reviews', 'Contact'].map((item) => (
+          <div className="hidden lg:flex items-center gap-6">
+            {[
+              { label: 'Пошук туру', href: '/#search' },
+              { label: 'Країни', href: '/#destinations' },
+              { label: 'Готелі', href: '/#hotels' },
+              { label: 'Гарячі тури', href: '/seasonal' },
+              { label: 'Новини', href: '/#news' },
+              { label: 'Інформація', href: '/#info' },
+              { label: 'Де купити', href: '/#contact' },
+              { label: 'Агентам', href: '/#agents' },
+            ].map((item) => (
               <Link
-                key={item}
-                href={item === 'Seasonal' ? '/seasonal' : `/#${item.toLowerCase()}`}
-                className="text-sm font-medium text-slate-300 hover:text-white transition-colors relative group"
+                key={item.label}
+                href={item.href}
+                className="text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-white transition-colors relative group"
               >
-                {item === 'Destinations' ? 'Напрямки' : item === 'Seasonal' ? 'Сезонні' : item === 'Vibe' ? 'Вайб' : item === 'Reviews' ? 'Відгуки' : 'Контакти'}
+                {item.label}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-500 transition-all group-hover:w-full shadow-[0_0_10px_rgba(99,102,241,0.8)]"></span>
               </Link>
             ))}
-
-            <Link
-              href="https://t.me/lizazakharchenko"
-              target="_blank"
-              className="bg-indigo-600/20 text-indigo-300 border border-indigo-500/30 px-6 py-2.5 rounded-full font-semibold shadow-[0_0_15px_rgba(99,102,241,0.2)] hover:shadow-[0_0_25px_rgba(99,102,241,0.4)] hover:bg-indigo-600 hover:text-white hover:-translate-y-0.5 transition-all"
-            >
-              Telegram
-            </Link>
           </div>
 
           <button
@@ -80,14 +81,14 @@ export default function Navigation() {
           }`}
       >
         <div className="px-[5%] py-8 flex flex-col gap-6">
-          {['Destinations', 'Seasonal', 'Vibe', 'Reviews', 'Contact'].map((item) => (
+          {['Пошук туру', 'Країни', 'Готелі', 'Гарячі тури', 'Новини', 'Інформація', 'Де купити', 'Агентам'].map((item) => (
             <Link
               key={item}
-              href={item === 'Seasonal' ? '/seasonal' : `/#${item.toLowerCase()}`}
+              href={item === 'Гарячі тури' ? '/seasonal' : item === 'Країни' ? '/#destinations' : '/'}
               className="text-lg font-semibold text-slate-200 hover:text-indigo-400 transition-colors pb-3 border-b border-white/5"
               onClick={() => setMobileMenuOpen(false)}
             >
-              {item === 'Destinations' ? 'Напрямки' : item === 'Seasonal' ? 'Сезонні' : item === 'Vibe' ? 'Вайб' : item === 'Reviews' ? 'Відгуки' : 'Контакти'}
+              {item}
             </Link>
           ))}
           <Link

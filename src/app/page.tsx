@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import Navigation from '@/components/Navigation'
 import Hero from '@/components/Hero'
+import SearchTour from '@/components/SearchTour'
 import Destinations from '@/components/Destinations'
 import Reviews from '@/components/Reviews'
 import AboutDirector from '@/components/AboutDirector'
@@ -34,6 +35,7 @@ export default function Home() {
     <main>
       <Navigation />
       <Hero />
+      <SearchTour />
       <Destinations activeFilter={filter} onResetFilter={() => setFilter(null)} />
       <VibeSection onFilterSelect={handleFilterChange} />
       <Reviews />

@@ -33,9 +33,12 @@ export async function POST(request: Request) {
         const originId = originMap[departure] || 325; // Default Kyiv
         const destId = destination ? destMap[destination] : ''; // Empty means all destinations
 
+        // Extract numeric ID for API (remove 'c_' prefix)
+        const destIdNumber = destId ? parseInt(destId.replace('c_', ''), 10) : null;
+
         // Construct Request Body for JoinUp API
         const joinUpPayload = {
-            destinationCountryId: destId,
+            destinationCountryId: destIdNumber,
             originCountryId: 3, // Ukraine? Or inferred from origin?
             originLocationIds: [originId],
             dateRange: date ? { begin: date, end: date } : null, // If empty, API might have defaults or we need to Generate
@@ -70,6 +73,9 @@ export async function POST(request: Request) {
 
         // Try API first
         try {
+            console.log('--- JoinUp API Request ---');
+            console.log('Payload:', JSON.stringify(joinUpPayload, null, 2));
+
             const response = await fetch('https://joinup.ua/api/v1.0/tours/search-results', {
                 method: 'POST',
                 headers: {
@@ -82,8 +88,12 @@ export async function POST(request: Request) {
                 body: JSON.stringify(joinUpPayload)
             });
 
+            console.log('API Response Status:', response.status);
+
             if (response.ok) {
                 const apiData = await response.json();
+                console.log('API Response Data (first item):', apiData.items?.[0] ? JSON.stringify(apiData.items[0]) : 'No items');
+                console.log('API Response Total Items:', apiData.items?.length || 0);
 
                 // Transform API response to our format
                 const tours = apiData.items?.slice(0, 9).map((item: any) => ({
@@ -103,6 +113,9 @@ export async function POST(request: Request) {
                         source: 'api'
                     });
                 }
+            } else {
+                const errorText = await response.text();
+                console.log('API Error Response:', errorText);
             }
 
             console.log('API failed or returned no results, trying HTML fallback...');

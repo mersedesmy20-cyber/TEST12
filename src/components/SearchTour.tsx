@@ -17,10 +17,14 @@ export default function SearchTour() {
     const [isSearching, setIsSearching] = useState(false)
 
     const [results, setResults] = useState<any[]>([])
+    const [dataSource, setDataSource] = useState<'api' | 'html' | null>(null)
+    const [error, setError] = useState<string | null>(null)
 
     const handleSearch = async () => {
         setIsSearching(true)
         setResults([]) // Clear previous
+        setError(null) // Clear errors
+        setDataSource(null)
 
         try {
             const response = await fetch('/api/search-tours', {
@@ -33,12 +37,17 @@ export default function SearchTour() {
 
             const data = await response.json()
 
-            if (data.success) {
+            if (data.success && data.data.length > 0) {
                 setResults(data.data)
+                setDataSource(data.source || 'api')
+            } else if (data.success && data.data.length === 0) {
+                setError('За вашими параметрами пошуку не знайдено жодного туру. Спробуйте змінити фільтри.')
             } else {
+                setError('Помилка при отриманні результатів. Спробуйте ще раз.')
                 console.error('API Error:', data.error)
             }
         } catch (error) {
+            setError('Не вдалося підключитися до сервісу пошуку. Перевірте підключення до інтернету.')
             console.error('Search failed', error)
         } finally {
             setIsSearching(false)
@@ -153,10 +162,28 @@ export default function SearchTour() {
                 </div>
             </div>
 
+            {/* Error Display */}
+            {error && (
+                <div className="mt-6 bg-red-500/10 backdrop-blur-xl border border-red-500/20 rounded-3xl overflow-hidden shadow-2xl p-6">
+                    <div className="flex items-center gap-3">
+                        <span className="text-2xl">⚠️</span>
+                        <p className="text-white">{error}</p>
+                    </div>
+                </div>
+            )}
+
             {/* Results Display */}
-            {results.length > 0 ? (
-                <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl overflow-hidden shadow-2xl p-6 mb-8 animate-in fade-in slide-in-from-bottom-4">
-                    <h3 className="text-2xl font-bold text-white mb-6">Знайдені тури (Join UP API):</h3>
+            {results.length > 0 && (
+                <div className="mt-6 bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl overflow-hidden shadow-2xl p-6 animate-in fade-in slide-in-from-bottom-4">
+                    <div className="flex items-center justify-between mb-6">
+                        <h3 className="text-2xl font-bold text-white">Знайдені тури:</h3>
+                        {dataSource && (
+                            <div className="flex items-center gap-2 text-sm text-slate-300">
+                                <span className={`w-2 h-2 rounded-full ${dataSource === 'api' ? 'bg-green-500' : 'bg-yellow-500'}`}></span>
+                                <span>{dataSource === 'api' ? 'Join UP! API' : 'Join UP! Website'}</span>
+                            </div>
+                        )}
+                    </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         {results.map((tour, i) => (
                             <a
@@ -184,7 +211,7 @@ export default function SearchTour() {
                         ))}
                     </div>
                 </div>
-            ) : null}
+            )}
         </div>
     )
 }

@@ -5,7 +5,7 @@ export async function POST(request: Request) {
         const body = await request.json();
         const { departure, destination, date, nights, tourists } = body;
 
-        // ID Mapping
+        // ID Mapping - Origins (departure cities)
         const originMap: Record<string, number> = {
             'kyiv': 325,
             'lviv': 73,
@@ -14,16 +14,24 @@ export async function POST(request: Request) {
             'chisinau': 33
         };
 
+        // ID Mapping - Destinations (countries)
         const destMap: Record<string, string> = {
             'turkey': 'c_8',
             'egypt': 'c_1',
             'spain': 'c_20',
             'greece': 'c_17',
-            'uae': 'c_36'
+            'montenegro': 'c_28',      // Fixed: was c_14
+            'dominican': 'c_24',
+            'uae': 'c_36',
+            'thailand': 'c_16',        // Fixed: was c_32
+            // New countries - Phase 1
+            'albania': 'c_122',
+            'tunisia': 'c_58',
+            'zanzibar': 'c_107'
         };
 
         const originId = originMap[departure] || 325; // Default Kyiv
-        const destId = destMap[destination] || 'c_8'; // Default Turkey
+        const destId = destination ? destMap[destination] : ''; // Empty means all destinations
 
         // Construct Request Body for JoinUp API
         const joinUpPayload = {
@@ -60,40 +68,127 @@ export async function POST(request: Request) {
 
         console.log('Proxying request to JoinUp:', JSON.stringify(joinUpPayload));
 
-        const response = await fetch('https://joinup.ua/api/v1.0/tours/search-results', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-                'Accept': 'application/json, text/plain, */*',
-                'Referer': 'https://joinup.ua/uk/search-tour',
-                'Origin': 'https://joinup.ua'
-            },
-            body: JSON.stringify(joinUpPayload)
-        });
+        // Try API first
+        try {
+            const response = await fetch('https://joinup.ua/api/v1.0/tours/search-results', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                    'Accept': 'application/json, text/plain, */*',
+                    'Referer': 'https://joinup.ua/uk/search-tour',
+                    'Origin': 'https://joinup.ua'
+                },
+                body: JSON.stringify(joinUpPayload)
+            });
 
-        if (!response.ok) {
-            console.error('JoinUp API Error:', response.status, response.statusText);
-            // Fallback to mock data if API fails (e.g. 403)
-            throw new Error(`JoinUp API error: ${response.status}`);
+            if (response.ok) {
+                const apiData = await response.json();
+
+                // Transform API response to our format
+                const tours = apiData.items?.slice(0, 9).map((item: any) => ({
+                    hotelName: item.hotel?.name || 'Unknown Hotel',
+                    price: `${item.price?.price} ${item.price?.currency}`,
+                    image: item.hotel?.images?.[0]?.url
+                        ? `https://img.joinup.ua/${item.hotel.images[0].url}`
+                        : 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1000',
+                    link: `https://joinup.ua/uk/tour/${item.id}`,
+                    duration: item.duretion || item.duration || 7
+                })) || [];
+
+                if (tours.length > 0) {
+                    return NextResponse.json({
+                        success: true,
+                        data: tours,
+                        source: 'api'
+                    });
+                }
+            }
+
+            console.log('API failed or returned no results, trying HTML fallback...');
+        } catch (apiError) {
+            console.log('API request error, trying HTML fallback...', apiError);
         }
 
-        const apiData = await response.json();
+        // Fallback to HTML parsing
+        const urlParams = new URLSearchParams({
+            hotel_categories: '4,5',
+            boards: 'UAI,AI',
+            stay: '7',
+            default: 'true',
+            origins: originId.toString(),
+            ...(destId && { destinations: destId }),
+            pax_adl: (joinUpPayload.people.adults || 2).toString()
+        });
 
-        // Transform API response to our format
-        const tours = apiData.items?.slice(0, 9).map((item: any) => ({
-            hotelName: item.hotel?.name || 'Unknown Hotel',
-            price: `${item.price?.price} ${item.price?.currency}`,
-            image: item.hotel?.images?.[0]?.url
-                ? `https://img.joinup.ua/${item.hotel.images[0].url}`
-                : 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1000',
-            link: `https://joinup.ua/uk/tour/${item.id}`, // Construct link
-            duration: item.duretion // typo in some APIs, usually duration
-        })) || [];
+        const htmlUrl = `https://joinup.ua/uk/tours?${urlParams.toString()}`;
+        console.log('Fetching HTML from:', htmlUrl);
+
+        const htmlResponse = await fetch(htmlUrl, {
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+                'Accept-Language': 'uk,en;q=0.9',
+                'Referer': 'https://joinup.ua/uk/search-tour'
+            }
+        });
+
+        if (!htmlResponse.ok) {
+            throw new Error(`HTML fetch error: ${htmlResponse.status}`);
+        }
+
+        const html = await htmlResponse.text();
+
+        // Parse HTML using regex patterns based on browser research
+        const tours: any[] = [];
+
+        // Pattern to find tour cards - looking for hotel links with class 'tour-line__name-link'
+        const hotelLinkRegex = /<a[^>]*class=["']tour-line__name-link["'][^>]*href=["']([^"']*)["'][^>]*>([^<]+)<\/a>/g;
+        const matches = [...html.matchAll(hotelLinkRegex)];
+
+        for (let i = 0; i < Math.min(matches.length, 9); i++) {
+            const match = matches[i];
+            const tourLink = match[1];
+            const hotelName = match[2].trim();
+
+            // Try to find price near this hotel (looking backwards in HTML)
+            const beforeMatch = html.substring(Math.max(0, match.index! - 500), match.index!);
+            const priceMatch = beforeMatch.match(/(\d{1,3}(?:[\s,]\d{3})*)[\s]*(?:₴|грн)/g);
+            const price = priceMatch ? priceMatch[priceMatch.length - 1] : '—';
+
+            // Try to find duration (number followed by nights indication)
+            const durationMatch = beforeMatch.match(/(\d+)[\s]*(?:ночей|ночі|ніч)/i);
+            const duration = durationMatch ? parseInt(durationMatch[1]) : 7;
+
+            // Try to find image - look for swiper-slide image near this tour
+            const imageContext = html.substring(Math.max(0, match.index! - 1000), match.index! + 500);
+            const imageMatch = imageContext.match(/<img[^>]*src=["']([^"']*)["'][^>]*>/i);
+            let imageUrl = 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1000';
+
+            if (imageMatch && imageMatch[1]) {
+                const imgSrc = imageMatch[1];
+                if (imgSrc.startsWith('http')) {
+                    imageUrl = imgSrc;
+                } else if (imgSrc.startsWith('/')) {
+                    imageUrl = `https://joinup.ua${imgSrc}`;
+                } else {
+                    imageUrl = `https://cms.joinup.travel${imgSrc.startsWith('/') ? '' : '/'}${imgSrc}`;
+                }
+            }
+
+            tours.push({
+                hotelName,
+                price,
+                image: imageUrl,
+                link: tourLink.startsWith('http') ? tourLink : `https://joinup.ua${tourLink}`,
+                duration
+            });
+        }
 
         return NextResponse.json({
             success: true,
-            data: tours
+            data: tours,
+            source: 'html'
         });
 
     } catch (error) {

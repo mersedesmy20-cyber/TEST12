@@ -172,7 +172,7 @@ export default function CountryPage({ params }: { params: { slug: string } }) {
                                 href="/#contact"
                                 className="inline-block px-10 py-5 bg-white text-indigo-900 font-black text-lg rounded-xl hover:scale-105 hover:shadow-[0_0_40px_rgba(255,255,255,0.3)] transition-all relative z-10"
                             >
-                                Зв'язатися з менеджером
+                                Зв&apos;язатися з менеджером
                             </Link>
                         </section>
                     </div>

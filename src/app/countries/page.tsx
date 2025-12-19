@@ -39,8 +39,8 @@ export default function CountriesPage() {
                                 key={region}
                                 onClick={() => setActiveRegion(region)}
                                 className={`px-6 py-2 rounded-full text-sm font-bold tracking-wider transition-all duration-300 ${activeRegion === region
-                                        ? 'bg-indigo-600 text-white shadow-[0_0_20px_rgba(99,102,241,0.5)] scale-105'
-                                        : 'bg-slate-900/50 text-slate-400 border border-white/5 hover:border-indigo-500/50 hover:text-white'
+                                    ? 'bg-indigo-600 text-white shadow-[0_0_20px_rgba(99,102,241,0.5)] scale-105'
+                                    : 'bg-slate-900/50 text-slate-400 border border-white/5 hover:border-indigo-500/50 hover:text-white'
                                     }`}
                             >
                                 {region === 'All' ? 'ВСІ' : region === 'North America' ? 'AMERICAS' : region.toUpperCase()}
@@ -93,7 +93,7 @@ export default function CountriesPage() {
                                         </div>
                                     </div>
                                     <div className="mt-2 text-slate-500 text-xs font-mono transition-opacity group-hover:opacity-0 delay-100">
-                                    // {dest.season}
+                                        {`// ${dest.season}`}
                                     </div>
                                 </div>
                             </div>

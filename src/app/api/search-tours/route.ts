@@ -10,7 +10,7 @@ export async function POST(request: Request) {
             'kyiv': 325,
             'lviv': 73,
             'odesa': 74,
-            'warsaw': 31,
+            'warsaw': 337, // Fixed from 31 based on user reports
             'chisinau': 33
         };
 
@@ -20,7 +20,7 @@ export async function POST(request: Request) {
             'egypt': 'c_1',
             'spain': 'c_20',
             'greece': 'c_17',
-            'montenegro': 'c_28',      // Fixed: was c_14
+            'montenegro': 'c_28',
             'dominican': 'c_24',
             'uae': 'c_36',
             'thailand': 'c_16',        // Fixed: was c_32

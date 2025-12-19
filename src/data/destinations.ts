@@ -137,7 +137,7 @@ export const destinations: Destination[] = [
     name: 'Болгарія',
     season: 'Червень - Вересень',
     seasonIcon: '🌻',
-    image: '/images/destinations/bulgaria.jpg', // Placeholder needed
+    image: '/images/destinations/greece.jpg', // Placeholder: Bulgaria -> Greece
     flag: '🇧🇬',
     icon: '🏖️',
     desc: 'Золоті піски та гостинність. Ідеально для сімейного відпочинку.',
@@ -153,7 +153,7 @@ export const destinations: Destination[] = [
     name: 'Кіпр',
     season: 'Травень - Листопад',
     seasonIcon: '🍇',
-    image: '/images/destinations/cyprus.jpg', // Placeholder needed
+    image: '/images/destinations/greece.jpg', // Placeholder: Cyprus -> Greece
     flag: '🇨🇾',
     icon: '🏝️',
     desc: 'Острів Афродіти. Сонце 300 днів на рік та смачна кухня.',
@@ -169,7 +169,7 @@ export const destinations: Destination[] = [
     name: 'Чехія',
     season: 'Цілий рік',
     seasonIcon: '🏰',
-    image: '/images/destinations/czechia.jpg', // Placeholder needed
+    image: '/images/destinations/france.jpg', // Placeholder: Czechia -> France (City)
     flag: '🇨🇿',
     icon: '🍺',
     desc: 'Серце Європи. Містична Прага, замки та найкраще пиво.',
@@ -220,7 +220,7 @@ export const destinations: Destination[] = [
     name: 'Шрі-Ланка',
     season: 'Цілий рік',
     seasonIcon: '🍵',
-    image: '/images/destinations/srilanka.jpg', // Placeholder
+    image: '/images/destinations/thailand.jpg', // Placeholder: Sri Lanka -> Thailand
     flag: '🇱🇰',
     icon: '🐆',
     desc: 'Острів чаю та слонів. Тропічні ліси, океан та давні храми.',
@@ -236,7 +236,7 @@ export const destinations: Destination[] = [
     name: 'Індонезія (Балі)',
     season: 'Квітень - Жовтень',
     seasonIcon: '🏄',
-    image: '/images/destinations/indonesia.jpg', // Placeholder
+    image: '/images/destinations/thailand.jpg', // Placeholder: Indonesia -> Thailand
     flag: '🇮🇩',
     icon: '🧘',
     desc: 'Острів Богів. Джунглі Убуда, вулкани та неймовірні заходи сонця.',
@@ -252,7 +252,7 @@ export const destinations: Destination[] = [
     name: 'Мальдіви',
     season: 'Цілий рік',
     seasonIcon: '🥥',
-    image: '/images/destinations/maldives.jpg', // Placeholder
+    image: '/images/destinations/zanzibar.jpg', // Placeholder: Maldives -> Zanzibar
     flag: '🇲🇻',
     icon: '🏖️',
     desc: 'Рай на землі. Приватні вілли на воді та білосніжний пісок.',
@@ -268,7 +268,7 @@ export const destinations: Destination[] = [
     name: 'В\'єтнам',
     season: 'Листопад - Квітень',
     seasonIcon: '🏮',
-    image: '/images/destinations/vietnam.jpg', // Placeholder
+    image: '/images/destinations/thailand.jpg', // Placeholder: Vietnam -> Thailand
     flag: '🇻🇳',
     icon: '🍜',
     desc: 'Країна дракона. Бухта Халонг, смачна вулична їжа та кава.',
@@ -284,7 +284,7 @@ export const destinations: Destination[] = [
     name: 'Грузія',
     season: 'Цілий рік',
     seasonIcon: '🍷',
-    image: '/images/destinations/georgia.jpg', // Placeholder
+    image: '/images/destinations/montenegro.jpg', // Placeholder: Georgia -> Montenegro
     flag: '🇬🇪',
     icon: '🏔️',
     desc: 'Гостинність та гори. Вино, хачапурі та неймовірні краєвиди Кавказу.',
@@ -351,7 +351,7 @@ export const destinations: Destination[] = [
     name: 'Кенія',
     season: 'Січень - Березень',
     seasonIcon: '🦁',
-    image: '/images/destinations/kenya.jpg', // Placeholder
+    image: '/images/destinations/zanzibar.jpg', // Placeholder: Kenya -> Zanzibar
     flag: '🇰🇪',
     icon: '🦓',
     desc: 'Справжнє сафарі. Велика міграція тварин, масаї та Індійський океан.',
@@ -385,7 +385,7 @@ export const destinations: Destination[] = [
     name: 'Мексика',
     season: 'Листопад - Квітень',
     seasonIcon: '🌮',
-    image: '/images/destinations/mexico.jpg', // Placeholder
+    image: '/images/destinations/dominican.jpg', // Placeholder: Mexico -> Dominican
     flag: '🇲🇽',
     icon: '🌵',
     desc: 'Країна майя та ацтеків. Карибське море, сеноти та гостра кухня.',
@@ -401,7 +401,7 @@ export const destinations: Destination[] = [
     name: 'Куба',
     season: 'Листопад - Квітень',
     seasonIcon: '🚗',
-    image: '/images/destinations/cuba.jpg', // Placeholder
+    image: '/images/destinations/dominican.jpg', // Placeholder: Cuba -> Dominican
     flag: '🇨🇺',
     icon: '🍹',
     desc: 'Острів Свободи. Ретро-автомобілі, сигари та найкращі пляжі Варадеро.',

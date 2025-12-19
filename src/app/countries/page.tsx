@@ -18,9 +18,9 @@ export default function CountriesPage() {
 
     return (
         <main className="min-h-screen pt-32 pb-20 px-[5%] relative bg-slate-950">
-            {/* Tech Background Grid */}
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none"></div>
-            <div className="absolute top-0 left-0 right-0 h-[500px] bg-gradient-to-b from-indigo-950/50 to-transparent pointer-events-none" />
+            {/* Tech Background Grid - Optimized */}
+            <div className="absolute inset-0 bg-slate-950 pointer-events-none"></div>
+            <div className="absolute top-0 left-0 right-0 h-[500px] bg-gradient-to-b from-indigo-950/20 to-transparent pointer-events-none" />
 
             <div className="max-w-[1600px] mx-auto relative z-10">
                 <header className="mb-12 text-center relative">

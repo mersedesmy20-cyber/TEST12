@@ -53,7 +53,7 @@ export async function searchTPG(params: TPGSearchParams) {
     try {
         console.log('Launching Puppeteer for TPG...');
         browser = await puppeteer.launch({
-            headless: 'new',
+            headless: true,
             args: ['--no-sandbox', '--disable-setuid-sandbox']
         });
 

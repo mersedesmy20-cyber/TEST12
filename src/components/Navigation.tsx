@@ -35,7 +35,7 @@ export default function Navigation() {
           <div className="hidden lg:flex items-center gap-6">
             {[
               { label: 'Пошук туру', href: '/#search' },
-              { label: 'Країни', href: '/#destinations' },
+              { label: 'Країни', href: '/countries' },
               { label: 'Готелі', href: '/#destinations' },
               { label: 'Гарячі тури', href: '/seasonal' },
               { label: 'Новини', href: '/#reviews' },
@@ -84,7 +84,7 @@ export default function Navigation() {
           {['Пошук туру', 'Країни', 'Готелі', 'Гарячі тури', 'Новини', 'Інформація', 'Де купити', 'Агентам'].map((item) => (
             <Link
               key={item}
-              href={item === 'Гарячі тури' ? '/seasonal' : item === 'Країни' ? '/#destinations' : '/'}
+              href={item === 'Гарячі тури' ? '/seasonal' : item === 'Країни' ? '/countries' : '/'}
               className="text-lg font-semibold text-slate-200 hover:text-indigo-400 transition-colors pb-3 border-b border-white/5"
               onClick={() => setMobileMenuOpen(false)}
             >

@@ -18,6 +18,7 @@ export async function POST(request: Request) {
             });
 
             if (tpgResults.length > 0) {
+                console.log('TPG Results Sample:', JSON.stringify(tpgResults[0], null, 2));
                 return NextResponse.json({
                     success: true,
                     data: tpgResults,
@@ -35,8 +36,8 @@ export async function POST(request: Request) {
             {
                 hotelName: `Grand Hotel TPG Example`,
                 price: '25 400 ₴',
-                image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1000&auto=format&fit=crop',
-                link: '#',
+                image: '/images/destinations/egypt.jpg',
+                link: 'https://agent.tpg.ua/ua', // Valid link
                 duration: 7
             }
         ];

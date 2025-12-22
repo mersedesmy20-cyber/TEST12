@@ -40,6 +40,14 @@ export default function SearchTour() {
             if (data.success && data.data.length > 0) {
                 setResults(data.data)
                 setDataSource(data.source || 'api')
+
+                // Auto-scroll to results after a short delay
+                setTimeout(() => {
+                    const resultsElement = document.getElementById('search-results')
+                    if (resultsElement) {
+                        resultsElement.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                    }
+                }, 300)
             } else if (data.success && data.data.length === 0) {
                 setError('За вашими параметрами пошуку не знайдено жодного туру. Спробуйте змінити фільтри.')
             } else {
@@ -125,6 +133,8 @@ export default function SearchTour() {
                         <div className="grid grid-cols-2 gap-2">
                             <input
                                 type="date"
+                                value={searchParams.date}
+                                onChange={(e) => setSearchParams({ ...searchParams, date: e.target.value })}
                                 className="bg-slate-900/50 border border-white/10 text-white rounded-xl py-3 px-4 focus:outline-none focus:border-indigo-500 transition-colors [color-scheme:dark]"
                             />
                             <select
@@ -174,13 +184,15 @@ export default function SearchTour() {
 
             {/* Results Display */}
             {results.length > 0 && (
-                <div className="mt-6 bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl overflow-hidden shadow-2xl p-6 animate-in fade-in slide-in-from-bottom-4">
+                <div id="search-results" className="mt-6 bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl overflow-hidden shadow-2xl p-6"
+                    style={{ opacity: 1, visibility: 'visible' }}
+                >
                     <div className="flex items-center justify-between mb-6">
                         <h3 className="text-2xl font-bold text-white">Знайдені тури:</h3>
                         {dataSource && (
                             <div className="flex items-center gap-2 text-sm text-slate-300">
                                 <span className={`w-2 h-2 rounded-full bg-green-500`}></span>
-                                <span>{dataSource === 'multi' ? 'Всі туроператори' : dataSource === 'api' ? 'Join UP! API' : 'Веб-пошук'}</span>
+                                <span>{dataSource === 'multi' ? 'Всі туроператори' : dataSource === 'TPG' ? 'Пошук TPG' : dataSource === 'api' ? 'Join UP! API' : 'Веб-пошук'}</span>
                             </div>
                         )}
                     </div>

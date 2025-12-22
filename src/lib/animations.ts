@@ -33,21 +33,22 @@ export function initAnimations() {
         })
       })
 
-      // Destination cards animation
-      gsap.utils.toArray('.destination-card').forEach((card: any, i: number) => {
-        gsap.from(card, {
-          scrollTrigger: {
-            trigger: card,
-            start: 'top 90%',
-            toggleActions: 'play none none none',
-          },
-          y: 50,
-          opacity: 0,
-          duration: 0.6,
-          delay: i * 0.1,
-          ease: 'power3.out',
-        })
-      })
+      // Destination cards animation - DISABLED to prevent invisible cards
+      // gsap.utils.toArray('.destination-card').forEach((card: any, i: number) => {
+      //   gsap.from(card, {
+      //     scrollTrigger: {
+      //       trigger: card,
+      //       start: 'top 90%',
+      //       toggleActions: 'play none none none',
+      //     },
+      //     y: 50,
+      //     opacity: 0,
+      //     duration: 0.6,
+      //     delay: i * 0.1,
+      //     ease: 'power3.out',
+      //   })
+      // })
+
 
       // Vibe cards animation
       gsap.utils.toArray('.vibe-card').forEach((card: any, i: number) => {

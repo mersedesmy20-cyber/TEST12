@@ -25,12 +25,12 @@ export default function Destinations({
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[100px] -z-10" />
 
       <div className="max-w-[1400px] mx-auto">
-        <h2 className="text-[clamp(2rem,4vw,3.5rem)] font-extrabold text-center mb-4 text-white tracking-tight fade-in drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+        <h2 className="text-[clamp(2rem,4vw,3.5rem)] font-extrabold text-center mb-4 text-white tracking-tight drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
           Куди ми їдемо?
         </h2>
 
         {activeFilter ? (
-          <div className="text-center mb-16 fade-in">
+          <div className="text-center mb-16">
             <p className="text-slate-400 text-xl mb-4 font-light">
               Показані напрямки для: <span className="text-indigo-400 font-semibold">{activeFilter}</span>
             </p>
@@ -42,7 +42,7 @@ export default function Destinations({
             </button>
           </div>
         ) : (
-          <p className="text-center text-slate-400 text-xl mb-16 fade-in font-light">
+          <p className="text-center text-slate-400 text-xl mb-16 font-light">
             Відкрийте неймовірні напрямки по всьому світу
           </p>
         )}

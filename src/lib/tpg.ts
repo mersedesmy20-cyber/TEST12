@@ -45,57 +45,32 @@ interface TPGSearchParams {
     nights?: number;
 }
 
-export async function searchTPG(params: TPGSearchParams) {
-    const countryId = TPG_COUNTRIES[params.destination] || '143'; // Default Turkey
-    const cityId = TPG_CITIES[params.departure] || '1091'; // Default Kyiv
 
+export async function searchTPG(params: TPGSearchParams) {
     let browser;
     try {
         console.log('Launching Puppeteer for TPG...');
+        // Verify executable path or let puppeteer decide (it should work if installed)
+
         browser = await puppeteer.launch({
-            headless: true,
-            args: ['--no-sandbox', '--disable-setuid-sandbox']
+            headless: true, // Use standard headless mode
+            args: ['--no-sandbox', '--disable-setuid-sandbox', '--window-size=1280,800']
         });
 
         const page = await browser.newPage();
 
-        // Optimize: Block images/fonts to speed up
-        await page.setRequestInterception(true);
-        page.on('request', (req) => {
-            if (['image', 'stylesheet', 'font'].includes(req.resourceType())) {
-                req.abort();
-            } else {
-                req.continue();
-            }
-        });
-
-        // Navigate to results directly with query params to predefined search if possible, 
-        // BUT TPG uses hash or simple paths.
-        // Easiest is to go to main page and set state via JS or type.
-
-        // Actually, we can try to construct the URL if we know the format.
-        // /ua/results?qd=... is a unique ID.
-        // So we must use the form.
+        // Optimize: Block images/fonts (optional, strictly speaking we want images for results)
+        // But for scraping speed we might block them initially? No, we need image URLs.
+        // We can just scrape the src.
 
         console.log('Navigating to agent.tpg.ua...');
-        await page.goto('https://agent.tpg.ua/ua', { waitUntil: 'networkidle2', timeout: 30000 });
+        await page.goto('https://agent.tpg.ua/ua', { waitUntil: 'domcontentloaded', timeout: 60000 });
 
         // Wait for Country Select
-        // The selector found by agent: input[placeholder="Виберіть країну"]
         const countryInputSelector = 'input[placeholder="Виберіть країну"]';
-        await page.waitForSelector(countryInputSelector);
+        await page.waitForSelector(countryInputSelector, { timeout: 20000 });
 
-        // Interact with Form
-        // 1. Set Country
-        console.log(`Setting country to ID: ${countryId}`);
-
-        // We can try to manipulate the React state directly or just use simple clicks if text matches.
-        // Since we have IDs, we might want to try to intercept the form submission or just "Click search" for the default (Egypt) -> Then filter?
-
-        // Better: Type the country name in Ukrainian (we need a map for that too) or use the ID.
-        // The browser agent found extracting via ID from the list is possible.
-
-        // Let's try to type the country name.
+        // Map English country names to Ukrainian for typing
         const countryNameMap: Record<string, string> = {
             'turkey': 'Туреччина',
             'egypt': 'Єгипет',
@@ -103,94 +78,133 @@ export async function searchTPG(params: TPGSearchParams) {
             'greece': 'Греція',
             'spain': 'Іспанія',
             'montenegro': 'Чорногорія',
-            'uae': 'ОАЕ'
-            // ... others ...
+            'uae': 'ОАЕ',
+            'croatia': 'Хорватія',
+            'albania': 'Албанія',
+            'cyprus': 'Кіпр',
+            'italy': 'Італія',
+            'thailand': 'Таїланд',
+            'srilanka': 'Шрі-Ланка',
+            'indonesia': 'Індонезія',
+            'maldives': 'Мальдіви',
+            'vietnam': 'В\'єтнам',
+            'georgia': 'Грузія',
+            'zanzibar': 'Танзанія', // Zanzibar is usually under Tanzania
+            'dominican': 'Домінікана',
+            'mexico': 'Мексика',
+            'cuba': 'Куба',
+            'czechia': 'Чехія',
+            'france': 'Франція',
+            'tunisia': 'Туніс'
         };
 
-        const targetName = countryNameMap[params.destination];
-        if (targetName) {
-            await page.click(countryInputSelector);
-            await page.type(countryInputSelector, targetName, { delay: 50 });
+        const targetName = countryNameMap[params.destination] || 'Туреччина';
 
-            // Wait for dropdown option
-            const optionSelector = `li[role="option"]`;
-            await page.waitForSelector(optionSelector);
+        console.log(`Searching for: ${targetName}`);
 
-            // Select exact match
-            const options = await page.$$(optionSelector);
-            for (const opt of options) {
-                const text = await page.evaluate(el => el.textContent, opt);
-                if (text && text.includes(targetName)) {
-                    await opt.click();
-                    break;
-                }
-            }
+        // Interact with Form
+        // Clear input first
+        await page.click(countryInputSelector, { clickCount: 3 });
+        await page.keyboard.press('Backspace');
+
+        await page.type(countryInputSelector, targetName, { delay: 100 });
+
+        // Wait for dropdown
+        try {
+            const optionSelector = 'li[role="option"], .MuiAutocomplete-option';
+            await page.waitForSelector(optionSelector, { timeout: 5000 });
+            await page.click(optionSelector); // Click first match
+        } catch (e) {
+            console.log('Dropdown selection timed out, trying to proceed with typed value...');
+            await page.keyboard.press('Enter');
         }
 
-        // 2. Click Search (Class .Lcv5J found by agent)
-        console.log('Clicking Search...');
-        const searchBtnSelector = '.Lcv5J, button[type="submit"]';
+        // Click Search
+        const searchBtnSelector = 'button[type="submit"]'; // verified in test
         await page.waitForSelector(searchBtnSelector);
-
-        // Wait a bit for UI update
-        await new Promise(r => setTimeout(r, 500));
-
+        await new Promise(r => setTimeout(r, 1000)); // Slight delay
         await page.click(searchBtnSelector);
 
-        // 3. Wait for Results
-        // Results usually have hotel names. Class .mY7wC was seen?
         console.log('Waiting for results...');
-        try {
-            await page.waitForSelector('.mY7wC', { timeout: 15000 }); // Adjust selector based on actual results class
-        } catch (e) {
-            console.log('Timeout waiting for results, taking screenshot...');
-            // Optional debug
-        }
 
-        // 4. Extract Data
+        // Wait for results - look for price currency or common card elements
+        await page.waitForFunction(() => {
+            const text = document.body.innerText;
+            return text.includes('₴') || text.includes('UAH');
+        }, { timeout: 30000 });
+
+        // Extract Data
         const tours = await page.evaluate(() => {
-            const items = document.querySelectorAll('.mY7wC'); // Container for result item
             const results: any[] = [];
 
-            items.forEach((item) => {
-                // Determine internal selectors
-                // These classes are obfuscated/minified (e.g. mY7wC).
-                // We should try to find by structure if classes change.
+            // Strategy: Find all price elements, then traverse up to find the card
+            // Price usually contains '₴' or 'UAH' and is a leaf node or close to it
 
-                // Hotel Name: usually bold, large text.
-                const hotelNameEl = item.querySelector('div[class*="Text"]'); // Heuristic
-                const hotelName = hotelNameEl ? hotelNameEl.textContent : 'Unknown Hotel';
+            const potentialPrices = Array.from(document.querySelectorAll('*'));
+            const priceElements = potentialPrices.filter(el =>
+                el.children.length === 0 &&
+                el.textContent &&
+                (el.textContent.includes('₴') || el.textContent.includes('UAH')) &&
+                el.textContent.replace(/\D/g, '').length > 3 // Must have digits
+            );
 
-                // Price: ending with UAH/грн
-                const priceEl = Array.from(item.querySelectorAll('*')).find(el => el.textContent?.includes('UAH') || el.textContent?.includes('грн'));
-                const price = priceEl ? priceEl.textContent : 'Check Price';
+            priceElements.forEach(priceEl => {
+                // Traverse up to find a container that has an image and a link
+                let container = priceEl.parentElement;
+                let hotelName = '';
+                let image = '';
+                let link = '';
 
-                // Image
-                const imgEl = item.querySelector('img');
-                const image = imgEl ? imgEl.src : '';
+                // Search up to 10 levels
+                for (let i = 0; i < 10; i++) {
+                    if (!container) break;
 
-                // Link
-                const linkEl = item.querySelector('a');
-                const link = linkEl ? linkEl.href : '';
+                    // Look for image
+                    const img = container.querySelector('img');
+                    if (img && !image) image = img.src;
 
-                if (hotelName) {
-                    results.push({
-                        hotelName: hotelName?.trim(),
-                        price: price?.trim(),
-                        image,
-                        link,
-                        duration: 7, // Default or extract
-                        source: 'TPG'
-                    });
+                    // Look for link
+                    const a = container.querySelector('a');
+                    if (a && !link) link = a.href;
+
+                    // Look for hotel name - usually largest text or specific class if we knew it
+                    // Heuristic: The text node with significant length that isn't the price
+                    if (!hotelName) {
+                        // Find all text nodes in this container
+                        const texts = Array.from(container.querySelectorAll('*'))
+                            .filter(el => el.children.length === 0 && el !== priceEl && el.textContent?.length! > 5)
+                            .map(el => el.textContent?.trim() || '');
+
+                        // Pick the longest one that looks like a name? Or first one?
+                        // Usually name is before price.
+                        if (texts.length > 0) hotelName = texts[0];
+                    }
+
+                    // If we have all 3, stop
+                    if (image && link && hotelName) break;
+
+                    container = container.parentElement;
+                }
+
+                if (hotelName && link) {
+                    // Check if already added
+                    if (!results.some(r => r.link === link)) {
+                        results.push({
+                            hotelName,
+                            price: priceEl.textContent?.trim(),
+                            image: image || 'https://images.unsplash.com/photo-1566073771259-6a8506099945',
+                            link,
+                            duration: 7, // Placeholder or extract
+                            source: 'TPG'
+                        });
+                    }
                 }
             });
-            return results.slice(0, 10);
+
+            return results.slice(0, 12);
         });
 
-        // If selector .mY7wC was wrong, we need a better strategy. 
-        // The browser agent screenshot showed cards.
-        // Let's use a more generic strategy: find cards by identifying price and hotel name proximity.
-
+        console.log(`Found ${tours.length} tours from TPG`);
         return tours;
 
     } catch (error) {

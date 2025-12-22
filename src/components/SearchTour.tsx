@@ -17,7 +17,7 @@ export default function SearchTour() {
     const [isSearching, setIsSearching] = useState(false)
 
     const [results, setResults] = useState<any[]>([])
-    const [dataSource, setDataSource] = useState<'api' | 'html' | null>(null)
+    const [dataSource, setDataSource] = useState<string | null>(null)
     const [error, setError] = useState<string | null>(null)
 
     const handleSearch = async () => {
@@ -179,8 +179,8 @@ export default function SearchTour() {
                         <h3 className="text-2xl font-bold text-white">Знайдені тури:</h3>
                         {dataSource && (
                             <div className="flex items-center gap-2 text-sm text-slate-300">
-                                <span className={`w-2 h-2 rounded-full ${dataSource === 'api' ? 'bg-green-500' : 'bg-yellow-500'}`}></span>
-                                <span>{dataSource === 'api' ? 'Join UP! API' : 'Join UP! Website'}</span>
+                                <span className={`w-2 h-2 rounded-full bg-green-500`}></span>
+                                <span>{dataSource === 'multi' ? 'Всі туроператори' : dataSource === 'api' ? 'Join UP! API' : 'Веб-пошук'}</span>
                             </div>
                         )}
                     </div>
@@ -196,8 +196,9 @@ export default function SearchTour() {
                                 <div className="h-48 relative bg-slate-800">
                                     {/* eslint-disable-next-line @next/next/no-img-element */}
                                     <img src={tour.image} alt={tour.hotelName} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                                    <div className="absolute top-2 right-2 bg-indigo-600 text-white text-xs font-bold px-2 py-1 rounded">
-                                        Join UP!
+                                    <div className={`absolute top-2 right-2 text-white text-xs font-bold px-2 py-1 rounded ${tour.source === 'TPG' ? 'bg-orange-500' : 'bg-indigo-600'
+                                        }`}>
+                                        {tour.source || 'Join UP!'}
                                     </div>
                                 </div>
                                 <div className="p-4">

@@ -41,7 +41,6 @@ export default function Navigation() {
               { label: 'Новини', href: '/#reviews' },
               { label: 'Інформація', href: '/#about' },
               { label: 'Де купити', href: '/#contact' },
-              { label: 'Агентам', href: '/#contact' },
             ].map((item) => (
               <Link
                 key={item.label}
@@ -81,7 +80,7 @@ export default function Navigation() {
           }`}
       >
         <div className="px-[5%] py-8 flex flex-col gap-6">
-          {['Пошук туру', 'Країни', 'Готелі', 'Гарячі тури', 'Новини', 'Інформація', 'Де купити', 'Агентам'].map((item) => (
+          {['Пошук туру', 'Країни', 'Готелі', 'Гарячі тури', 'Новини', 'Інформація', 'Де купити'].map((item) => (
             <Link
               key={item}
               href={item === 'Гарячі тури' ? '/seasonal' : item === 'Країни' ? '/countries' : '/'}

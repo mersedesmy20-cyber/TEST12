@@ -20,6 +20,19 @@ export default function CountryPage({ params }: { params: { slug: string } }) {
     return (
         <main className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-indigo-500/30">
 
+            {/* Back Button */}
+            <div className="fixed top-24 left-8 z-50">
+                <Link
+                    href="/countries"
+                    className="group flex items-center gap-3 bg-slate-900/80 backdrop-blur-xl border border-white/10 px-6 py-3 rounded-full text-white font-bold hover:bg-indigo-600 hover:border-indigo-500 transition-all shadow-lg hover:shadow-[0_0_30px_rgba(99,102,241,0.5)] hover:scale-105"
+                >
+                    <svg className="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                    <span>Назад до країн</span>
+                </Link>
+            </div>
+
             {/* Immersive Hero */}
             <div className="relative h-[85vh] w-full overflow-hidden">
                 <Image

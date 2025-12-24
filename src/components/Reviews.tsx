@@ -10,7 +10,7 @@ const reviews = [
         role: 'Туристка (Єгипет)',
         text: 'Неймовірно вдячна за організацію нашого відпочинку! Ліза підібрала ідеальний готель, врахувавши всі наші побажання. Це був найкращий відпочинок за останні роки!',
         rating: 5,
-        avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200&auto=format&fit=crop'
+        avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop'
     },
     {
         id: 2,
@@ -18,7 +18,7 @@ const reviews = [
         role: 'Лижний тур (Андорра)',
         text: 'Професійний підхід та увага до деталей. Від перельоту до трансферу - все було чітко. Окреме дякую за рекомендації щодо трас та спорядження.',
         rating: 5,
-        avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop'
+        avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop'
     },
     {
         id: 3,
@@ -26,13 +26,13 @@ const reviews = [
         role: 'Весільна подорож (Мальдіви)',
         text: 'Це була казка! Дякуємо Glorious Travel за наш медовий місяць. Все було на найвищому рівні. Обов\'язково звернемося ще!',
         rating: 5,
-        avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop'
+        avatar: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=200&auto=format&fit=crop'
     }
 ]
 
 export default function Reviews() {
     return (
-        <section id="reviews" className="py-24 relative overflow-hidden">
+        <section id="reviews" className="py-32 relative overflow-hidden">
             {/* Background Decor */}
             <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
             <div className="absolute -left-40 top-40 w-80 h-80 bg-indigo-600/20 rounded-full blur-[100px]" />

@@ -1,11 +1,10 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import dynamic from 'next/dynamic'
 import Navigation from '@/components/Navigation'
 import Hero from '@/components/Hero'
 import SearchTour from '@/components/SearchTour'
-import Destinations from '@/components/Destinations'
-import Reviews from '@/components/Reviews'
 import AboutDirector from '@/components/AboutDirector'
 import VibeSection from '@/components/VibeSection'
 import Contact from '@/components/Contact'
@@ -15,6 +14,17 @@ import DestinationModal from '@/components/DestinationModal'
 import DiscountBanner from '@/components/DiscountBanner'
 import { initSmoothScroll } from '@/lib/smoothScroll'
 import { initAnimations } from '@/lib/animations'
+
+// Lazy load heavy components
+const Destinations = dynamic(() => import('@/components/Destinations'), {
+  loading: () => <div className="h-screen bg-slate-950 flex items-center justify-center text-white">Завантаження напрямків...</div>,
+  ssr: true
+})
+
+const Reviews = dynamic(() => import('@/components/Reviews'), {
+  loading: () => <div className="h-[500px] bg-slate-950" />,
+  ssr: true
+})
 
 export default function Home() {
   const [filter, setFilter] = useState<string | null>(null)

@@ -83,8 +83,8 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30 animate-bounce pointer-events-none">
-        <div className="w-8 h-12 rounded-full border-2 border-white/60 flex justify-center p-2 shadow-[0_0_20px_rgba(255,255,255,0.3)] bg-black/20 backdrop-blur-sm">
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-40 animate-bounce pointer-events-auto cursor-pointer" onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}>
+        <div className="w-8 h-12 rounded-full border-2 border-white/80 flex justify-center p-2 shadow-[0_0_20px_rgba(255,255,255,0.4)] bg-black/30 backdrop-blur-md transition-colors hover:bg-black/50 hover:border-white">
           <div className="w-1.5 h-1.5 rounded-full bg-white animate-scroll-down shadow-[0_0_10px_white]" />
         </div>
       </div>

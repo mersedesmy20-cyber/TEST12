@@ -30,7 +30,7 @@ export default function DestinationModal() {
         style={{ transform: isOpen ? 'translateY(0)' : 'translateY(50px)' }}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex flex-col overflow-y-auto custom-scrollbar h-full">
+        <div className="flex flex-col overflow-y-auto custom-scrollbar h-full w-full">
           {/* Header Image */}
           <div
             className="w-full h-[400px] bg-cover bg-center relative shrink-0"

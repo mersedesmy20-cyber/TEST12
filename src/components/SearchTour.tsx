@@ -207,7 +207,7 @@ export default function SearchTour() {
                         {dataSource && (
                             <div className="flex items-center gap-2 text-sm text-slate-300">
                                 <span className={`w-2 h-2 rounded-full bg-green-500`}></span>
-                                <span>{dataSource === 'static' ? 'Демо дані' : dataSource === 'multi' ? 'Всі туроператори' : dataSource === 'TPG' ? 'Пошук TPG' : dataSource === 'api' ? 'Join UP! API' : 'Веб-пошук'}</span>
+                                <span>{dataSource === 'static' ? 'Glorious Travel' : dataSource === 'multi' ? 'Всі туроператори' : dataSource === 'TPG' ? 'Пошук TPG' : dataSource === 'api' ? 'Glorious Travel' : 'Веб-пошук'}</span>
                             </div>
                         )}
                     </div>
@@ -225,7 +225,7 @@ export default function SearchTour() {
                                     <img src={tour.image} alt={tour.hotelName} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                                     <div className={`absolute top-2 right-2 text-white text-xs font-bold px-2 py-1 rounded ${tour.source === 'TPG' ? 'bg-orange-500' : 'bg-indigo-600'
                                         }`}>
-                                        {tour.source || 'Join UP!'}
+                                        {tour.source || 'Glorious Travel'}
                                     </div>
                                 </div>
                                 <div className="p-4">

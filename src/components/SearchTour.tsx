@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { destinations } from '@/data/destinations'
 import { useRouter } from 'next/navigation'
 import { mockTours } from '@/data/mockTours'
+import TourModal from './TourModal'
 
 export default function SearchTour() {
     const router = useRouter()
@@ -20,6 +21,7 @@ export default function SearchTour() {
     const [results, setResults] = useState<any[]>([])
     const [dataSource, setDataSource] = useState<string | null>(null)
     const [error, setError] = useState<string | null>(null)
+    const [selectedTour, setSelectedTour] = useState<any | null>(null)
 
     const handleSearch = async () => {
         setIsSearching(true)
@@ -213,12 +215,10 @@ export default function SearchTour() {
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         {results.map((tour, i) => (
-                            <a
+                            <button
                                 key={i}
-                                href={tour.link}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="block bg-slate-900/50 rounded-xl overflow-hidden hover:bg-slate-900/70 transition-colors group"
+                                onClick={() => setSelectedTour(tour)}
+                                className="block bg-slate-900/50 rounded-xl overflow-hidden hover:bg-slate-900/70 transition-colors group text-left w-full cursor-pointer"
                             >
                                 <div className="h-48 relative bg-slate-800">
                                     {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -235,11 +235,18 @@ export default function SearchTour() {
                                         <span className="text-slate-400 text-sm">{tour.duration} ночей</span>
                                     </div>
                                 </div>
-                            </a>
+                            </button>
                         ))}
                     </div>
                 </div>
             )}
+
+            {/* Tour Modal */}
+            <TourModal
+                tour={selectedTour}
+                isOpen={!!selectedTour}
+                onClose={() => setSelectedTour(null)}
+            />
         </div>
     )
 }

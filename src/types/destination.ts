@@ -14,5 +14,6 @@ export interface Destination {
   whatToBuy: string[]
   gridClass?: string
   region: 'Europe' | 'Asia' | 'Africa' | 'North America' | 'South America' | 'Australia'
+  tips?: string[]
 }
 

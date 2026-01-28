@@ -83,9 +83,9 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 animate-bounce">
-        <div className="w-6 h-10 rounded-full border-2 border-white/30 flex justify-center p-1">
-          <div className="w-1.5 h-1.5 rounded-full bg-white animate-scroll-down" />
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30 animate-bounce pointer-events-none">
+        <div className="w-8 h-12 rounded-full border-2 border-white/60 flex justify-center p-2 shadow-[0_0_20px_rgba(255,255,255,0.3)] bg-black/20 backdrop-blur-sm">
+          <div className="w-1.5 h-1.5 rounded-full bg-white animate-scroll-down shadow-[0_0_10px_white]" />
         </div>
       </div>
     </section>

@@ -12,6 +12,7 @@ import Contact from '@/components/Contact'
 import Footer from '@/components/Footer'
 import MobileStickyButton from '@/components/MobileStickyButton'
 import DestinationModal from '@/components/DestinationModal'
+import DiscountBanner from '@/components/DiscountBanner'
 import { initSmoothScroll } from '@/lib/smoothScroll'
 import { initAnimations } from '@/lib/animations'
 
@@ -44,6 +45,7 @@ export default function Home() {
       <Footer />
       <MobileStickyButton />
       <DestinationModal />
+      <DiscountBanner />
     </main>
   )
 }

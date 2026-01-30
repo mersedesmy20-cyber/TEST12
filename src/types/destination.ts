@@ -20,6 +20,7 @@ export interface Destination {
   whatToSee: string[]
   attractions?: Attraction[]
   whatToBuy: string[]
+  souvenirs?: Attraction[]
   gridClass?: string
   region: 'Europe' | 'Asia' | 'Africa' | 'North America' | 'South America' | 'Australia'
   tips?: string[]

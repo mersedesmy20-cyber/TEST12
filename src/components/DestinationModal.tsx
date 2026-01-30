@@ -119,7 +119,7 @@ export default function DestinationModal() {
             </div>
           </div>
 
-          {/* RICH ATTRACTIONS SECTION (Interactive) */}
+          {/* RICH ATTRACTIONS SECTION (Interactive, NO PHOTO IN GRID) */}
           {selectedDestination.attractions ? (
             <div className="mb-12 animate-fadeIn">
               <h3 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
@@ -127,23 +127,15 @@ export default function DestinationModal() {
                 <span className="text-sm font-normal text-slate-400 bg-white/10 px-3 py-1 rounded-full ml-auto">Натисніть для деталей</span>
               </h3>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {selectedDestination.attractions.map((attr: any, index: number) => (
                   <div
                     key={index}
                     onClick={() => setActiveAttraction(attr)}
-                    className="group relative h-64 rounded-3xl overflow-hidden cursor-pointer border border-white/10 shadow-lg transition-transform hover:-translate-y-2 hover:shadow-indigo-500/20"
+                    className="group h-40 bg-white/5 hover:bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-6 cursor-pointer transition-all hover:-translate-y-1 hover:border-indigo-500/30 hover:shadow-lg hover:shadow-indigo-500/10 flex flex-col items-center justify-center gap-3 text-center"
                   >
-                    <Image
-                      src={attr.image}
-                      alt={attr.name}
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-6 flex flex-col justify-end">
-                      <span className="text-4xl mb-2 filter drop-shadow-lg transform transition-transform group-hover:scale-125 origin-left duration-300">{attr.icon}</span>
-                      <h4 className="text-white font-bold text-lg leading-tight group-hover:text-indigo-300 transition-colors">{attr.name}</h4>
-                    </div>
+                    <span className="text-5xl filter drop-shadow-lg transform transition-transform group-hover:scale-110 duration-300">{attr.icon}</span>
+                    <h4 className="text-white font-bold text-lg leading-tight group-hover:text-indigo-300 transition-colors">{attr.name}</h4>
                   </div>
                 ))}
               </div>
@@ -164,6 +156,7 @@ export default function DestinationModal() {
                   ))}
                 </ul>
               </div>
+              {/* This block is only shown if NO attractons data, to preserve old layout */}
               <div className="bg-black/30 backdrop-blur-xl rounded-2xl p-8 border border-white/10 shadow-xl">
                 <h4 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
                   <span className="text-2xl">🛍️</span> Що купити
@@ -180,20 +173,38 @@ export default function DestinationModal() {
             </div>
           )}
 
-          {/* Shopping (Separate section if rich mode is active, to not lose it) */}
+          {/* Shopping (Rich Section or Standard List if Rich Attractions exist) */}
           {selectedDestination.attractions && (
-            <div className="bg-black/30 backdrop-blur-xl rounded-3xl p-8 border border-white/10 shadow-xl mb-12">
-              <h4 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                <span className="text-3xl">🛍️</span> Що привезти з собою
+            <div className="mb-12 animate-fadeIn">
+              <h4 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
+                <span className="text-4xl">🛍️</span> Що привезти з собою
               </h4>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-                {selectedDestination.whatToBuy?.map((item, index) => (
-                  <div key={index} className="flex items-center gap-3 p-4 rounded-xl bg-white/5 border border-white/5">
-                    <span className="text-pink-400 text-xl">♥</span>
-                    <span className="text-slate-200 font-medium">{item}</span>
-                  </div>
-                ))}
-              </div>
+
+              {selectedDestination.souvenirs ? (
+                /* Rich Clickable Souvenirs */
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                  {selectedDestination.souvenirs.map((item: any, index: number) => (
+                    <div
+                      key={index}
+                      onClick={() => setActiveAttraction(item)}
+                      className="group h-40 bg-white/5 hover:bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-6 cursor-pointer transition-all hover:-translate-y-1 hover:border-pink-500/30 hover:shadow-lg hover:shadow-pink-500/10 flex flex-col items-center justify-center gap-3 text-center"
+                    >
+                      <span className="text-5xl filter drop-shadow-md transform transition-transform group-hover:scale-110 duration-300">{item.icon}</span>
+                      <span className="text-white font-bold text-lg group-hover:text-pink-300 transition-colors leading-tight">{item.name}</span>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                /* Legacy Shopping List Grid (Modernized style) */
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                  {selectedDestination.whatToBuy?.map((item, index) => (
+                    <div key={index} className="flex items-center justify-center gap-3 p-6 h-24 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors text-center">
+                      <span className="text-pink-400 text-2xl">♥</span>
+                      <span className="text-slate-200 font-medium">{item}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           )}
 
@@ -235,7 +246,7 @@ export default function DestinationModal() {
         </div>
       </div>
 
-      {/* DETAIL MODAL OVERLAY for Attraction */}
+      {/* DETAIL MODAL OVERLAY for Attraction/Souvenir */}
       {activeAttraction && (
         <div
           className="fixed inset-0 z-[3000] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md animate-fadeIn"

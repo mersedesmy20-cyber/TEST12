@@ -1,3 +1,10 @@
+export interface Attraction {
+  name: string
+  description?: string
+  image?: string
+  icon?: string
+}
+
 export interface Destination {
   id: string
   name: string
@@ -11,9 +18,9 @@ export interface Destination {
   highlights: string[]
   tags: string[]
   whatToSee: string[]
+  attractions?: Attraction[]
   whatToBuy: string[]
   gridClass?: string
   region: 'Europe' | 'Asia' | 'Africa' | 'North America' | 'South America' | 'Australia'
   tips?: string[]
 }
-

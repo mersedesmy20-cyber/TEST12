@@ -18,20 +18,44 @@ interface TourModalProps {
 }
 
 export default function TourModal({ tour, isOpen, onClose }: TourModalProps) {
-    // Close on ESC key
+    // Handle specific close logic (history cleanup)
+    const handleClose = () => {
+        // If we have a modal state in history, go back to remove it
+        // Check safely for browser environment
+        if (typeof window !== 'undefined' && window.history.state?.modalOpen) {
+            window.history.back()
+        } else {
+            onClose() // Fallback if no history state (e.g. direct load or race condition)
+        }
+    }
+
     useEffect(() => {
+        if (!isOpen) return
+
         const handleEsc = (e: KeyboardEvent) => {
-            if (e.key === 'Escape') onClose()
+            if (e.key === 'Escape') handleClose()
         }
-        if (isOpen) {
-            document.addEventListener('keydown', handleEsc)
-            document.body.style.overflow = 'hidden'
+
+        // Push state to history to capture "Back" button
+        window.history.pushState({ modalOpen: true }, '')
+
+        const handlePopState = () => {
+            // When back button is pressed, the state is popped. 
+            // We just need to close the modal logic (update parent state)
+            onClose()
         }
+
+        document.addEventListener('keydown', handleEsc)
+        window.addEventListener('popstate', handlePopState)
+        document.body.style.overflow = 'hidden'
+
         return () => {
             document.removeEventListener('keydown', handleEsc)
+            window.removeEventListener('popstate', handlePopState)
             document.body.style.overflow = 'unset'
         }
-    }, [isOpen, onClose])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isOpen]) // Only re-run when open state changes
 
     if (!isOpen || !tour) return null
 
@@ -42,20 +66,26 @@ export default function TourModal({ tour, isOpen, onClose }: TourModalProps) {
 
     return (
         <div
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fadeIn"
-            onClick={onClose}
+            className="fixed inset-0 z-[3000] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fadeIn"
+            onClick={handleClose}
         >
+            {/* Close Button - Fixed to screen so it never scrolls away */}
+            <button
+                onClick={(e) => {
+                    e.stopPropagation()
+                    // If we use handleClose here, it will go back in history.
+                    // This is correct behavior if the user opened it and we pushed state.
+                    handleClose()
+                }}
+                className="fixed top-6 right-6 w-12 h-12 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/10 rounded-full flex items-center justify-center text-white text-2xl transition-all hover:rotate-90 z-[3010] shadow-xl active:scale-90"
+            >
+                ×
+            </button>
+
             <div
-                className="bg-slate-900 border border-indigo-500/30 rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-[0_0_80px_rgba(99,102,241,0.4)] animate-scaleIn"
+                className="bg-slate-900 border border-indigo-500/30 rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-[0_0_80px_rgba(99,102,241,0.4)] animate-scaleIn relative custom-scrollbar"
                 onClick={(e) => e.stopPropagation()}
             >
-                {/* Close Button */}
-                <button
-                    onClick={onClose}
-                    className="absolute top-4 right-4 w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white text-2xl transition-all hover:rotate-90 z-10"
-                >
-                    ×
-                </button>
 
                 {/* Image */}
                 <div className="relative h-64 md:h-80 rounded-t-3xl overflow-hidden">
@@ -68,7 +98,7 @@ export default function TourModal({ tour, isOpen, onClose }: TourModalProps) {
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent" />
 
                     {/* Source Badge */}
-                    <div className="absolute top-4 left-4 bg-indigo-600 text-white text-xs font-bold px-3 py-1.5 rounded-full">
+                    <div className="absolute top-4 left-4 bg-indigo-600 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">
                         {tour.source || 'Glorious Travel'}
                     </div>
                 </div>
@@ -76,7 +106,7 @@ export default function TourModal({ tour, isOpen, onClose }: TourModalProps) {
                 {/* Content */}
                 <div className="p-6 md:p-8">
                     {/* Title */}
-                    <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                    <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
                         {tour.hotelName}
                     </h2>
 
@@ -115,14 +145,15 @@ export default function TourModal({ tour, isOpen, onClose }: TourModalProps) {
                     </div>
 
                     {/* CTA Section */}
-                    <div className="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-6 text-center">
-                        <h3 className="text-white font-bold text-2xl mb-2">Готові до подорожі?</h3>
-                        <p className="text-indigo-100 mb-4">
+                    <div className="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-6 text-center shadow-lg relative overflow-hidden group">
+                        <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+                        <h3 className="text-white font-bold text-2xl mb-2 relative z-10">Готові до подорожі?</h3>
+                        <p className="text-indigo-100 mb-4 relative z-10">
                             Напишіть нам в Telegram і наш менеджер підбере найкращі умови саме для вас!
                         </p>
                         <button
                             onClick={handleBooking}
-                            className="w-full bg-white text-indigo-600 font-bold py-4 px-8 rounded-xl text-lg hover:bg-indigo-50 transition-all hover:scale-[1.02] active:scale-[0.98] shadow-xl flex items-center justify-center gap-3"
+                            className="w-full bg-white text-indigo-600 font-bold py-4 px-8 rounded-xl text-lg hover:bg-indigo-50 transition-all hover:scale-[1.02] active:scale-[0.98] shadow-xl flex items-center justify-center gap-3 relative z-10"
                         >
                             <span className="text-2xl">✈️</span>
                             <span>Забронювати в Telegram</span>
@@ -130,7 +161,7 @@ export default function TourModal({ tour, isOpen, onClose }: TourModalProps) {
                         </button>
 
                         {/* Additional contact options */}
-                        <div className="mt-4 pt-4 border-t border-white/20">
+                        <div className="mt-4 pt-4 border-t border-white/20 relative z-10">
                             <p className="text-indigo-100 text-sm mb-2">Або зателефонуйте:</p>
                             <a
                                 href="tel:+380123456789"

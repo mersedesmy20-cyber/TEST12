@@ -10,7 +10,7 @@ const reviews = [
         role: 'Туристка (Єгипет)',
         text: 'Неймовірно вдячна за організацію нашого відпочинку! Ліза підібрала ідеальний готель, врахувавши всі наші побажання. Це був найкращий відпочинок за останні роки!',
         rating: 5,
-        avatar: 'https://images.unsplash.com/photo-1554151228-14d9def656ec?q=80&w=200&auto=format&fit=crop'
+        avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop'
     },
     {
         id: 2,
@@ -18,7 +18,7 @@ const reviews = [
         role: 'Лижний тур (Андорра)',
         text: 'Професійний підхід та увага до деталей. Від перельоту до трансферу - все було чітко. Окреме дякую за рекомендації щодо трас та спорядження.',
         rating: 5,
-        avatar: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=200&auto=format&fit=crop'
+        avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop'
     },
     {
         id: 3,
@@ -26,7 +26,7 @@ const reviews = [
         role: 'Весільна подорож (Мальдіви)',
         text: 'Це була казка! Дякуємо Glorious Travel за наш медовий місяць. Все було на найвищому рівні. Обов\'язково звернемося ще!',
         rating: 5,
-        avatar: 'https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?q=80&w=200&auto=format&fit=crop'
+        avatar: 'https://images.unsplash.com/photo-1520223297774-8954419452f0?q=80&w=200&auto=format&fit=crop'
     }
 ]
 

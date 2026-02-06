@@ -37,6 +37,12 @@ body {
   color: var(--text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="rgba(99,102,241,0.1)" stroke="rgba(99,102,241,0.8)" stroke-width="2"/><circle cx="12" cy="12" r="2" fill="rgba(99,102,241,1)"/></svg>'), auto;
+}
+
+/* Stylish cursor for interactive elements */
+a, button, .cursor-pointer, [role="button"] {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="rgba(168,85,247,0.15)" stroke="rgba(168,85,247,1)" stroke-width="2.5"/><circle cx="12" cy="12" r="3" fill="rgba(168,85,247,1)"/></svg>'), pointer !important;
 }
 
 @layer utilities {

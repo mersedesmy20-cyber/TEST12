@@ -134,7 +134,7 @@ export default function DestinationModal() {
                     onClick={() => setActiveAttraction(attr)}
                     className="group h-40 bg-white/5 hover:bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-6 cursor-pointer transition-all hover:-translate-y-1 hover:border-indigo-500/30 hover:shadow-lg hover:shadow-indigo-500/10 flex flex-col items-center justify-center gap-3 text-center"
                   >
-                    <span className="text-5xl filter drop-shadow-lg transform transition-transform group-hover:scale-110 duration-300">{attr.icon}</span>
+                    <span className="text-5xl filter drop-shadow-lg transform transition-transform group-hover:scale-105 duration-300">{attr.icon}</span>
                     <h4 className="text-white font-bold text-lg leading-tight group-hover:text-indigo-300 transition-colors">{attr.name}</h4>
                   </div>
                 ))}
@@ -189,7 +189,7 @@ export default function DestinationModal() {
                       onClick={() => setActiveAttraction(item)}
                       className="group h-40 bg-white/5 hover:bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-6 cursor-pointer transition-all hover:-translate-y-1 hover:border-pink-500/30 hover:shadow-lg hover:shadow-pink-500/10 flex flex-col items-center justify-center gap-3 text-center"
                     >
-                      <span className="text-5xl filter drop-shadow-md transform transition-transform group-hover:scale-110 duration-300">{item.icon}</span>
+                      <span className="text-5xl filter drop-shadow-md transform transition-transform group-hover:scale-105 duration-300">{item.icon}</span>
                       <span className="text-white font-bold text-lg group-hover:text-pink-300 transition-colors leading-tight">{item.name}</span>
                     </div>
                   ))}
@@ -264,13 +264,23 @@ export default function DestinationModal() {
             </button>
 
             <div className="grid grid-cols-1 md:grid-cols-2">
-              <div className="relative h-64 md:h-96">
-                <Image
-                  src={activeAttraction.image}
-                  alt={activeAttraction.name}
-                  fill
-                  className="object-cover"
-                />
+              <div className="relative h-64 md:h-96 bg-gradient-to-br from-slate-800 to-slate-900">
+                {activeAttraction.image ? (
+                  <Image
+                    src={activeAttraction.image}
+                    alt={activeAttraction.name}
+                    fill
+                    className="object-cover"
+                    onError={(e) => {
+                      // Fallback if image fails to load
+                      e.currentTarget.style.display = 'none'
+                    }}
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center">
+                    <span className="text-9xl opacity-50">{activeAttraction.icon}</span>
+                  </div>
+                )}
               </div>
               <div className="p-8 flex flex-col justify-center">
                 <div className="text-5xl mb-4">{activeAttraction.icon}</div>

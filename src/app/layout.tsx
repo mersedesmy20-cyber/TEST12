@@ -3,6 +3,8 @@ import { Montserrat } from 'next/font/google'
 import './globals.css'
 import { ModalProvider } from '@/context/ModalContext'
 
+import CustomCursor from '@/components/CustomCursor'
+
 import BotWidget from '@/components/BotWidget'
 
 const montserrat = Montserrat({ subsets: ['latin', 'cyrillic'] })
@@ -60,6 +62,7 @@ export default function RootLayout({
     <html lang="uk">
       <body className={montserrat.className}>
         <ModalProvider>
+          <CustomCursor />
           {children}
           <BotWidget />
         </ModalProvider>

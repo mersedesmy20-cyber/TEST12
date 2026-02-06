@@ -38,6 +38,7 @@ export default function Navigation() {
               { label: 'Країни', href: '/countries' },
               { label: 'Готелі', href: '/#destinations' },
               { label: 'Гарячі тури', href: '/seasonal' },
+              { label: 'Календар', href: '/calendar' },
               { label: 'Новини', href: '/#reviews' },
               { label: 'Інформація', href: '/#about' },
               { label: 'Де купити', href: '/#contact' },
@@ -80,10 +81,15 @@ export default function Navigation() {
           }`}
       >
         <div className="px-[5%] py-8 flex flex-col gap-6">
-          {['Пошук туру', 'Країни', 'Готелі', 'Гарячі тури', 'Новини', 'Інформація', 'Де купити'].map((item) => (
+          {['Пошук туру', 'Країни', 'Готелі', 'Гарячі тури', 'Календар', 'Новини', 'Інформація', 'Де купити'].map((item) => (
             <Link
               key={item}
-              href={item === 'Гарячі тури' ? '/seasonal' : item === 'Країни' ? '/countries' : '/'}
+              href={
+                item === 'Гарячі тури' ? '/seasonal' :
+                  item === 'Країни' ? '/countries' :
+                    item === 'Календар' ? '/calendar' :
+                      '/'
+              }
               className="text-lg font-semibold text-slate-200 hover:text-indigo-400 transition-colors pb-3 border-b border-white/5"
               onClick={() => setMobileMenuOpen(false)}
             >

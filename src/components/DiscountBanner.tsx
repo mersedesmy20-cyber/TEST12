@@ -1,8 +1,10 @@
 'use client'
 
 import { useState } from 'react'
+import { useModal } from '@/context/ModalContext'
 
 export default function DiscountBanner() {
+    const { openQuiz } = useModal()
     const [isVisible, setIsVisible] = useState(true)
     const [isFormOpen, setIsFormOpen] = useState(false)
     const [formData, setFormData] = useState({
@@ -58,7 +60,7 @@ export default function DiscountBanner() {
 
                             {/* CTA Button */}
                             <button
-                                onClick={() => setIsFormOpen(true)}
+                                onClick={openQuiz}
                                 className="w-full bg-white text-orange-600 font-bold py-3 px-6 rounded-xl hover:bg-orange-50 transition-all hover:scale-[1.02] active:scale-[0.98] shadow-lg"
                             >
                                 Отримати знижку →

@@ -47,6 +47,9 @@ export default function QuizModal() {
 
         // Track conversion
         gtag.trackQuizComplete(answers.type)
+        if (typeof window !== 'undefined' && window.fbq) {
+            window.fbq('track', 'Lead')
+        }
 
         window.open(`https://t.me/lizazakharchenko?text=${message}`, '_blank')
         closeQuiz()

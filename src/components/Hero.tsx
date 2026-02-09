@@ -3,6 +3,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import gsap from 'gsap'
 
 const bgImages = [
@@ -50,15 +51,23 @@ export default function Hero() {
 
       {/* Dynamic Background Slider */}
       <div className="absolute inset-0 overflow-hidden">
+
+        {/* ... (in the render loop) */}
         {bgImages.map((img, index) => (
           <div
             key={img}
-            className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out ${index === currentBg ? 'opacity-100 scale-105' : 'opacity-0 scale-100'}`}
-            style={{
-              backgroundImage: `url('${img}')`,
-              transition: 'opacity 1.5s ease-in-out, transform 8s linear'
-            }}
-          />
+            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === currentBg ? 'opacity-100' : 'opacity-0'}`}
+          >
+            <Image
+              src={img}
+              alt="Glorious Travel Background"
+              fill
+              priority={index === 0} // Prioritize only the first image for LCP
+              className="object-cover"
+              sizes="100vw"
+              quality={85}
+            />
+          </div>
         ))}
         {/* Overlay Gradients */}
         <div className="absolute inset-0 bg-gradient-to-b from-slate-950/40 via-transparent to-slate-950/90" />

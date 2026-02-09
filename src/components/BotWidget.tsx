@@ -33,6 +33,10 @@ export default function BotWidget() {
             })
         })
 
+        if (typeof window !== 'undefined' && window.fbq) {
+            window.fbq('track', 'Contact')
+        }
+
         // Open Telegram with pre-filled message
         window.open(`https://t.me/lizazakharchenko?text=${message}`, '_blank')
 

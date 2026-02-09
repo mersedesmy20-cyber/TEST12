@@ -24,6 +24,15 @@ export default function BotWidget() {
 
         const message = `👋 Нова заявка з сайту!%0A%0A👤 Ім'я: ${name}%0A📱 Контакт: ${contact} (${messenger})%0A🏖️ Тип відпочинку: ${preference === 'sea' ? 'Море/Пляж' : 'Зимовий/Лижі'}%0A%0AПрошу зв'язатися зі мною!`
 
+        // Track conversion
+        import('@/lib/gtag').then(gtag => {
+            gtag.event({
+                action: 'bot_widget_submit',
+                category: 'conversion',
+                label: preference
+            })
+        })
+
         // Open Telegram with pre-filled message
         window.open(`https://t.me/lizazakharchenko?text=${message}`, '_blank')
 

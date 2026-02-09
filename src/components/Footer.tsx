@@ -24,10 +24,31 @@ export default function Footer() {
         </div>
 
         <div className="flex gap-6 mb-12">
-          <a href="https://www.instagram.com/lizazakharchenko?igsh=Nnl4MG9tcjVxMzcw" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-pink-600 hover:border-pink-500 hover:scale-110 hover:rotate-12 transition-all cursor-pointer group shadow-lg">
+          <a
+            href="https://www.instagram.com/lizazakharchenko?igsh=Nnl4MG9tcjVxMzcw"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => {
+              if (typeof window !== 'undefined' && (window as any).gtag) {
+                (window as any).gtag('event', 'social_click', {
+                  event_category: 'engagement',
+                  event_label: 'instagram_footer'
+                })
+              }
+            }}
+            className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-pink-600 hover:border-pink-500 hover:scale-110 hover:rotate-12 transition-all cursor-pointer group shadow-lg"
+          >
             <span className="text-slate-400 group-hover:text-white text-xl transition-colors">📸</span>
           </a>
-          <a href="https://t.me/lizazakharchenko" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-sky-500 hover:border-sky-400 hover:scale-110 hover:-rotate-12 transition-all cursor-pointer group shadow-lg">
+          <a
+            href="https://t.me/lizazakharchenko"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => {
+              import('@/lib/gtag').then(gtag => gtag.trackTelegramClick())
+            }}
+            className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-sky-500 hover:border-sky-400 hover:scale-110 hover:-rotate-12 transition-all cursor-pointer group shadow-lg"
+          >
             <span className="text-slate-400 group-hover:text-white text-xl transition-colors">✈️</span>
           </a>
         </div>

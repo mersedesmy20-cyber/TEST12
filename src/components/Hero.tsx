@@ -98,6 +98,14 @@ export default function Hero() {
         <div className="flex flex-col md:flex-row gap-4 md:gap-6 justify-center w-full md:w-auto">
           <Link
             href="#search"
+            onClick={() => {
+              if (typeof window !== 'undefined' && (window as any).gtag) {
+                (window as any).gtag('event', 'hero_search_click', {
+                  event_category: 'navigation',
+                  event_label: 'find_tour'
+                })
+              }
+            }}
             className="group relative px-10 py-5 bg-white text-slate-950 rounded-2xl font-bold text-lg overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(255,255,255,0.4)] flex items-center justify-center gap-2"
           >
             <span className="relative z-10 group-hover:text-indigo-900 transition-colors">Знайти тур</span>
@@ -109,6 +117,9 @@ export default function Hero() {
           <Link
             href="https://t.me/lizazakharchenko"
             target="_blank"
+            onClick={() => {
+              import('@/lib/gtag').then(gtag => gtag.trackTelegramClick())
+            }}
             className="group px-10 py-5 rounded-2xl font-bold text-lg border border-white/30 bg-white/10 backdrop-blur-md text-white hover:bg-white/20 transition-all hover:scale-105 flex items-center justify-center gap-2"
           >
             <span>Написати менеджеру</span>

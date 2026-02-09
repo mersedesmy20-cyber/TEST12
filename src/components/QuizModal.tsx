@@ -1,7 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useModal } from '@/context/ModalContext'
+import * as gtag from '@/lib/gtag'
 
 // Icons for options
 const ICONS = {
@@ -25,6 +26,13 @@ export default function QuizModal() {
         contact: { name: '', phone: '' }
     })
 
+    // Track when quiz opens
+    useEffect(() => {
+        if (isQuizOpen) {
+            gtag.trackQuizStart()
+        }
+    }, [isQuizOpen])
+
     if (!isQuizOpen) return null
 
     const handleOptionSelect = (key: string, value: string) => {
@@ -36,6 +44,9 @@ export default function QuizModal() {
         e.preventDefault()
         // Format message
         const message = `📋 РЕЗУЛЬТАТИ ТЕСТУ%0A%0A✈️ Тип відпочинку: ${answers.type}%0A👥 Компанія: ${answers.company}%0A💰 Бюджет: ${answers.budget}%0A%0A👤 Ім'я: ${answers.contact.name}%0A📱 Телефон: ${answers.contact.phone}`
+
+        // Track conversion
+        gtag.trackQuizComplete(answers.type)
 
         window.open(`https://t.me/lizazakharchenko?text=${message}`, '_blank')
         closeQuiz()

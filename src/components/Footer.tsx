@@ -32,8 +32,15 @@ export default function Footer() {
           </a>
         </div>
 
-        <div className="text-slate-600 text-sm">
-          &copy; {new Date().getFullYear()} Glorious Travel Agency. Всі права захищені.
+        <div className="text-slate-600 text-sm space-y-2">
+          <div>
+            &copy; {new Date().getFullYear()} Glorious Travel Agency. Всі права захищені.
+          </div>
+          <div className="flex justify-center gap-4 text-xs">
+            <a href="/privacy" className="hover:text-indigo-400 transition-colors">
+              Політика конфіденційності
+            </a>
+          </div>
         </div>
       </div>
     </footer>

@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://test-12-green.vercel.app/sitemap.xml
+
+# Disallow admin or sensitive routes if any exist in future
+# Disallow: /admin
+# Disallow: /api

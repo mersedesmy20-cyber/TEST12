@@ -233,6 +233,12 @@ export default function DestinationModal() {
             <Link
               href={`https://t.me/lizazakharchenko?text=${encodeURIComponent(`👋 Привіт! Хочу поїхати в ${selectedDestination.name} (${selectedDestination.region}). Підберіть мені найкращий тур!`)}`}
               target="_blank"
+              onClick={() => {
+                import('@/lib/gtag').then(gtag => {
+                  gtag.trackTelegramClick()
+                  gtag.trackGoogleAdsConversion()
+                })
+              }}
               className="group relative inline-flex items-center justify-center transform hover:scale-105 transition-transform duration-300"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full blur-xl opacity-70 group-hover:opacity-100 transition-opacity duration-500 animate-pulse"></div>

@@ -135,7 +135,10 @@ export default function Hero() {
             href="https://t.me/lizazakharchenko"
             target="_blank"
             onClick={() => {
-              import('@/lib/gtag').then(gtag => gtag.trackTelegramClick())
+              import('@/lib/gtag').then(gtag => {
+                gtag.trackTelegramClick()
+                gtag.trackGoogleAdsConversion()
+              })
             }}
             className="group px-10 py-5 rounded-2xl font-bold text-lg border border-white/30 bg-white/10 backdrop-blur-md text-white hover:bg-white/20 transition-all hover:scale-105 flex items-center justify-center gap-2"
           >

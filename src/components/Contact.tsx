@@ -102,6 +102,12 @@ function ContactCard({
     <Link
       href={href}
       target={href.startsWith('http') ? '_blank' : undefined}
+      onClick={() => {
+        import('@/lib/gtag').then(gtag => {
+          if (title === 'Telegram') gtag.trackTelegramClick()
+          gtag.trackGoogleAdsConversion()
+        })
+      }}
       className="contact-card group relative bg-slate-900/50 backdrop-blur-xl border border-white/10 p-10 rounded-3xl text-white no-underline w-[320px] transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_0_40px_rgba(99,102,241,0.2)] text-center overflow-hidden"
     >
       <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />

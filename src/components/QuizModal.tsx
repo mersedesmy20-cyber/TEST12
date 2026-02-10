@@ -46,7 +46,9 @@ export default function QuizModal() {
         const message = `📋 РЕЗУЛЬТАТИ ТЕСТУ%0A%0A✈️ Тип відпочинку: ${answers.type}%0A👥 Компанія: ${answers.company}%0A💰 Бюджет: ${answers.budget}%0A%0A👤 Ім'я: ${answers.contact.name}%0A📱 Телефон: ${answers.contact.phone}`
 
         // Track conversion
+        // Track conversion
         gtag.trackQuizComplete(answers.type)
+        gtag.trackGoogleAdsConversion()
         if (typeof window !== 'undefined' && window.fbq) {
             window.fbq('track', 'Lead')
         }

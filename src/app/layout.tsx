@@ -87,6 +87,7 @@ export default function RootLayout({
                   gtag('config', '${GA_TRACKING_ID}', {
                     page_path: window.location.pathname,
                   });
+                  gtag('config', 'AW-16447426855');
                 `,
               }}
             />

@@ -58,3 +58,12 @@ export const trackDestinationView = (country: string) => {
         label: country
     })
 }
+
+// Google Ads Conversion
+export const trackGoogleAdsConversion = () => {
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+        (window as any).gtag('event', 'conversion', {
+            'send_to': 'AW-16447426855/St97CMCt__UbEKei36I9'
+        })
+    }
+}

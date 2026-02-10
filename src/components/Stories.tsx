@@ -49,6 +49,7 @@ export default function Stories() {
                                         src={story.image}
                                         alt={story.title}
                                         fill
+                                        sizes="(max-width: 768px) 70px, 85px"
                                         className="object-cover"
                                     />
                                 </div>

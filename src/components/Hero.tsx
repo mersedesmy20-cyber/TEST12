@@ -22,8 +22,11 @@ export default function Hero() {
   const textRef = useRef<HTMLDivElement>(null)
   const [currentBg, setCurrentBg] = useState(0)
 
+  const [isMounted, setIsMounted] = useState(false)
+
   // Background rotater
   useEffect(() => {
+    setIsMounted(true)
     const interval = setInterval(() => {
       setCurrentBg(prev => (prev + 1) % bgImages.length)
     }, 5000)
@@ -53,22 +56,27 @@ export default function Hero() {
       <div className="absolute inset-0 overflow-hidden">
 
         {/* ... (in the render loop) */}
-        {bgImages.map((img, index) => (
-          <div
-            key={img}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === currentBg ? 'opacity-100' : 'opacity-0'}`}
-          >
-            <Image
-              src={img}
-              alt="Glorious Travel Background"
-              fill
-              priority={index === 0} // Prioritize only the first image for LCP
-              className="object-cover"
-              sizes="100vw"
-              quality={85}
-            />
-          </div>
-        ))}
+        {bgImages.map((img, index) => {
+          // Defer loading of non-priority images until mounted to save LCP bandwidth
+          if (index !== 0 && !isMounted) return null
+
+          return (
+            <div
+              key={img}
+              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === currentBg ? 'opacity-100' : 'opacity-0'}`}
+            >
+              <Image
+                src={img}
+                alt="Glorious Travel Background"
+                fill
+                priority={index === 0} // Prioritize only the first image for LCP
+                className="object-cover"
+                sizes="100vw"
+                quality={85}
+              />
+            </div>
+          )
+        })}
         {/* Overlay Gradients */}
         <div className="absolute inset-0 bg-gradient-to-b from-slate-950/40 via-transparent to-slate-950/90" />
         <div className="absolute inset-0 bg-black/30" />

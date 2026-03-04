@@ -1,0 +1,22 @@
+[2026-02-24 09:36:27] 📋 Loaded 712 users from file
+[2026-02-24 09:37:53] ✅ Successfully connected to Telegram
+[2026-02-24 09:37:53] 📊 Remaining users: 0 with phone, 712 without phone
+[2026-02-24 09:37:53] 📱 Strategy: ADD AS CONTACT FIRST → then invite (much higher success rate!)
+[2026-02-24 09:37:53] 🎯 Adding to channel: Glorious travel
+[2026-02-24 09:37:53] 
+🚀 Starting invitation process (Target: 30 users per session)...
+[2026-02-24 09:37:53] 
+[1/30] Adding @doctorann000 ❌no phone...
+[2026-02-24 09:37:53]    📨 Inviting via username...
+[2026-02-24 09:37:53]    🚫 @doctorann000 - PEER_FLOOD (Account limited by Telegram)
+[2026-02-24 09:37:53]    🛑 ЗУПИНКА! PEER_FLOOD = ліміт на акаунт. Юзер НЕ позначений — спробуємо пізніше.
+[2026-02-24 09:37:53]    💡 Зачекайте 4-6 годин перед наступним запуском.
+[2026-02-24 09:37:53] 
+==================================================
+[2026-02-24 09:37:53] 📊 SUMMARY:
+[2026-02-24 09:37:53]    ✅ Successfully added: 0
+[2026-02-24 09:37:53]    📱 Added as contacts first: 0
+[2026-02-24 09:37:53]    ❌ No phone number: 1
+[2026-02-24 09:37:53]    ❌ Errors: 1
+[2026-02-24 09:37:53]    📝 Log file: invite_log.txt
+[2026-02-24 09:37:53] ==================================================

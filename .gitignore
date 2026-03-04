@@ -34,3 +34,26 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# telegram project (separate project)
+/telegram-auto-invite/
+telegram_session.session
+*.session
+*.session-journal
+
+# debug files
+debug-*.png
+debug-*.js
+tpg-*.png
+test-*.js
+check-departure.js
+
+# utility scripts
+*.ps1
+
+# data files
+merged_users.json
+resident_users.json
+
+# python
+.venv/
+__pycache__/

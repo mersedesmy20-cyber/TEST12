@@ -1,181 +1,163 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
+
+type Message = {
+  id: string
+  role: 'user' | 'model'
+  text: string
+}
 
 export default function BotWidget() {
-    const [isOpen, setIsOpen] = useState(false)
-    const [isSubmitted, setIsSubmitted] = useState(false)
-    const [isVisible, setIsVisible] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
+  const [isVisible, setIsVisible] = useState(false)
+  const [input, setInput] = useState('')
+  const [messages, setMessages] = useState<Message[]>([
+    { id: '1', role: 'model', text: 'Привіт! 👋 Я ваш особистий AI-помічник. З радістю допоможу підібрати ідеальну подорож! Куди б ви хотіли вирушити?' }
+  ])
+  const [isLoading, setIsLoading] = useState(false)
+  const messagesEndRef = useRef<HTMLDivElement>(null)
 
-    // Form states
-    const [messenger, setMessenger] = useState<'telegram' | 'viber'>('telegram')
-    const [contact, setContact] = useState('')
-    const [name, setName] = useState('')
-    const [preference, setPreference] = useState<'sea' | 'winter'>('sea')
+  // Show widget after a delay
+  useEffect(() => {
+    const timer = setTimeout(() => setIsVisible(true), 3000)
+    return () => clearTimeout(timer)
+  }, [])
 
-    // Show widget after a delay
-    useEffect(() => {
-        const timer = setTimeout(() => setIsVisible(true), 3000)
-        return () => clearTimeout(timer)
-    }, [])
+  // Auto scroll
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [messages])
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault()
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!input.trim() || isLoading) return
 
-        const message = `👋 Нова заявка з сайту!%0A%0A👤 Ім'я: ${name}%0A📱 Контакт: ${contact} (${messenger})%0A🏖️ Тип відпочинку: ${preference === 'sea' ? 'Море/Пляж' : 'Зимовий/Лижі'}%0A%0AПрошу зв'язатися зі мною!`
+    const userText = input.trim()
+    setInput('')
+    setIsLoading(true)
 
-        // Track conversion
-        import('@/lib/gtag').then(gtag => {
-            gtag.event({
-                action: 'bot_widget_submit',
-                category: 'conversion',
-                label: preference
-            })
-        })
+    // Append user message
+    const newMessages = [...messages, { id: Date.now().toString(), role: 'user' as const, text: userText }]
+    setMessages(newMessages)
 
-        if (typeof window !== 'undefined' && window.fbq) {
-            window.fbq('track', 'Contact')
-        }
+    // Prepare model's placeholder response
+    const tempId = (Date.now() + 1).toString()
+    setMessages(prev => [...prev, { id: tempId, role: 'model' as const, text: '' }])
 
-        // Open Telegram with pre-filled message
-        window.open(`https://t.me/lizazakharchenko?text=${message}`, '_blank')
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userMessage: userText,
+          history: newMessages.slice(0, -1).map(m => ({ role: m.role, text: m.text }))
+        }),
+      })
 
-        setIsSubmitted(true)
+      if (!response.ok) throw new Error('Network error')
+
+      // Read streaming text
+      const reader = response.body?.getReader()
+      const decoder = new TextDecoder()
+      let fullText = ''
+
+      while (reader) {
+        const { value, done } = await reader.read()
+        if (done) break
+        
+        const chunk = decoder.decode(value, { stream: true })
+        fullText += chunk
+
+        setMessages(prev => prev.map(msg => 
+          msg.id === tempId ? { ...msg, text: fullText } : msg
+        ))
+      }
+    } catch (error) {
+      console.error(error)
+      setMessages(prev => prev.map(msg => 
+        msg.id === tempId ? { ...msg, text: "Ой, сталася помилка з'єднання 😅 Перевірте підключення або напишіть у наш Telegram!" } : msg
+      ))
+    } finally {
+      setIsLoading(false)
     }
+  }
 
-    if (!isVisible) return null
+  if (!isVisible) return null
 
-    return (
-        <div className="fixed bottom-6 right-6 z-[90] flex flex-col items-end pointer-events-none">
-            {/* Chat Window */}
-            <div
-                className={`bg-slate-900 border border-indigo-500/30 shadow-[0_0_50px_rgba(99,102,241,0.3)] rounded-2xl w-[340px] mb-4 overflow-hidden transition-all duration-300 origin-bottom-right pointer-events-auto ${isOpen ? 'scale-100 opacity-100 translate-y-0' : 'scale-75 opacity-0 translate-y-10 pointer-events-none'}`}
-            >
-                <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-4 flex justify-between items-center">
-                    <h3 className="text-white font-bold flex items-center gap-2">
-                        <span>🤖</span> Бот підбору туру
-                    </h3>
-                    <button onClick={() => setIsOpen(false)} className="text-white/80 hover:text-white">
-                        &times;
-                    </button>
-                </div>
-
-                <div className="p-6 bg-slate-900/95 backdrop-blur-xl">
-                    {!isSubmitted ? (
-                        <>
-                            <p className="text-white mb-6 text-sm font-medium">
-                                Дайте відповідь на 3 питання і ми підберемо ідеальний тур! 🎁
-                            </p>
-                            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-
-                                {/* 1. Messenger Selection */}
-                                <div>
-                                    <label className="text-xs text-slate-400 mb-2 block uppercase font-bold tracking-wider">Де вам зручно спілкуватись?</label>
-                                    <div className="grid grid-cols-2 gap-2">
-                                        <button
-                                            type="button"
-                                            onClick={() => setMessenger('telegram')}
-                                            className={`py-2 rounded-lg text-sm font-medium transition-all border ${messenger === 'telegram' ? 'bg-blue-500/20 border-blue-500 text-blue-300' : 'bg-white/5 border-transparent text-slate-400 hover:bg-white/10'}`}
-                                        >
-                                            Telegram ✈️
-                                        </button>
-                                        <button
-                                            type="button"
-                                            onClick={() => setMessenger('viber')}
-                                            className={`py-2 rounded-lg text-sm font-medium transition-all border ${messenger === 'viber' ? 'bg-purple-500/20 border-purple-500 text-purple-300' : 'bg-white/5 border-transparent text-slate-400 hover:bg-white/10'}`}
-                                        >
-                                            Viber 💜
-                                        </button>
-                                    </div>
-                                </div>
-
-                                {/* 2. Contact Details */}
-                                <div className="space-y-3">
-                                    <input
-                                        type="text"
-                                        placeholder="Ваше ім'я"
-                                        required
-                                        value={name}
-                                        onChange={(e) => setName(e.target.value)}
-                                        className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-white placeholder:text-slate-500 text-sm focus:outline-none focus:border-indigo-500 transition-colors"
-                                    />
-                                    <input
-                                        type="text"
-                                        placeholder="Номер телефону"
-                                        required
-                                        value={contact}
-                                        onChange={(e) => setContact(e.target.value)}
-                                        className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-white placeholder:text-slate-500 text-sm focus:outline-none focus:border-indigo-500 transition-colors"
-                                    />
-                                </div>
-
-                                {/* 3. Vacation Type */}
-                                <div>
-                                    <label className="text-xs text-slate-400 mb-2 block uppercase font-bold tracking-wider">Тип відпочинку</label>
-                                    <div className="grid grid-cols-2 gap-2">
-                                        <button
-                                            type="button"
-                                            onClick={() => setPreference('sea')}
-                                            className={`py-3 rounded-lg text-sm font-medium transition-all border flex flex-col items-center gap-1 ${preference === 'sea' ? 'bg-orange-500/20 border-orange-500 text-orange-300' : 'bg-white/5 border-transparent text-slate-400 hover:bg-white/10'}`}
-                                        >
-                                            <span>🏖️</span>
-                                            Море
-                                        </button>
-                                        <button
-                                            type="button"
-                                            onClick={() => setPreference('winter')}
-                                            className={`py-3 rounded-lg text-sm font-medium transition-all border flex flex-col items-center gap-1 ${preference === 'winter' ? 'bg-cyan-500/20 border-cyan-500 text-cyan-300' : 'bg-white/5 border-transparent text-slate-400 hover:bg-white/10'}`}
-                                        >
-                                            <span>🏔️</span>
-                                            Зима/Лижі
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <button
-                                    type="submit"
-                                    className="mt-2 bg-indigo-600 hover:bg-indigo-500 text-white py-3 rounded-xl text-sm font-bold transition-all shadow-lg shadow-indigo-500/20 hover:scale-[1.02] active:scale-95"
-                                >
-                                    Отримати пропозицію ➝
-                                </button>
-                            </form>
-                        </>
-                    ) : (
-                        <div className="text-center py-8">
-                            <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl animate-bounce">
-                                ✅
-                            </div>
-                            <h4 className="text-white font-bold mb-2 text-lg">Заявку надіслано!</h4>
-                            <p className="text-slate-400 text-sm mb-4">
-                                Ми відкрили діалог у Telegram з вашими даними. Менеджер вже бачить запит.
-                            </p>
-                            <button
-                                onClick={() => setIsSubmitted(false)}
-                                className="text-indigo-400 text-sm hover:underline"
-                            >
-                                Відправити ще одну
-                            </button>
-                        </div>
-                    )}
-                </div>
-            </div>
-
-            {/* Toggle Button */}
-            <button
-                onClick={() => setIsOpen(!isOpen)}
-                className="group relative w-16 h-16 bg-indigo-600 hover:bg-indigo-500 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(99,102,241,0.5)] transition-all hover:scale-110 pointer-events-auto"
-            >
-                <span className={`text-3xl transition-transform duration-300 absolute ${isOpen ? 'rotate-90 opacity-0' : 'rotate-0 opacity-100'}`}>💬</span>
-                <span className={`text-2xl transition-transform duration-300 absolute ${isOpen ? 'rotate-0 opacity-100' : '-rotate-90 opacity-0'}`}>✖️</span>
-
-                {/* Notification Badge */}
-                {!isOpen && !isSubmitted && (
-                    <span className="absolute top-0 right-0 w-5 h-5 bg-red-500 rounded-full animate-ping" />
-                )}
-                {!isOpen && !isSubmitted && (
-                    <span className="absolute top-0 right-0 w-5 h-5 bg-red-500 rounded-full border-2 border-slate-900 flex items-center justify-center text-[10px] font-bold text-white">1</span>
-                )}
-            </button>
+  return (
+    <div className="fixed bottom-6 right-6 z-[90] flex flex-col items-end pointer-events-none">
+      {/* Chat Window */}
+      <div
+        className={`bg-slate-900 border border-indigo-500/30 shadow-[0_0_50px_rgba(99,102,241,0.3)] rounded-2xl w-[350px] mb-4 overflow-hidden transition-all duration-300 origin-bottom-right pointer-events-auto flex flex-col ${isOpen ? 'h-[500px] scale-100 opacity-100 translate-y-0' : 'h-0 scale-75 opacity-0 translate-y-10 pointer-events-none'}`}
+      >
+        <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-4 flex justify-between items-center shrink-0">
+          <div className="flex items-center gap-3">
+             <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-xl shadow-inner">
+               🤖
+             </div>
+             <div>
+               <h3 className="text-white font-bold text-sm">ШІ Агент Glorious</h3>
+               <p className="text-indigo-200 text-xs flex items-center gap-1">
+                 <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span> Онлайн
+               </p>
+             </div>
+          </div>
+          <button onClick={() => setIsOpen(false)} className="text-white/80 hover:text-white text-2xl leading-none w-8 h-8 rounded-full hover:bg-white/20 transition-colors">
+            &times;
+          </button>
         </div>
-    )
+
+        <div className="flex-1 overflow-y-auto p-4 bg-slate-950/90 backdrop-blur-xl flex flex-col gap-4">
+          {messages.map((msg) => (
+             <div key={msg.id} className={`flex w-full ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                <div className={`max-w-[85%] rounded-2xl p-3 text-sm ${msg.role === 'user' ? 'bg-indigo-600 text-white rounded-tr-sm' : 'bg-slate-800 text-slate-100 border border-white/5 shadow-md rounded-tl-sm'}`}>
+                   {msg.text || (msg.role === 'model' && <span className="animate-pulse">друкує...</span>)}
+                </div>
+             </div>
+          ))}
+          <div ref={messagesEndRef} />
+        </div>
+
+        <form onSubmit={handleSubmit} className="p-3 bg-slate-900 border-t border-white/10 shrink-0">
+           <div className="relative flex items-center">
+              <input
+                type="text"
+                disabled={isLoading}
+                placeholder="Напишіть агенту..."
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                className="w-full bg-slate-800 border border-white/10 rounded-full pl-4 pr-12 py-3 text-white placeholder:text-slate-500 text-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 disabled:opacity-50 transition-all"
+              />
+              <button 
+                type="submit" 
+                disabled={isLoading || !input.trim()}
+                className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center bg-indigo-600 rounded-full text-white shadow-md hover:bg-indigo-500 disabled:bg-slate-700 disabled:text-slate-500 transition-colors"
+               >
+                 <svg className="w-4 h-4 ml-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" /></svg>
+              </button>
+           </div>
+        </form>
+      </div>
+
+      {/* Toggle Button */}
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="group relative w-16 h-16 bg-gradient-to-tr from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 rounded-full flex items-center justify-center shadow-[0_0_25px_rgba(99,102,241,0.5)] transition-all hover:scale-110 pointer-events-auto overflow-hidden"
+      >
+        <span className={`text-2xl transition-transform duration-300 absolute ${isOpen ? 'rotate-90 opacity-0 scale-50' : 'rotate-0 opacity-100 scale-100'}`}>💬</span>
+        <span className={`text-2xl transition-transform duration-300 absolute ${isOpen ? 'rotate-0 opacity-100 scale-100' : '-rotate-90 opacity-0 scale-50'}`}>✖️</span>
+
+        {/* Notification Badge */}
+        {!isOpen && (
+           <>
+              <span className="absolute top-0 right-0 w-4 h-4 bg-red-500 rounded-full animate-ping z-10" />
+              <span className="absolute top-0 right-0 w-4 h-4 bg-red-500 rounded-full border-2 border-slate-900 z-20" />
+           </>
+        )}
+      </button>
+    </div>
+  )
 }

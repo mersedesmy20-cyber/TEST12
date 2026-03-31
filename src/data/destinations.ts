@@ -45,6 +45,9 @@ export const destinations: Destination[] = [
     gridClass: 'large',
     bestMonths: [5, 6, 7, 8, 9, 10],
     region: 'Europe',
+    waterTemp: '22°C - 28°C (травень-жовтень)',
+    fruitSeason: 'Квітень-травень: полуниця; Червень: черешня; Липень: кавуни; Вересень-жовтень: гранати.',
+    averageTemp: '25°C - 35°C',
     tips: [
       'Торгуйтеся на базарах! Ціну можна знизити в 2-3 рази.',
       'Найкращий час для Каппадокії - світанок.',
@@ -200,7 +203,10 @@ export const destinations: Destination[] = [
       }
     ],
     bestMonths: [6, 7, 8, 9],
-    region: 'Europe'
+    region: 'Europe',
+    waterTemp: '21°C - 26°C (червень-вересень)',
+    fruitSeason: 'Травень: полуниця; Червень: абрикоси; Серпень: інжир; Жовтень: цитрусові.',
+    averageTemp: '28°C - 32°C'
   },
   {
     id: 'montenegro',

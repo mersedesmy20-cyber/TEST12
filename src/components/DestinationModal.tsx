@@ -99,9 +99,34 @@ export default function DestinationModal() {
 
           {/* Intro Description */}
           <div className="bg-black/30 backdrop-blur-xl rounded-3xl p-8 md:p-10 border border-white/10 shadow-2xl mb-10 max-w-4xl mx-auto text-center">
-            <p className="text-xl md:text-2xl text-slate-100 leading-relaxed font-light">
+            <p className="text-xl md:text-2xl text-slate-100 leading-relaxed font-light mb-8">
               {selectedDestination.desc}
             </p>
+
+            {/* NEW: Climate & SEO Info */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8 border-t border-white/10">
+              {selectedDestination.averageTemp && (
+                <div className="flex flex-col items-center p-4 rounded-2xl bg-white/5 border border-white/5">
+                  <span className="text-3xl mb-2">🌡️</span>
+                  <span className="text-xs uppercase tracking-widest text-slate-400 mb-1">Повітря</span>
+                  <span className="text-lg font-bold text-white">{selectedDestination.averageTemp}</span>
+                </div>
+              )}
+              {selectedDestination.waterTemp && (
+                <div className="flex flex-col items-center p-4 rounded-2xl bg-white/5 border border-white/5">
+                  <span className="text-3xl mb-2">💧</span>
+                  <span className="text-xs uppercase tracking-widest text-slate-400 mb-1">Вода</span>
+                  <span className="text-lg font-bold text-white">{selectedDestination.waterTemp}</span>
+                </div>
+              )}
+              {selectedDestination.fruitSeason && (
+                <div className="flex flex-col items-center p-4 rounded-2xl bg-white/5 border border-white/5">
+                  <span className="text-3xl mb-2">🍎</span>
+                  <span className="text-xs uppercase tracking-widest text-slate-400 mb-1">Фрукти</span>
+                  <span className="text-sm font-medium text-slate-200 text-center leading-tight">{selectedDestination.fruitSeason}</span>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Highlights Grid */}

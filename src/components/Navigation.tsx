@@ -34,14 +34,14 @@ export default function Navigation() {
 
           <div className="hidden lg:flex items-center gap-6">
             {[
-              { label: 'Пошук туру', href: '/#search' },
+              { label: 'Пошук туру', href: '/search' },
               { label: 'Країни', href: '/countries' },
               { label: 'Готелі', href: '/#destinations' },
               { label: 'Гарячі тури', href: '/seasonal' },
-              { label: 'Календар', href: '/calendar' },
-              { label: 'Новини', href: '/#reviews' },
-              { label: 'Інформація', href: '/#about' },
-              { label: 'Де купити', href: '/#contact' },
+              { label: 'Історії', href: '/stories' },
+              { label: 'Відгуки', href: '/reviews' },
+              { label: 'Про нас', href: '/about' },
+              { label: 'Контакти', href: '/#contact' },
             ].map((item) => (
               <Link
                 key={item.label}
@@ -81,14 +81,17 @@ export default function Navigation() {
           }`}
       >
         <div className="px-[5%] py-8 flex flex-col gap-6">
-          {['Пошук туру', 'Країни', 'Готелі', 'Гарячі тури', 'Календар', 'Новини', 'Інформація', 'Де купити'].map((item) => (
+          {['Пошук туру', 'Країни', 'Готелі', 'Гарячі тури', 'Історії', 'Відгуки', 'Про нас', 'Контакти'].map((item) => (
             <Link
               key={item}
               href={
-                item === 'Гарячі тури' ? '/seasonal' :
+                item === 'Пошук туру' ? '/search' :
                   item === 'Країни' ? '/countries' :
-                    item === 'Календар' ? '/calendar' :
-                      '/'
+                    item === 'Гарячі тури' ? '/seasonal' :
+                      item === 'Історії' ? '/stories' :
+                        item === 'Відгуки' ? '/reviews' :
+                          item === 'Про нас' ? '/about' :
+                            '/#destinations'
               }
               className="text-lg font-semibold text-slate-200 hover:text-indigo-400 transition-colors pb-3 border-b border-white/5"
               onClick={() => setMobileMenuOpen(false)}

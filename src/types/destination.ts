@@ -25,4 +25,7 @@ export interface Destination {
   region: 'Europe' | 'Asia' | 'Africa' | 'North America' | 'South America' | 'Australia'
   tips?: string[]
   bestMonths?: number[] // 1 = January, 12 = December
+  waterTemp?: string
+  fruitSeason?: string
+  averageTemp?: string
 }

@@ -11,9 +11,11 @@ import DestinationCard from '@/components/DestinationCard'
 export default function Destinations({
   activeFilter,
   onResetFilter,
+  limit = 8,
 }: {
   activeFilter?: string | null
   onResetFilter?: () => void
+  limit?: number
 }) {
   const { openModal } = useModal()
   const [activeRegion, setActiveRegion] = useState<string>('All')
@@ -31,11 +33,17 @@ export default function Destinations({
     { id: 'North America', label: 'Америка' }
   ]
 
-  const filteredDestinations = destinations.filter(dest => {
+  let filteredDestinations = destinations.filter(dest => {
     const matchesFilter = activeFilter ? dest.tags.includes(activeFilter) : true
     const matchesRegion = activeRegion === 'All' ? true : dest.region === activeRegion
     return matchesFilter && matchesRegion
   })
+
+  // Apply limit to prevent loading too many images on the homepage
+  const hasMore = limit && filteredDestinations.length > limit
+  if (limit) {
+    filteredDestinations = filteredDestinations.slice(0, limit)
+  }
 
   return (
     <section id="destinations" className="py-24 px-[5%] relative overflow-hidden">
@@ -87,6 +95,14 @@ export default function Destinations({
             />
           ))}
         </div>
+
+        {hasMore && (
+          <div className="mt-12 text-center">
+            <a href="/countries" className="inline-block px-8 py-4 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold rounded-xl transition-all shadow-lg hover:shadow-indigo-500/20 backdrop-blur-md">
+              Показати всі країни →
+            </a>
+          </div>
+        )}
       </div>
     </section>
   )

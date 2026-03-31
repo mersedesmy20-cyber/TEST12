@@ -4,9 +4,7 @@ import { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
 import Navigation from '@/components/Navigation'
 import Hero from '@/components/Hero'
-import Stories from '@/components/Stories'
-import SearchTour from '@/components/SearchTour'
-import AboutDirector from '@/components/AboutDirector'
+import InteractiveMap from '@/components/InteractiveMap'
 import VibeSection from '@/components/VibeSection'
 import Contact from '@/components/Contact'
 import Footer from '@/components/Footer'
@@ -20,11 +18,6 @@ import QuizModal from '@/components/QuizModal'
 // Lazy load heavy components
 const Destinations = dynamic(() => import('@/components/Destinations'), {
   loading: () => <div className="h-screen bg-slate-950 flex items-center justify-center text-white">Завантаження напрямків...</div>,
-  ssr: true
-})
-
-const Reviews = dynamic(() => import('@/components/Reviews'), {
-  loading: () => <div className="h-[500px] bg-slate-950" />,
   ssr: true
 })
 
@@ -48,12 +41,9 @@ export default function Home() {
     <main>
       <Navigation />
       <Hero />
-      <SearchTour />
-      <Stories />
+      <InteractiveMap />
       <Destinations activeFilter={filter} onResetFilter={() => setFilter(null)} />
       <VibeSection onFilterSelect={handleFilterChange} />
-      <Reviews />
-      <AboutDirector />
       <Contact />
       <Footer />
       <MobileStickyButton />
@@ -63,4 +53,3 @@ export default function Home() {
     </main>
   )
 }
-

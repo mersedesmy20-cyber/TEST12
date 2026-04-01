@@ -27,7 +27,13 @@ export async function POST(req: NextRequest) {
     const genAI = new GoogleGenerativeAI(apiKey);
     
     // Use gemini-1.5-flash (standard name)
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const model = genAI.getGenerativeModel({ 
+      model: "gemini-1.5-flash",
+      systemInstruction: {
+        role: 'system',
+        parts: [{ text: SYSTEM_PROMPT }]
+      }
+    });
 
     let validHistory: Content[] = [];
     if (history && Array.isArray(history)) {
@@ -46,11 +52,8 @@ export async function POST(req: NextRequest) {
        }
     }
 
-    // For gemini-1.5, systemInstruction can also be passed here in some SDK versions
-    // let's try the most compatible way: startChat with history and let system prompt be first message or use special field
     const chat = model.startChat({
       history: validHistory,
-      systemInstruction: SYSTEM_PROMPT // System prompt here is usually for v1/v1beta models
     });
 
     const result = await chat.sendMessageStream(userMessage);

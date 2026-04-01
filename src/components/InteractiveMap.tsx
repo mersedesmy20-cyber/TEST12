@@ -21,25 +21,29 @@ export default function InteractiveMap() {
   // We use a broader range to cover the whole world area
   const renderDots = () => {
     const dots = []
-    const step = 2 // density
-    for (let x = 50; x < 950; x += 15) {
-      for (let y = 50; y < 450; y += 15) {
-        // Simple logic to "draw" continents
-        // NA
-        const na = (x < 350 && y < 220 && x + y > 150)
-        // SA
-        const sa = (x > 250 && x < 420 && y >= 220 && y < 450 && x - y < 100)
-        // EU
-        const eu = (x >= 450 && x < 600 && y < 200 && x + y > 550)
-        // AF
-        const af = (x >= 450 && x < 650 && y >= 200 && y < 450 && x + y > 750 && x - y < 300)
-        // AS
-        const as = (x >= 600 && x < 950 && y < 380 && x + y > 800)
-        // AU
-        const au = (x > 750 && x < 950 && y >= 380 && x + y > 1150)
+    for (let x = 30; x < 970; x += 15) {
+      for (let y = 30; y < 470; y += 15) {
+        // More accurate world map logic (sampling continents)
+        // Values normalized for viewBox 1000x500
+        const isWorld = (
+          // North America
+          (x < 330 && y < 140) || (x < 180 && y < 180) || (x < 260 && y < 240) ||
+          // South America
+          (x > 240 && x < 380 && y > 240 && y < 450) ||
+          // Europe
+          (x > 450 && x < 580 && y < 180) ||
+          // Africa
+          (x > 460 && x < 630 && y > 180 && y < 420) || (x > 500 && x < 650 && y > 220 && y < 350) ||
+          // Asia
+          (x > 580 && x < 950 && y < 350) || (x > 620 && x < 900 && y < 420) ||
+          // Australia
+          (x > 780 && x < 930 && y > 350 && y < 460) ||
+          // Greenland / Iceland / UK (Simplified)
+          (x > 380 && x < 450 && y < 100) || (x > 460 && x < 500 && y < 130)
+        )
 
-        if (na || sa || eu || af || as || au) {
-          dots.push(<circle key={`${x}-${y}`} cx={x} cy={y} r="2" />)
+        if (isWorld) {
+          dots.push(<circle key={`${x}-${y}`} cx={x} cy={y} r="2.5" className="hover:fill-indigo-300 transition-colors cursor-default" />)
         }
       }
     }

@@ -1,12 +1,15 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    return [
-        {
-            url: 'https://glorious-travel.ua',
-            lastModified: new Date(),
-            changeFrequency: 'weekly',
-            priority: 1,
-        },
-    ]
+  const baseUrl = 'https://glorious-travel.vercel.app'
+  
+  return [
+    {
+      url: baseUrl,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 1,
+    },
+    // Можна додати інші сторінки, якщо вони є, наприклад /destinations, /contacts
+  ]
 }

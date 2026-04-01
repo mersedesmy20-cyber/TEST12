@@ -29,7 +29,7 @@ export default function PrivacyPage() {
                         <p className="text-slate-300 leading-relaxed">
                             Glorious Travel ("ми", "нас", "наш") поважає вашу конфіденційність. Ця Політика конфіденційності
                             пояснює, як ми збираємо, використовуємо, зберігаємо та захищаємо вашу особисту інформацію при
-                            використанні нашого веб-сайту <strong>test-12-green.vercel.app</strong> та наших послуг.
+                            використанні нашого веб-сайту <strong>glorious-travel.vercel.app</strong> та наших послуг.
                         </p>
                     </section>
 
@@ -226,7 +226,7 @@ export default function PrivacyPage() {
                             </div>
                             <div className="flex items-center gap-3">
                                 <span className="text-2xl">🌐</span>
-                                <span className="text-white font-medium">Сайт: test-12-green.vercel.app</span>
+                                <span className="text-white font-medium">Сайт: glorious-travel.vercel.app</span>
                             </div>
                         </div>
                     </section>

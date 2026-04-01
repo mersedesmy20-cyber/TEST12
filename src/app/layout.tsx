@@ -17,17 +17,22 @@ export const metadata: Metadata = {
   title: 'Glorious Travel | Ваша наступна подорож починається тут',
   description: 'Туристичне агентство Glorious Travel - організація незабутніх подорожей по всьому світу. Туреччина, Єгипет, ОАЕ, Греція, Домінікана та багато інших напрямків. Персональний підхід та доступні ціни.',
   keywords: 'туроператор, подорожі, тури, відпочинок, гарячі тури, glorious travel, туристичне агентство київ, тури з києва, єгипет, туреччина, оае',
+  viewport: 'width=device-width, initial-scale=1, maximum-scale=5',
+  themeColor: '#1a1a1a',
 
   icons: {
-    icon: '/favicon.svg',
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico', sizes: 'any' }
+    ],
     apple: '/favicon.svg',
   },
 
   openGraph: {
     type: 'website',
     locale: 'uk_UA',
-    url: 'https://test-12-green.vercel.app',
-    siteName: 'Glorious Travel',
+    url: 'https://glorious-travel.vercel.app',
+    siteName: 'Glorious Travel Agency',
     title: 'Glorious Travel | Туристичне агентство',
     description: '✈️ Організація незабутніх подорожей по всьому світу. Туреччина, Єгипет, ОАЕ, Греція, Домінікана та інші напрямки. Персональний підхід до кожного клієнта.',
     images: [
@@ -50,10 +55,17 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 
   alternates: {
-    canonical: 'https://test-12-green.vercel.app',
+    canonical: 'https://glorious-travel.vercel.app',
   },
 }
 
@@ -126,8 +138,8 @@ export default function RootLayout({
               '@type': 'TravelAgency',
               name: 'Glorious Travel',
               description: 'Туристичне агентство з персональним підходом',
-              url: 'https://test-12-green.vercel.app',
-              logo: 'https://test-12-green.vercel.app/favicon.svg',
+              url: 'https://glorious-travel.vercel.app',
+              logo: 'https://glorious-travel.vercel.app/favicon.svg',
               sameAs: [
                 'https://www.instagram.com/lizazakharchenko?igsh=Nnl4MG9tcjVxMzcw',
                 'https://t.me/lizazakharchenko'

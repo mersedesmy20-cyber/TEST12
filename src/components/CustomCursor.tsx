@@ -1,4 +1,3 @@
-
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
@@ -11,7 +10,7 @@ export default function CustomCursor() {
 
     useEffect(() => {
         // Only run on desktop/devices with hover capability
-        if (window.matchMedia('(pointer: coarse)').matches) return
+        if (typeof window === 'undefined' || window.matchMedia('(pointer: coarse)').matches) return
 
         const cursor = cursorRef.current
         const follower = followerRef.current
@@ -20,11 +19,7 @@ export default function CustomCursor() {
 
         // Hide default cursor
         document.body.style.cursor = 'none'
-        const elements = document.querySelectorAll('a, button, input, textarea, select, [role="button"]')
-        elements.forEach(el => {
-            (el as HTMLElement).style.cursor = 'none'
-        })
-
+        
         let mouseX = 0
         let mouseY = 0
         let followerX = 0
@@ -41,9 +36,9 @@ export default function CustomCursor() {
         }
 
         const render = () => {
-            // Smooth follower movement
-            followerX += (mouseX - followerX) * 0.1
-            followerY += (mouseY - followerY) * 0.1
+            // Faster follower movement (0.2 instead of 0.1)
+            followerX += (mouseX - followerX) * 0.2
+            followerY += (mouseY - followerY) * 0.2
 
             gsap.set(cursor, {
                 x: mouseX,
@@ -60,18 +55,15 @@ export default function CustomCursor() {
 
         const onMouseOver = (e: MouseEvent) => {
             const target = e.target as HTMLElement
-            // Check if element or parent is interactive
             const link = target.closest('a, button, .cursor-pointer, [role="button"], input, select, textarea')
 
             if (link) {
-                (link as HTMLElement).style.cursor = 'none' // Ensure cursor is hidden on interactive elements
-
-                gsap.to(cursor, { scale: 0, duration: 0.2 })
+                gsap.to(cursor, { scale: 0.5, opacity: 0.5, duration: 0.2 })
                 gsap.to(follower, {
-                    scale: 3,
-                    backgroundColor: "rgba(255, 255, 255, 0.1)",
-                    borderColor: "rgba(255, 255, 255, 0.5)",
-                    mixBlendMode: "difference",
+                    scale: 1.5,
+                    backgroundColor: "rgba(129, 140, 248, 0.1)", // Light indigo
+                    borderColor: "rgba(129, 140, 248, 0.8)",
+                    borderWidth: '2px',
                     duration: 0.3
                 })
             }
@@ -82,23 +74,24 @@ export default function CustomCursor() {
             const link = target.closest('a, button, .cursor-pointer, [role="button"], input, select, textarea')
 
             if (link) {
-                gsap.to(cursor, { scale: 1, duration: 0.2 })
+                gsap.to(cursor, { scale: 1, opacity: 1, duration: 0.2 })
                 gsap.to(follower, {
                     scale: 1,
                     backgroundColor: "transparent",
-                    borderColor: "#818cf8",
-                    mixBlendMode: "normal",
+                    borderColor: "rgba(129, 140, 248, 0.4)",
+                    borderWidth: '1px',
                     duration: 0.3
                 })
             }
         }
 
-        requestAnimationFrame(render)
+        const animationFrame = requestAnimationFrame(render)
         window.addEventListener('mousemove', onMouseMove)
         document.addEventListener('mouseover', onMouseOver)
         document.addEventListener('mouseout', onMouseOut)
 
         return () => {
+            cancelAnimationFrame(animationFrame)
             document.body.style.cursor = 'auto'
             window.removeEventListener('mousemove', onMouseMove)
             document.removeEventListener('mouseover', onMouseOver)
@@ -112,11 +105,11 @@ export default function CustomCursor() {
         <div className="hidden md:block pointer-events-none fixed inset-0 z-[9999] overflow-hidden">
             <div
                 ref={cursorRef}
-                className="fixed top-0 left-0 w-3 h-3 bg-white rounded-full mix-blend-difference -translate-x-1/2 -translate-y-1/2 pointer-events-none will-change-transform opacity-0"
+                className="fixed top-0 left-0 w-2 h-2 bg-white rounded-full -translate-x-1/2 -translate-y-1/2 pointer-events-none will-change-transform opacity-0 shadow-[0_0_10px_white]"
             />
             <div
                 ref={followerRef}
-                className="fixed top-0 left-0 w-12 h-12 border border-indigo-400 rounded-full -translate-x-1/2 -translate-y-1/2 pointer-events-none transition-colors will-change-transform opacity-0"
+                className="fixed top-0 left-0 w-6 h-6 border border-indigo-400/40 rounded-full -translate-x-1/2 -translate-y-1/2 pointer-events-none transition-colors will-change-transform opacity-0"
             />
         </div>
     )

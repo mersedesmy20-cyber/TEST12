@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
+import Link from 'next/link'
 
 type Message = {
   id: string
@@ -142,22 +143,60 @@ export default function BotWidget() {
         </form>
       </div>
 
-      {/* Toggle Button */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="group relative w-16 h-16 bg-gradient-to-tr from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 rounded-full flex items-center justify-center shadow-[0_0_25px_rgba(99,102,241,0.5)] transition-all hover:scale-110 pointer-events-auto overflow-hidden"
-      >
-        <span className={`text-2xl transition-transform duration-300 absolute ${isOpen ? 'rotate-90 opacity-0 scale-50' : 'rotate-0 opacity-100 scale-100'}`}>💬</span>
-        <span className={`text-2xl transition-transform duration-300 absolute ${isOpen ? 'rotate-0 opacity-100 scale-100' : '-rotate-90 opacity-0 scale-50'}`}>✖️</span>
-
-        {/* Notification Badge */}
+      {/* Buttons Container */}
+      <div className="flex flex-col gap-3 items-center pointer-events-auto">
+        {/* Telegram Button */}
         {!isOpen && (
-           <>
-              <span className="absolute top-0 right-0 w-4 h-4 bg-red-500 rounded-full animate-ping z-10" />
-              <span className="absolute top-0 right-0 w-4 h-4 bg-red-500 rounded-full border-2 border-slate-900 z-20" />
-           </>
+           <Link
+             href="https://t.me/lizazakharchenko"
+             target="_blank"
+             onClick={() => {
+               import('@/lib/gtag').then(gtag => {
+                 gtag.trackTelegramClick()
+                 gtag.trackGoogleAdsConversion()
+               })
+             }}
+             className="group relative w-14 h-14 bg-[#229ED9] hover:bg-[#208aba] rounded-full flex items-center justify-center shadow-[0_4px_20px_rgba(34,158,217,0.4)] transition-all hover:scale-110 active:scale-95 animate-fadeIn"
+           >
+             <svg className="w-7 h-7 text-white fill-current" viewBox="0 0 24 24">
+                <path d="M11.944 0C5.346 0 0 5.346 0 11.944c0 6.598 5.346 11.944 11.944 11.944s11.944-5.346 11.944-11.944C23.888 5.346 18.542 0 11.944 0zm5.281 8.113c-.161 1.704-1.214 7.821-1.751 10.665-.226 1.205-.724 1.623-1.154 1.66-.944.08-1.657-.626-2.57-1.221-1.428-.93-2.221-1.503-3.003-2.015-1.135-.745-.399-1.155.247-1.821.168-.175 3.093-2.833 3.149-3.07.007-.03-.002-.14-.069-.199a.23.23 0 0 0-.203-.013c-.088.02-1.492.951-4.212 2.784-.399.273-.759.407-1.08.399-.355-.008-1.037-.202-1.545-.367-.622-.202-1.116-.31-1.073-.654.022-.18.269-.364.743-.553 2.91-1.267 4.848-2.102 5.811-2.505 2.744-1.149 3.32-.349 3.712-.349.088 0 .285.02.412.124.104.088.134.208.139.301.004.104-.009.215-.102.327z"/>
+             </svg>
+             
+             {/* Tooltip */}
+             <span className="absolute right-full mr-4 px-3 py-1.5 bg-slate-900 border border-white/10 rounded-xl text-white text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-xl">
+               Написати в Telegram
+             </span>
+
+             {/* Pulsing Dot */}
+             <span className="absolute -top-1 -right-1 w-4 h-4 bg-blue-400 rounded-full animate-ping z-10 opacity-75" />
+             <span className="absolute -top-1 -right-1 w-4 h-4 bg-blue-500 rounded-full border-2 border-white z-20" />
+           </Link>
         )}
-      </button>
+
+        {/* Toggle Button */}
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="group relative w-16 h-16 bg-gradient-to-tr from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 rounded-full flex items-center justify-center shadow-[0_0_25px_rgba(99,102,241,0.5)] transition-all hover:scale-110 active:scale-95 pointer-events-auto overflow-hidden"
+        >
+          <span className={`text-2xl transition-transform duration-300 absolute ${isOpen ? 'rotate-90 opacity-0 scale-50' : 'rotate-0 opacity-100 scale-100'}`}>💬</span>
+          <span className={`text-2xl transition-transform duration-300 absolute ${isOpen ? 'rotate-0 opacity-100 scale-100' : '-rotate-90 opacity-0 scale-50'}`}>✖️</span>
+
+          {/* Notification Badge */}
+          {!isOpen && (
+             <>
+                <span className="absolute top-0 right-0 w-4 h-4 bg-red-500 rounded-full animate-ping z-10" />
+                <span className="absolute top-0 right-0 w-4 h-4 bg-red-500 rounded-full border-2 border-slate-900 z-20" />
+             </>
+          )}
+
+          {/* Tooltip for AI */}
+          {!isOpen && (
+            <span className="absolute right-full mr-4 px-3 py-1.5 bg-slate-900 border border-white/10 rounded-xl text-white text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-xl">
+              Запитати АІ Агента
+            </span>
+          )}
+        </button>
+      </div>
     </div>
   )
 }

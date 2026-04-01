@@ -58,7 +58,10 @@ export default function BotWidget() {
         }),
       })
 
-      if (!response.ok) throw new Error('Network error')
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(errorText || 'Network error');
+      }
 
       // Read streaming text
       const reader = response.body?.getReader()
@@ -76,10 +79,10 @@ export default function BotWidget() {
           msg.id === tempId ? { ...msg, text: fullText } : msg
         ))
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error(error)
       setMessages(prev => prev.map(msg => 
-        msg.id === tempId ? { ...msg, text: "Ой, сталася помилка з'єднання 😅 Перевірте підключення або напишіть у наш Telegram!" } : msg
+        msg.id === tempId ? { ...msg, text: `⚠️ Помилка ШІ: ${error.message}. Спробуйте пізніше або напишіть нам у Telegram.` } : msg
       ))
     } finally {
       setIsLoading(false)

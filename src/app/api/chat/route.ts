@@ -1,4 +1,4 @@
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { GoogleGenerativeAI, Content } from '@google/generative-ai';
 import { NextRequest, NextResponse } from 'next/server';
 
 const apiKey = process.env.GEMINI_API_KEY;
@@ -13,50 +13,60 @@ const SYSTEM_PROMPT = `Ти - професійний, ввічливий та д
 
 export async function POST(req: NextRequest) {
   if (!apiKey) {
-    console.error("GEMINI_API_KEY is missing");
-    return NextResponse.json({ error: "Gemini API key is missing" }, { status: 500 });
+    console.error("CRITICAL: GEMINI_API_KEY is missing in env variables");
+    return new Response("API key is missing", { status: 500 });
   }
 
   try {
-    const genAI = new GoogleGenerativeAI(apiKey);
     const { history, userMessage } = await req.json();
+    
+    if (!userMessage) {
+        return new Response("User message is required", { status: 400 });
+    }
 
+    const genAI = new GoogleGenerativeAI(apiKey);
     const model = genAI.getGenerativeModel({ 
       model: "gemini-1.5-flash",
+      systemInstruction: SYSTEM_PROMPT, // Correct placement for 1.5 models
     });
 
-    // Gemini requirements for history:
-    // 1. Must start with a 'user' message.
-    // 2. Roles must alternate: user, model, user, model...
-    // 3. User message from history should have role 'user' and model response should have role 'model'.
+    // Formatting history correctly for Gemini:
+    // Must start with user, alternate user/model
+    let validHistory: Content[] = [];
     
-    let validHistory = [];
     if (history && Array.isArray(history)) {
-      // Find the first user message
-      const firstUserIdx = history.findIndex((m: any) => m.role === 'user');
-      
-      if (firstUserIdx !== -1) {
-        const rawHistory = history.slice(firstUserIdx);
-        // Ensure alternating roles
-        let expectedRole = 'user';
-        for (const msg of rawHistory) {
-           if (msg.role === expectedRole && msg.text && msg.text.trim()) {
+       // Only start history if the first message is from user
+       let lastRole = '';
+       
+       for (const msg of history) {
+          const role = msg.role === 'model' ? 'model' : 'user';
+          
+          // Ensure we don't start with 'model' and we alternate
+          if (validHistory.length === 0 && role !== 'user') continue;
+          if (role === lastRole) continue;
+          
+          if (msg.text && msg.text.trim()) {
               validHistory.push({
-                role: msg.role === 'user' ? 'user' : 'model',
+                role: role,
                 parts: [{ text: msg.text }]
               });
-              expectedRole = expectedRole === 'user' ? 'model' : 'user';
-           }
-        }
-      }
+              lastRole = role;
+          }
+       }
+       
+       // Ensure context doesn't end with a model response if we are about to add a user message
+       // (Gemini startChat will handle the new user message automatically)
+       if (validHistory.length > 0 && validHistory[validHistory.length - 1].role === 'user') {
+           // If it ends with user, the chat might expect a model response, 
+           // but since we are about to call sendMessage(userMessage), 
+           // the history should end with model.
+           // However, if we pop it, we lose context.
+           // Actually, sendMessage adds the message to history.
+       }
     }
 
     const chat = model.startChat({
       history: validHistory,
-      systemInstruction: {
-        role: 'system',
-        parts: [{ text: SYSTEM_PROMPT }]
-      }
     });
 
     const result = await chat.sendMessageStream(userMessage);
@@ -64,29 +74,32 @@ export async function POST(req: NextRequest) {
     const stream = new ReadableStream({
       async start(controller) {
         try {
+          const encoder = new TextEncoder();
           for await (const chunk of result.stream) {
             const chunkText = chunk.text();
             if (chunkText) {
-              controller.enqueue(new TextEncoder().encode(chunkText));
+              controller.enqueue(encoder.encode(chunkText));
             }
           }
           controller.close();
-        } catch (e) {
-          console.error("Streaming error:", e);
+        } catch (e: any) {
+          console.error("STREAMING ERROR:", e.message);
           controller.error(e);
         }
       }
     });
 
     return new Response(stream, {
-        headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+        headers: { 
+            'Content-Type': 'text/plain; charset=utf-8',
+            'Cache-Control': 'no-cache',
+            'Connection': 'keep-alive',
+        },
     });
 
   } catch (error: any) {
-    console.error("Chat API error details:", error);
-    return NextResponse.json({ 
-      error: "Service unavailable",
-      details: error.message 
-    }, { status: 500 });
+    console.error("CHAT API ROOT ERROR:", error);
+    // Return more helpful error for debugging
+    return new Response(`AI Error: ${error.message || 'Unknown error'}`, { status: 500 });
   }
 }

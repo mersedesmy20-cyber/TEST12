@@ -13,7 +13,6 @@ const SYSTEM_PROMPT = `Ти - професійний, ввічливий та д
 
 export async function POST(req: NextRequest) {
   if (!apiKey) {
-    console.error("CRITICAL: GEMINI_API_KEY is missing in env variables");
     return new Response("API key is missing", { status: 500 });
   }
 
@@ -24,27 +23,19 @@ export async function POST(req: NextRequest) {
         return new Response("User message is required", { status: 400 });
     }
 
+    // Initialize with explicit version if possible (v1 is more stable for flash)
     const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ 
-      model: "gemini-1.5-flash-latest",
-      systemInstruction: SYSTEM_PROMPT, // Correct placement for 1.5 models
-    });
-
-    // Formatting history correctly for Gemini:
-    // Must start with user, alternate user/model
-    let validHistory: Content[] = [];
     
+    // Use gemini-1.5-flash (standard name)
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+    let validHistory: Content[] = [];
     if (history && Array.isArray(history)) {
-       // Only start history if the first message is from user
        let lastRole = '';
-       
        for (const msg of history) {
           const role = msg.role === 'model' ? 'model' : 'user';
-          
-          // Ensure we don't start with 'model' and we alternate
           if (validHistory.length === 0 && role !== 'user') continue;
           if (role === lastRole) continue;
-          
           if (msg.text && msg.text.trim()) {
               validHistory.push({
                 role: role,
@@ -53,20 +44,13 @@ export async function POST(req: NextRequest) {
               lastRole = role;
           }
        }
-       
-       // Ensure context doesn't end with a model response if we are about to add a user message
-       // (Gemini startChat will handle the new user message automatically)
-       if (validHistory.length > 0 && validHistory[validHistory.length - 1].role === 'user') {
-           // If it ends with user, the chat might expect a model response, 
-           // but since we are about to call sendMessage(userMessage), 
-           // the history should end with model.
-           // However, if we pop it, we lose context.
-           // Actually, sendMessage adds the message to history.
-       }
     }
 
+    // For gemini-1.5, systemInstruction can also be passed here in some SDK versions
+    // let's try the most compatible way: startChat with history and let system prompt be first message or use special field
     const chat = model.startChat({
       history: validHistory,
+      systemInstruction: SYSTEM_PROMPT // System prompt here is usually for v1/v1beta models
     });
 
     const result = await chat.sendMessageStream(userMessage);
@@ -83,7 +67,6 @@ export async function POST(req: NextRequest) {
           }
           controller.close();
         } catch (e: any) {
-          console.error("STREAMING ERROR:", e.message);
           controller.error(e);
         }
       }
@@ -93,13 +76,11 @@ export async function POST(req: NextRequest) {
         headers: { 
             'Content-Type': 'text/plain; charset=utf-8',
             'Cache-Control': 'no-cache',
-            'Connection': 'keep-alive',
         },
     });
 
   } catch (error: any) {
-    console.error("CHAT API ROOT ERROR:", error);
-    // Return more helpful error for debugging
+    console.error("CHAT API ERROR:", error);
     return new Response(`AI Error: ${error.message || 'Unknown error'}`, { status: 500 });
   }
 }

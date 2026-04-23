@@ -26,9 +26,9 @@ export async function POST(req: NextRequest) {
     // Initialize with explicit version if possible (v1 is more stable for flash)
     const genAI = new GoogleGenerativeAI(apiKey);
     
-    // Use gemini-1.5-flash
+    // Use gemini-3-flash-preview
     const model = genAI.getGenerativeModel({ 
-      model: "gemini-1.5-flash",
+      model: "gemini-3-flash-preview",
       systemInstruction: {
         role: 'system',
         parts: [{ text: SYSTEM_PROMPT }]

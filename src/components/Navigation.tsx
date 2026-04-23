@@ -40,6 +40,7 @@ export default function Navigation() {
               { label: 'Гарячі тури', href: '/seasonal' },
               { label: 'Історії', href: '/stories' },
               { label: 'Відгуки', href: '/reviews' },
+              { label: 'AI Агент', href: '/ai-assistant' },
               { label: 'Про нас', href: '/about' },
               { label: 'Контакти', href: '/#contact' },
             ].map((item) => (
@@ -81,7 +82,7 @@ export default function Navigation() {
           }`}
       >
         <div className="px-[5%] py-8 flex flex-col gap-6">
-          {['Пошук туру', 'Країни', 'Готелі', 'Гарячі тури', 'Історії', 'Відгуки', 'Про нас', 'Контакти'].map((item) => (
+          {['Пошук туру', 'Країни', 'Готелі', 'Гарячі тури', 'Історії', 'Відгуки', 'AI Агент', 'Про нас', 'Контакти'].map((item) => (
             <Link
               key={item}
               href={
@@ -90,8 +91,9 @@ export default function Navigation() {
                     item === 'Гарячі тури' ? '/seasonal' :
                       item === 'Історії' ? '/stories' :
                         item === 'Відгуки' ? '/reviews' :
-                          item === 'Про нас' ? '/about' :
-                            '/#destinations'
+                          item === 'AI Агент' ? '/ai-assistant' :
+                            item === 'Про нас' ? '/about' :
+                              '/#destinations'
               }
               className="text-lg font-semibold text-slate-200 hover:text-indigo-400 transition-colors pb-3 border-b border-white/5"
               onClick={() => setMobileMenuOpen(false)}

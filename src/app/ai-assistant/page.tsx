@@ -67,7 +67,8 @@ export default function AIAssistantPage() {
       });
 
       if (!response.ok) {
-        throw new Error('Помилка сервера');
+        const errorData = await response.text();
+        throw new Error(errorData || 'Помилка сервера');
       }
 
       const assistantMessageId = (Date.now() + 1).toString();

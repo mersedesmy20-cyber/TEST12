@@ -66,7 +66,10 @@ export default function BotWidget() {
         }),
       })
 
-      if (!response.ok) throw new Error('Network error')
+      if (!response.ok) {
+        const errorData = await response.text();
+        throw new Error(errorData || 'Network error');
+      }
 
       const reader = response.body?.getReader()
       const decoder = new TextDecoder()

@@ -5,6 +5,7 @@ import { ModalProvider } from '@/context/ModalContext'
 import Script from 'next/script'
 import BotWidget from '@/components/BotWidget'
 import CookieConsent from '@/components/CookieConsent'
+import CustomCursor from '@/components/CustomCursor'
 import SmoothScrollProvider from '@/components/SmoothScrollProvider'
 
 const montserrat = Montserrat({ subsets: ['latin', 'cyrillic'] })
@@ -155,6 +156,7 @@ export default function RootLayout({
       <body className={montserrat.className}>
         <ModalProvider>
           <SmoothScrollProvider>
+            <CustomCursor />
             {children}
             <BotWidget />
             <CookieConsent />

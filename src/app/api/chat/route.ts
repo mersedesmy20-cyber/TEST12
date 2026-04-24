@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
     
     // Use gemini-3-flash-preview
     const model = genAI.getGenerativeModel({ 
-      model: "gemini-3-flash-preview",
+      model: "gemini-1.5-flash",
       systemInstruction: {
         role: 'system',
         parts: [{ text: SYSTEM_PROMPT }]

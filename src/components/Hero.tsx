@@ -10,7 +10,7 @@ const bgImages = [
   // Beach / Resort (More "Vacation" vibe)
   'https://images.unsplash.com/photo-1573843981267-be1999ff37cd?q=80&w=2574&auto=format&fit=crop', // Maldives style
   // European City
-  'https://images.unsplash.com/photo-1499856871940-a09627c6d7db?q=80&w=2574&auto=format&fit=crop', // Paris
+  'https://images.unsplash.com/photo-1502602898657-3e917247a183?q=80&w=2574&auto=format&fit=crop', // Paris
   // Adventure / Mountains
   'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2574&auto=format&fit=crop', // Mountains
   // Luxury Pool

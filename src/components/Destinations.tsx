@@ -7,6 +7,7 @@ import { useModal } from '@/context/ModalContext'
 import { useState, useEffect } from 'react'
 
 import DestinationCard from '@/components/DestinationCard'
+import { motion } from 'motion/react'
 
 export default function Destinations({
   activeFilter,
@@ -86,15 +87,27 @@ export default function Destinations({
           </div>
         )}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-8">
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ staggerChildren: 0.1 }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-8"
+        >
           {filteredDestinations.map((dest) => (
-            <DestinationCard
+            <motion.div
               key={dest.id}
-              destination={dest}
-              onClick={() => openModal(dest)}
-            />
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <DestinationCard
+                destination={dest}
+                onClick={() => openModal(dest)}
+              />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {hasMore && (
           <div className="mt-12 text-center">

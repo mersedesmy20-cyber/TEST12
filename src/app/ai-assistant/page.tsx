@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, ReactNode } from 'react';
+import { useState, useEffect, useRef, ReactNode, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Send, 
@@ -14,15 +14,25 @@ import {
   X,
   Navigation as NavIcon,
   Globe,
-  AlertCircle
+  Instagram,
+  Phone,
+  SendHorizontal,
+  ExternalLink,
+  Info
 } from 'lucide-react';
-import Link from 'next/link';
 
 type Message = {
   id: string;
   role: 'user' | 'assistant';
   content: string;
   timestamp: Date;
+  type?: 'text' | 'itinerary';
+};
+
+const messageVariants = {
+  initial: { opacity: 0, y: 10, scale: 0.98 },
+  animate: { opacity: 1, y: 0, scale: 1 },
+  transition: { duration: 0.3, ease: "easeOut" }
 };
 
 export default function AIAssistantPage() {
@@ -33,17 +43,24 @@ export default function AIAssistantPage() {
   
   const chatEndRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
+  const scrollToBottom = useCallback(() => {
+    if (chatEndRef.current) {
+      chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, []);
 
-  const handleSendMessage = async () => {
-    if (!input.trim() || isLoading) return;
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages, scrollToBottom]);
+
+  const handleSendMessage = async (textOverride?: string) => {
+    const messageText = textOverride || input;
+    if (!messageText.trim() || isLoading) return;
 
     const userMessage: Message = {
       id: Date.now().toString(),
       role: 'user',
-      content: input,
+      content: messageText,
       timestamp: new Date(),
     };
 
@@ -54,11 +71,9 @@ export default function AIAssistantPage() {
     try {
       const response = await fetch('/api/chat', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          userMessage: input,
+          userMessage: messageText,
           history: messages.map(m => ({
             role: m.role === 'assistant' ? 'model' : 'user',
             text: m.content
@@ -78,156 +93,179 @@ export default function AIAssistantPage() {
         content: '',
         timestamp: new Date(),
       };
-
+      
       setMessages(prev => [...prev, assistantMessage]);
 
       const reader = response.body?.getReader();
       const decoder = new TextDecoder();
-      let fullText = '';
+      let fullContent = '';
 
       if (reader) {
         while (true) {
           const { done, value } = await reader.read();
           if (done) break;
-          const chunk = decoder.decode(value, { stream: true });
-          fullText += chunk;
-          setMessages(prev => prev.map(msg => 
-            msg.id === assistantMessageId ? { ...msg, content: fullText } : msg
+          const chunk = decoder.decode(value);
+          fullContent += chunk;
+          
+          setMessages(prev => prev.map(m => 
+            m.id === assistantMessageId ? { ...m, content: fullContent } : m
           ));
         }
       }
     } catch (error: any) {
-      console.error("AI Error:", error);
-      const errorMessage: Message = {
-        id: (Date.now() + 1).toString(),
+      setMessages(prev => [...prev, {
+        id: (Date.now() + 2).toString(),
         role: 'assistant',
-        content: `🚨 Помилка ШІ: ${error.message || "Не вдалося з'єднатися з сервером."}`,
+        content: "🚨 На жаль, у нас тимчасове перевантаження мережі. Будь ласка, напишіть нам у Telegram для швидкої відповіді!",
         timestamp: new Date(),
-      };
-      setMessages(prev => [...prev, errorMessage]);
+      }]);
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="flex h-screen bg-[#0F172A] text-slate-200 font-sans overflow-hidden">
-      {/* Interactive Sidebar */}
-      <aside className={`bg-[#1E293B] border-r border-slate-800 transition-all duration-300 ${isSidebarOpen ? 'w-80' : 'w-20'} flex flex-col`}>
-        <div className="p-6 flex items-center justify-between border-b border-slate-800">
-          <AnimatePresence mode="wait">
-            {isSidebarOpen && (
-              <motion.div 
-                initial={{ opacity: 0, x: -20 }} 
-                animate={{ opacity: 1, x: 0 }} 
-                exit={{ opacity: 0, x: -20 }}
-                className="flex items-center gap-3"
-              >
-                <div className="w-10 h-10 bg-gradient-to-tr from-indigo-600 to-purple-500 rounded-xl flex items-center justify-center shadow-lg">
-                  <Globe className="text-white w-6 h-6" />
-                </div>
-                <Link href="/" className="font-bold text-xl tracking-tight text-white">Glorious</Link>
-              </motion.div>
-            )}
-          </AnimatePresence>
-          <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="p-2 hover:bg-slate-700 rounded-lg transition-colors">
-            <Compass className={`${!isSidebarOpen && 'mx-auto'} text-slate-400`} />
+    <div className="flex h-screen bg-[#020617] text-slate-100 font-sans overflow-hidden selection:bg-purple-500/30 pt-[72px]">
+      {/* Sidebar */}
+      <aside className={`bg-[#0f172a] border-r border-slate-800/50 transition-all duration-300 ease-in-out ${isSidebarOpen ? 'w-72' : 'w-0 md:w-20'} flex flex-col z-20 overflow-hidden`}>
+        <div className="h-16 px-6 flex items-center justify-between border-b border-slate-800/50 shrink-0">
+          {isSidebarOpen && (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-3">
+              <div className="w-8 h-8 bg-purple-600 rounded-lg flex items-center justify-center shadow-lg shadow-purple-900/20">
+                <Globe size={18} className="text-white" />
+              </div>
+              <span className="font-bold text-lg text-white">Glorious AI</span>
+            </motion.div>
+          )}
+          <button 
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)} 
+            className="p-2 hover:bg-slate-800 rounded-lg transition-colors text-slate-400 hover:text-white"
+          >
+            <Compass size={20} className={!isSidebarOpen ? 'mx-auto' : ''} />
           </button>
         </div>
 
-        <div className="flex-1 p-4 space-y-4">
-          <SidebarItem icon={<MapPin className="w-5 h-5" />} label="Путівники" isOpen={isSidebarOpen} />
-          <SidebarItem icon={<Plane className="w-5 h-5" />} label="Авіаквитки" isOpen={isSidebarOpen} />
-          <SidebarItem icon={<NavIcon className="w-5 h-5" />} label="Маршрути" isOpen={isSidebarOpen} />
+        <div className="flex-1 p-3 space-y-1 overflow-y-auto custom-scrollbar">
+          <SidebarItem icon={<MapPin size={20} />} label="Популярні напрямки" isOpen={isSidebarOpen} />
+          <SidebarItem icon={<Plane size={20} />} label="Пошук авіаквитків" isOpen={isSidebarOpen} />
+          <SidebarItem icon={<NavIcon size={20} />} label="Особисті маршрути" isOpen={isSidebarOpen} />
+          <SidebarItem icon={<Info size={20} />} label="Про нас" isOpen={isSidebarOpen} />
         </div>
 
         {isSidebarOpen && (
-          <div className="p-6 bg-slate-900/50 m-4 rounded-2xl border border-slate-800">
-            <h4 className="text-sm font-semibold text-white mb-2">Акція дня</h4>
-            <p className="text-xs text-slate-400">Знижка 20% на всі тури до Європи при бронюванні сьогодні!</p>
+          <div className="p-4 bg-gradient-to-br from-purple-900/20 to-blue-900/20 m-4 rounded-2xl border border-purple-500/20 shrink-0">
+            <h4 className="text-[10px] font-bold text-purple-400 mb-3 uppercase tracking-[0.2em]">Прямий зв'язок</h4>
+            <div className="space-y-3">
+              <a 
+                href="https://t.me/lizazakharchenko"
+                target="_blank"
+                rel="no-referrer"
+                className="flex items-center gap-3 p-2 bg-purple-600 hover:bg-purple-500 rounded-xl transition-all group"
+              >
+                <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
+                  <SendHorizontal size={14} className="text-white" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[11px] font-bold text-white">Менеджер в Telegram</span>
+                  <span className="text-[9px] text-white/70 italic">Відповімо за 5 хв</span>
+                </div>
+                <ExternalLink size={10} className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+              </a>
+              <div className="flex items-center gap-4 px-2">
+                <a href="https://www.instagram.com/lizazakharchenko" target="_blank" className="text-slate-500 hover:text-white transition-colors"><Instagram size={16} /></a>
+                <a href="tel:+380000000000" className="text-slate-500 hover:text-white transition-colors"><Phone size={16} /></a>
+              </div>
+            </div>
           </div>
         )}
       </aside>
 
-      {/* Main Chat Area */}
-      <main className="flex-1 flex flex-col relative bg-gradient-to-b from-[#0F172A] to-[#1E293B]">
-        {/* Top Header */}
-        <header className="h-16 px-8 flex items-center justify-between bg-[#1E293B]/80 backdrop-blur-md border-b border-slate-800 z-10">
-          <div className="flex items-center gap-4">
+      {/* Main Container */}
+      <main className="flex-1 flex flex-col relative bg-[#020617]">
+        {/* Chat Header */}
+        <header className="h-16 px-6 md:px-8 flex items-center justify-between bg-[#0f172a]/95 border-b border-slate-800/50 z-10 backdrop-blur-sm shrink-0">
+          <div className="flex items-center gap-3">
             <div className="relative">
-              <div className="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center border-2 border-indigo-500 overflow-hidden shadow-inner">
-                 <Bot className="text-indigo-400" />
+              <div className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center border border-purple-500/30 overflow-hidden">
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                  className="absolute inset-0 border-2 border-dashed border-purple-500/20 rounded-full"
+                />
+                <Bot size={20} className="text-purple-400 relative z-10" />
               </div>
-              <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-[#1E293B]" />
+              <div className="absolute top-0 right-0 w-3 h-3 bg-green-500 rounded-full border-[3px] border-[#0f172a]" />
             </div>
             <div>
-              <h2 className="font-semibold text-white">ШІ Агент Glorious</h2>
-              <p className="text-[10px] text-green-500 font-bold uppercase tracking-widest">Онлайн</p>
+              <h2 className="text-sm font-bold text-white tracking-wide">Glorious AI Agent</h2>
+              <p className="text-[10px] text-slate-500 font-medium">Ваш персональний тревел-експерт</p>
             </div>
           </div>
-          <Link href="/" className="text-slate-400 hover:text-white transition-colors">
-            <X size={20} />
-          </Link>
+          <div className="flex items-center gap-3">
+             <button className="md:hidden p-2 text-slate-400" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+                <Compass size={20} />
+             </button>
+          </div>
         </header>
 
-        {/* Chat Messages */}
-        <div className="flex-1 overflow-y-auto p-8 space-y-8 scroll-smooth custom-scrollbar">
+        {/* Messaging Area */}
+        <div className="flex-1 overflow-y-auto p-4 md:p-8 space-y-8 custom-scrollbar">
           {messages.length === 0 ? (
-            <div className="h-full flex flex-col items-center justify-center text-center max-w-lg mx-auto space-y-6">
-              <motion.div 
-                animate={{ y: [0, -10, 0] }} 
-                transition={{ duration: 4, repeat: Infinity }}
-                className="w-24 h-24 bg-gradient-to-b from-indigo-500/20 to-purple-500/20 rounded-3xl flex items-center justify-center border border-indigo-500/30"
-              >
-                <Sparkles size={48} className="text-indigo-400" />
-              </motion.div>
-              <div>
-                <h3 className="text-2xl font-bold text-white mb-2">Куди відправимось сьогодні?</h3>
-                <p className="text-slate-400">Я допоможу з підбором тура, бронюванням готелів та порадами для мандрівників.</p>
+            <div className="h-full flex flex-col items-center justify-center text-center max-w-md mx-auto space-y-8">
+              <div className="relative">
+                <div className="absolute inset-0 bg-purple-500 blur-3xl opacity-10 animate-pulse" />
+                <div className="w-24 h-24 bg-gradient-to-b from-purple-500/10 to-blue-500/10 rounded-[2.5rem] flex items-center justify-center border border-purple-500/20 relative">
+                  <Sparkles size={48} className="text-purple-400" />
+                </div>
               </div>
-              <div className="grid grid-cols-2 gap-3 w-full">
-                <QuickPrompt label="Тур в Італію" onClick={setInput} />
-                <QuickPrompt label="Готелі Балі" onClick={setInput} />
-                <QuickPrompt label="Відпочинок у Греції" onClick={setInput} />
-                <QuickPrompt label="Гарячі тури" onClick={setInput} />
+              <div>
+                <h3 className="text-3xl font-bold text-white mb-3">Привіт, мандрівнику!</h3>
+                <p className="text-slate-400 text-sm leading-relaxed px-4">
+                  Я знаю все про найкращі готелі, затишні вулички та гарячі пропозиції. Куди хочеш поїхати?
+                </p>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full max-w-sm">
+                <QuickPrompt label="Тур в Туреччину 🇹🇷" sub="Від 15 000 грн" onClick={(s) => handleSendMessage(s)} />
+                <QuickPrompt label="Готелі на Мальдівах 🏝️" sub="Преміум сервіс" onClick={(s) => handleSendMessage(s)} />
+                <QuickPrompt label="Екскурсія в Італію 🇮🇹" sub="Рим, Мілан, Венеція" onClick={(s) => handleSendMessage(s)} />
+                <QuickPrompt label="Гарячі тури 🔥" sub="Виліт сьогодні" onClick={(s) => handleSendMessage(s)} />
               </div>
             </div>
           ) : (
             messages.map((m) => (
               <motion.div 
                 key={m.id} 
-                initial={{ opacity: 0, y: 10 }} 
-                animate={{ opacity: 1, y: 0 }}
-                className={`flex gap-4 ${m.role === 'user' ? 'flex-row-reverse' : ''}`}
+                initial="initial"
+                animate="animate"
+                variants={messageVariants}
+                className={`flex gap-3 md:gap-5 ${m.role === 'user' ? 'flex-row-reverse' : ''}`}
               >
-                <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 shadow-lg ${
+                <div className={`w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 shadow-lg ${
                   m.role === 'user' 
-                  ? 'bg-indigo-600 text-white' 
-                  : 'bg-[#1E293B] border border-slate-700 text-indigo-400'
+                  ? 'bg-purple-600 border border-purple-500 shadow-purple-900/10' 
+                  : 'bg-slate-800 border border-slate-700 text-purple-400'
                 }`}>
                   {m.role === 'user' ? <User size={20} /> : <Bot size={20} />}
                 </div>
-                <div className={`max-w-[75%] rounded-3xl p-5 text-sm leading-relaxed shadow-sm whitespace-pre-wrap ${
+                <div className={`max-w-[85%] md:max-w-[70%] rounded-3xl px-5 py-4 text-sm leading-relaxed tracking-wide ${
                   m.role === 'user' 
-                  ? 'bg-indigo-600/90 text-white rounded-tr-none' 
-                  : 'bg-[#1E293B] border border-slate-700 text-slate-200 rounded-tl-none'
+                  ? 'bg-purple-600/90 text-white rounded-tr-none shadow-xl' 
+                  : 'bg-slate-800/80 border border-slate-700 text-slate-100 rounded-tl-none whitespace-pre-wrap'
                 }`}>
-                  {m.content || (m.role === 'assistant' && <span className="animate-pulse">друкує...</span>)}
+                  {m.content}
                 </div>
               </motion.div>
             ))
           )}
-          {isLoading && !messages[messages.length - 1]?.content && messages[messages.length - 1]?.role === 'assistant' && (
-             <div className="flex gap-4">
-              <div className="w-10 h-10 rounded-xl bg-[#1E293B] border border-slate-700 flex items-center justify-center text-indigo-400">
+          {isLoading && !messages[messages.length-1]?.content && (
+            <div className="flex gap-4">
+              <div className="w-10 h-10 rounded-2xl bg-slate-800 border border-slate-700 flex items-center justify-center text-purple-400">
                 <Bot size={20} />
               </div>
-              <div className="bg-[#1E293B] border border-slate-700 rounded-3xl rounded-tl-none p-5">
-                <div className="flex gap-1.5">
-                  <motion.div animate={{ scale: [1, 1.5, 1] }} transition={{ repeat: Infinity, duration: 1 }} className="w-1.5 h-1.5 bg-indigo-500 rounded-full" />
-                  <motion.div animate={{ scale: [1, 1.5, 1] }} transition={{ repeat: Infinity, duration: 1, delay: 0.2 }} className="w-1.5 h-1.5 bg-purple-500 rounded-full" />
-                  <motion.div animate={{ scale: [1, 1.5, 1] }} transition={{ repeat: Infinity, duration: 1, delay: 0.4 }} className="w-1.5 h-1.5 bg-indigo-500 rounded-full" />
-                </div>
+              <div className="bg-slate-800/50 border border-slate-700 rounded-2xl rounded-tl-none px-6 py-4 flex items-center gap-1.5 shadow-inner">
+                <motion.div animate={{ opacity: [0.3, 1, 0.3] }} transition={{ repeat: Infinity, duration: 1.2 }} className="w-1.5 h-1.5 bg-purple-500 rounded-full" />
+                <motion.div animate={{ opacity: [0.3, 1, 0.3] }} transition={{ repeat: Infinity, duration: 1.2, delay: 0.2 }} className="w-1.5 h-1.5 bg-blue-500 rounded-full" />
+                <motion.div animate={{ opacity: [0.3, 1, 0.3] }} transition={{ repeat: Infinity, duration: 1.2, delay: 0.4 }} className="w-1.5 h-1.5 bg-purple-500 rounded-full" />
               </div>
             </div>
           )}
@@ -235,47 +273,38 @@ export default function AIAssistantPage() {
         </div>
 
         {/* Input Area */}
-        <div className="p-8 pt-0">
-          <div className="max-w-4xl mx-auto relative group">
-            <div className="absolute -inset-1 bg-gradient-to-r from-indigo-600 to-purple-500 rounded-2xl blur opacity-20 group-hover:opacity-30 transition duration-1000"></div>
-            <div className="relative flex items-center">
+        <div className="p-4 md:p-8 bg-[#020617] border-t border-slate-800/30 shrink-0">
+          <div className="max-w-4xl mx-auto flex items-center gap-2 md:gap-4">
+            <div className="flex-1 relative group">
+              <div className="absolute -inset-[2px] bg-gradient-to-r from-purple-600 to-blue-500 rounded-2xl blur opacity-0 group-focus-within:opacity-20 transition duration-500"></div>
               <input
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
-                placeholder="Напишіть агенту..."
-                className="w-full bg-[#1E293B] border border-slate-700 rounded-2xl py-5 pl-6 pr-16 focus:outline-none focus:border-indigo-500 transition-all text-white placeholder-slate-500 shadow-xl"
+                placeholder="Куди ви мрієте поїхати?"
+                className="w-full bg-slate-900 border border-slate-800 rounded-2xl py-4 md:py-5 pl-6 pr-6 focus:outline-none focus:border-purple-500/50 transition-all text-white placeholder-slate-600 shadow-2xl relative z-10"
               />
-              <button
-                onClick={handleSendMessage}
-                disabled={!input.trim() || isLoading}
-                className="absolute right-3 p-3.5 bg-gradient-to-tr from-indigo-600 to-purple-500 text-white rounded-xl hover:shadow-[0_0_20px_rgba(99,102,241,0.4)] disabled:opacity-50 disabled:shadow-none transition-all"
-              >
-                <Send size={20} />
-              </button>
             </div>
+            <button
+              onClick={() => handleSendMessage()}
+              disabled={!input.trim() || isLoading}
+              className="p-4 md:p-5 bg-gradient-to-tr from-purple-600 to-blue-600 text-white rounded-2xl hover:scale-105 active:scale-95 disabled:opacity-50 disabled:scale-100 transition-all shadow-xl shadow-purple-900/30 shrink-0"
+            >
+              <Send size={22} />
+            </button>
           </div>
-          <p className="text-center text-[10px] text-slate-500 mt-4 uppercase tracking-tighter">
-            Powered by Gemini AI • Glorious Travel Assistant
+          <p className="text-center text-[9px] text-slate-600 mt-5 uppercase tracking-[0.3em] font-bold">
+            Glorious Travel AI • Experience World Premium
           </p>
         </div>
       </main>
 
       <style jsx global>{`
-        .custom-scrollbar::-webkit-scrollbar {
-          width: 6px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-          background: transparent;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: #334155;
-          border-radius: 10px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: #475569;
-        }
+        .custom-scrollbar::-webkit-scrollbar { width: 5px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #334155; }
       `}</style>
     </div>
   );
@@ -283,20 +312,21 @@ export default function AIAssistantPage() {
 
 function SidebarItem({ icon, label, isOpen }: { icon: ReactNode, label: string, isOpen: boolean }) {
   return (
-    <button className="w-full flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-slate-700/50 transition-all group">
-       <span className="text-slate-400 group-hover:text-indigo-400 transition-colors">{icon}</span>
-       {isOpen && <span className="text-sm font-medium text-slate-300 group-hover:text-white">{label}</span>}
+    <button className="w-full flex items-center gap-4 px-4 py-3 rounded-2xl hover:bg-slate-800/40 transition-all group overflow-hidden">
+       <span className="text-slate-500 group-hover:text-purple-400 transition-all group-hover:scale-110">{icon}</span>
+       {isOpen && <span className="text-xs font-semibold text-slate-400 group-hover:text-slate-100 whitespace-nowrap">{label}</span>}
     </button>
   );
 }
 
-function QuickPrompt({ label, onClick }: { label: string, onClick: (s: string) => void }) {
+function QuickPrompt({ label, sub, onClick }: { label: string, sub: string, onClick: (s: string) => void }) {
   return (
     <button 
       onClick={() => onClick(label)}
-      className="bg-white/5 border border-white/10 p-3 rounded-xl hover:bg-white/10 hover:border-indigo-500/50 transition-all text-sm text-slate-300 text-left"
+      className="bg-[#0f172a] border border-slate-800/50 p-4 rounded-2xl hover:border-purple-500/40 hover:bg-slate-800/50 transition-all text-left flex flex-col group"
     >
-      {label}
+      <span className="text-xs font-bold text-white group-hover:text-purple-400 transition-colors">{label}</span>
+      <span className="text-[10px] text-slate-500 mt-1">{sub}</span>
     </button>
   );
 }

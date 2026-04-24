@@ -46,7 +46,7 @@ export default function InteractiveMap() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 1, ease: 'easeOut' }}
-            className="flex-[3] relative w-full aspect-square md:aspect-auto h-[600px] flex items-center justify-center overflow-hidden rounded-[80px]"
+            className="flex-[3] relative w-full aspect-square md:aspect-auto h-[600px] flex items-center justify-center overflow-hidden rounded-[80px] bg-slate-950"
           >
              <Globe />
           </motion.div>

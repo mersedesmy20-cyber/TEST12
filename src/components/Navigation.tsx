@@ -2,10 +2,12 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { useModal } from '@/context/ModalContext'
 
 export default function Navigation() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const { openQuiz } = useModal()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,6 +37,7 @@ export default function Navigation() {
           <div className="hidden lg:flex items-center gap-6">
             {[
               { label: 'Пошук туру', href: '/search' },
+              { label: 'Тест 🧭', href: '#', onClick: () => openQuiz() },
               { label: 'Країни', href: '/countries' },
               { label: 'Готелі', href: '/#destinations' },
               { label: 'Гарячі тури', href: '/seasonal' },
@@ -45,14 +48,25 @@ export default function Navigation() {
               { label: 'Про нас', href: '/about' },
               { label: 'Контакти', href: '/#contact' },
             ].map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                className="text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-white transition-colors relative group"
-              >
-                {item.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-500 transition-all group-hover:w-full shadow-[0_0_10px_rgba(99,102,241,0.8)]"></span>
-              </Link>
+              item.onClick ? (
+                <button
+                  key={item.label}
+                  onClick={item.onClick}
+                  className="text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-white transition-colors relative group"
+                >
+                  {item.label}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-500 transition-all group-hover:w-full shadow-[0_0_10px_rgba(99,102,241,0.8)]"></span>
+                </button>
+              ) : (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-white transition-colors relative group"
+                >
+                  {item.label}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-500 transition-all group-hover:w-full shadow-[0_0_10px_rgba(99,102,241,0.8)]"></span>
+                </Link>
+              )
             ))}
           </div>
 

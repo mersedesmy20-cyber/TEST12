@@ -4,7 +4,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion } from 'motion/react'
+import { motion, useScroll, useTransform } from 'motion/react'
 
 const bgImages = [
   // Beach / Resort (More "Vacation" vibe)
@@ -20,14 +20,35 @@ const bgImages = [
 export default function Hero() {
   const [currentBg, setCurrentBg] = useState(0)
   const [isMounted, setIsMounted] = useState(false)
+  const [time, setTime] = useState('')
+  const [isReturning, setIsReturning] = useState(false)
+
+  const { scrollY } = useScroll()
+  const y1 = useTransform(scrollY, [0, 1000], [0, 300])
+  const opacityText = useTransform(scrollY, [0, 400], [1, 0])
 
   // Background rotater
   useEffect(() => {
     setIsMounted(true)
+    
+    if (localStorage.getItem('visited')) {
+      setIsReturning(true)
+    } else {
+      localStorage.setItem('visited', 'true')
+    }
+
     const interval = setInterval(() => {
       setCurrentBg(prev => (prev + 1) % bgImages.length)
     }, 5000)
-    return () => clearInterval(interval)
+
+    const timer = setInterval(() => {
+      setTime(new Date().toLocaleTimeString('uk-UA', { hour: '2-digit', minute: '2-digit' }))
+    }, 1000)
+
+    return () => {
+      clearInterval(interval)
+      clearInterval(timer)
+    }
   }, [])
 
   const containerVariants = {
@@ -54,7 +75,7 @@ export default function Hero() {
     <section className="relative h-screen min-h-[800px] flex items-center justify-center overflow-hidden text-center bg-slate-950">
 
       {/* Dynamic Background Slider */}
-      <div className="absolute inset-0 overflow-hidden">
+      <motion.div style={{ y: y1 }} className="absolute inset-0 overflow-hidden">
         {bgImages.map((img, index) => {
           if (index !== 0 && !isMounted) return null
 
@@ -68,7 +89,7 @@ export default function Hero() {
                 alt="Glorious Travel Background"
                 fill
                 priority={index === 0}
-                className="object-cover"
+                className="object-cover scale-110"
                 sizes="100vw"
                 quality={85}
               />
@@ -78,10 +99,35 @@ export default function Hero() {
         {/* Overlay Gradients */}
         <div className="absolute inset-0 bg-gradient-to-b from-slate-950/40 via-transparent to-slate-950/90" />
         <div className="absolute inset-0 bg-black/30" />
-      </div>
+      </motion.div>
+
+      {/* Top Info Bar (Desktop Only) */}
+      <motion.div 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1 }}
+        style={{ opacity: opacityText }}
+        className="absolute top-28 left-[5%] right-[5%] z-20 flex justify-between items-center hidden xl:flex pointer-events-none"
+      >
+        <div className="flex gap-8">
+          <div className="flex flex-col items-start translate-y-1">
+            <span className="text-[10px] text-white/50 uppercase tracking-widest font-bold">Київ, Україна</span>
+            <span className="text-white text-lg font-black">{time}</span>
+          </div>
+          <div className="w-[1px] h-10 bg-white/10" />
+          <div className="flex flex-col items-start translate-y-1">
+            <span className="text-[10px] text-white/50 uppercase tracking-widest font-bold">Температура (Середня)</span>
+            <span className="text-white text-lg font-black">+24°C</span>
+          </div>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse" />
+          <span className="text-[10px] text-white font-bold uppercase tracking-[0.2em]">Пошук турів активний</span>
+        </div>
+      </motion.div>
 
       {/* Decorative Elements */}
-      <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] mix-blend-overlay pointer-events-none" />
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg_viewBox=%220_0_200_200%22_xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter_id=%22noiseFilter%22%3E%3CfeTurbulence_type=%22fractalNoise%22_baseFrequency=%220.65%22_numOctaves=%223%22_stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect_width=%22100%25%22_height=%22100%25%22_filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E')] opacity-[0.03] mix-blend-overlay pointer-events-none" />
       <motion.div 
         animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
         transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
@@ -100,6 +146,20 @@ export default function Hero() {
         animate="visible"
         className="relative z-10 max-w-[1200px] px-[5%] flex flex-col items-center"
       >
+        <motion.div
+           variants={itemVariants}
+           className="mb-6 flex gap-3"
+        >
+          <div className="px-3 py-1 bg-white/5 backdrop-blur-md border border-white/10 rounded-lg text-[10px] text-white/50 font-bold uppercase tracking-wider">
+            Beach
+          </div>
+          <div className="px-3 py-1 bg-indigo-500/20 backdrop-blur-md border border-indigo-500/20 rounded-lg text-[10px] text-indigo-300 font-bold uppercase tracking-wider">
+            City
+          </div>
+          <div className="px-3 py-1 bg-white/5 backdrop-blur-md border border-white/10 rounded-lg text-[10px] text-white/50 font-bold uppercase tracking-wider">
+            Mountains
+          </div>
+        </motion.div>
 
         {/* Badge */}
         <motion.div 
@@ -148,7 +208,9 @@ export default function Hero() {
             }}
             className="group relative px-10 py-5 bg-white text-slate-950 rounded-2xl font-bold text-lg overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(255,255,255,0.4)] flex items-center justify-center gap-2"
           >
-            <span className="relative z-10 group-hover:text-indigo-900 transition-colors">Знайти тур</span>
+            <span className="relative z-10 group-hover:text-indigo-900 transition-colors">
+              {isReturning ? 'Продовжити пошук' : 'Знайти тур'}
+            </span>
             <svg className="w-5 h-5 relative z-10 group-hover:text-indigo-900 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>

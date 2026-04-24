@@ -7,6 +7,8 @@ import BotWidget from '@/components/BotWidget'
 import CookieConsent from '@/components/CookieConsent'
 import CustomCursor from '@/components/CustomCursor'
 import SmoothScrollProvider from '@/components/SmoothScrollProvider'
+import ScrollProgress from '@/components/ScrollProgress'
+import ScrollToTop from '@/components/ScrollToTop'
 
 const montserrat = Montserrat({ subsets: ['latin', 'cyrillic'] })
 
@@ -154,8 +156,11 @@ export default function RootLayout({
         />
       </head>
       <body className={montserrat.className}>
+        <div className="fixed inset-0 pointer-events-none opacity-[0.03] z-[9999] bg-[url('data:image/svg+xml,%3Csvg_viewBox=%220_0_200_200%22_xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter_id=%22noiseFilter%22%3E%3CfeTurbulence_type=%22fractalNoise%22_baseFrequency=%220.65%22_numOctaves=%223%22_stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect_width=%22100%25%22_height=%22100%25%22_filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E')] mix-blend-overlay" />
         <ModalProvider>
           <SmoothScrollProvider>
+            <ScrollProgress />
+            <ScrollToTop />
             <CustomCursor />
             {children}
             <BotWidget />

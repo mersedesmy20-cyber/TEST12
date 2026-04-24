@@ -15,12 +15,18 @@ const montserrat = Montserrat({ subsets: ['latin', 'cyrillic'] })
 const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_ID || ''
 const FB_PIXEL_ID = process.env.NEXT_PUBLIC_FB_PIXEL_ID || ''
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: '#1a1a1a',
+}
+
 export const metadata: Metadata = {
+  metadataBase: new URL('https://glorious-travel.vercel.app'),
   title: 'Glorious Travel | Ваша наступна подорож починається тут',
   description: 'Туристичне агентство Glorious Travel - організація незабутніх подорожей по всьому світу. Туреччина, Єгипет, ОАЕ, Греція, Домінікана та багато інших напрямків. Персональний підхід та доступні ціни.',
   keywords: 'туроператор, подорожі, тури, відпочинок, гарячі тури, glorious travel, туристичне агентство київ, тури з києва, єгипет, туреччина, оае',
-  viewport: 'width=device-width, initial-scale=1, maximum-scale=5',
-  themeColor: '#1a1a1a',
 
   icons: {
     icon: [

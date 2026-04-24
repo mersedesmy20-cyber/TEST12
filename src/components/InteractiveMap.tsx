@@ -1,9 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import Image from 'next/image'
 import { useModal } from '@/context/ModalContext'
 import { destinations } from '@/data/destinations'
+import Globe from './Globe'
+import { motion, AnimatePresence } from 'motion/react'
 
 const COUNTRIES = [
   { id: 'spain', name: 'Іспанія', x: 47.5, y: 34, color: '#ef4444' }, // Spain
@@ -39,74 +40,16 @@ export default function InteractiveMap() {
           </p>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-12 items-stretch min-h-[500px]">
-          <div className="flex-[3] relative bg-slate-900 shadow-2xl overflow-hidden rounded-[40px] border border-white/5 aspect-[16/9] lg:aspect-auto">
-            {/* World Map Image Background */}
-            <div className="absolute inset-0 z-0">
-              <Image 
-                src="/world-map.webp"
-                alt="Premium World Map"
-                fill
-                className="object-cover opacity-80 brightness-75 transition-all duration-700 hover:scale-105"
-                priority
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-60" />
-            </div>
-
-            {/* Grid overlay */}
-            <div className="absolute inset-0 opacity-[0.05] pointer-events-none z-10"
-              style={{
-                backgroundImage: 'linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px)',
-                backgroundSize: '100px 100px'
-              }}
-            />
-
-            {/* Interactive Points */}
-            <div className="absolute inset-0 z-20">
-              {COUNTRIES.map((country) => {
-                const dest = destinations.find(d => d.id === country.id)
-                return (
-                  <button
-                    key={country.id}
-                    onClick={() => handleCountryClick(country.id)}
-                    className="absolute transition-all duration-300 transform -translate-x-1/2 -translate-y-1/2 hover:z-30"
-                    style={{ left: `${country.x}%`, top: `${country.y}%` }}
-                    onMouseEnter={() => setHovered(country.id)}
-                    onMouseLeave={() => setHovered(null)}
-                  >
-                    <div className="relative group">
-                      {/* Pulsing ring */}
-                      <div className={`absolute -inset-6 rounded-full transition-all duration-700 blur-2xl animate-pulse ${hovered === country.id ? 'opacity-60 scale-150' : 'opacity-20 scale-100'}`}
-                        style={{ backgroundColor: country.color }}
-                      />
-                      
-                      {/* Pin Main Head */}
-                      <div
-                        className={`w-4 h-4 rounded-full border-2 border-white shadow-[0_0_15px_rgba(255,255,255,0.5)] transition-all duration-300 flex items-center justify-center relative z-10 ${hovered === country.id ? 'scale-150 shadow-[0_0_25px_white]' : 'scale-100'}`}
-                        style={{ backgroundColor: country.color }}
-                      >
-                         <div className="w-1.5 h-1.5 bg-white rounded-full" />
-                      </div>
-
-                      {/* Tooltip */}
-                      <div className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-6 whitespace-nowrap transition-all duration-500 z-50 ${hovered === country.id ? 'opacity-100 translate-y-0 scale-105' : 'opacity-0 translate-y-4 scale-95 pointer-events-none'}`}>
-                        <div className="bg-slate-900/90 backdrop-blur-xl border border-white/20 text-white px-5 py-3 rounded-2xl text-sm font-bold shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col items-center">
-                          <div className="flex items-center gap-3 mb-1">
-                            <span className="text-2xl">{dest?.flag}</span>
-                            <span className="tracking-tight text-lg">{dest?.name}</span>
-                          </div>
-                          <span className="text-indigo-300 font-medium">{dest?.price}</span>
-                          <div className="w-20 h-1 bg-white/20 rounded-full mt-2 overflow-hidden">
-                             <div className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 w-full animate-progress" />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </button>
-                )
-              })}
-            </div>
-          </div>
+        <div className="flex flex-col lg:flex-row gap-12 items-center min-h-[500px]">
+          <motion.div 
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, ease: 'easeOut' }}
+            className="flex-[3] relative w-full aspect-square md:aspect-auto h-[600px] flex items-center justify-center overflow-hidden rounded-[80px]"
+          >
+             <Globe />
+          </motion.div>
 
           <div className="lg:w-[350px] shrink-0">
             <div className="bg-slate-900/40 backdrop-blur-3xl border border-white/5 p-8 rounded-[40px] h-full flex flex-col shadow-2xl">

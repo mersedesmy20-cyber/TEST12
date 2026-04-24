@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     description: '✈️ Організація незабутніх подорожей по всьому світу. Туреччина, Єгипет, ОАЕ, Греція, Домінікана та інші напрямки. Персональний підхід до кожного клієнта.',
     images: [
       {
-        url: '/og-image.png?v=2',
+        url: '/og-image.webp?v=2',
         width: 1200,
         height: 630,
         alt: 'Glorious Travel - Туристичне агентство',
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Glorious Travel | Туристичне агентство',
     description: '✈️ Організація незабутніх подорожей. Персональний підхід та доступні ціни.',
-    images: ['/og-image.png?v=2'],
+    images: ['/og-image.webp?v=2'],
   },
 
   robots: {

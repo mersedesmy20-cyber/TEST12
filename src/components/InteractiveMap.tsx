@@ -44,7 +44,7 @@ export default function InteractiveMap() {
             {/* World Map Image Background */}
             <div className="absolute inset-0 z-0">
               <Image 
-                src="/world-map.png"
+                src="/world-map.webp"
                 alt="Premium World Map"
                 fill
                 className="object-cover opacity-80 brightness-75 transition-all duration-700 hover:scale-105"

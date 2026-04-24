@@ -4,7 +4,7 @@ export const mockTours = [
         destination: "greece",
         price: "45 000 ₴",
         duration: 7,
-        image: "/images/destinations/greece.jpg",
+        image: "/images/destinations/greece.webp",
         link: "https://joinup.ua",
         source: "Mock Data"
     },
@@ -13,7 +13,7 @@ export const mockTours = [
         destination: "turkey",
         price: "38 500 ₴",
         duration: 10,
-        image: "/images/destinations/turkey.jpg",
+        image: "/images/destinations/turkey.webp",
         link: "https://joinup.ua",
         source: "Mock Data"
     },
@@ -22,7 +22,7 @@ export const mockTours = [
         destination: "egypt",
         price: "32 000 ₴",
         duration: 7,
-        image: "/images/destinations/egypt.jpg",
+        image: "/images/destinations/egypt.webp",
         link: "https://joinup.ua",
         source: "Mock Data"
     },
@@ -31,7 +31,7 @@ export const mockTours = [
         destination: "uae",
         price: "65 000 ₴",
         duration: 5,
-        image: "/images/destinations/uae.jpg",
+        image: "/images/destinations/uae.webp",
         link: "https://joinup.ua",
         source: "Mock Data"
     },
@@ -40,7 +40,7 @@ export const mockTours = [
         destination: "maldives",
         price: "95 000 ₴",
         duration: 7,
-        image: "/images/destinations/maldives.jpg",
+        image: "/images/destinations/maldives.webp",
         link: "https://joinup.ua",
         source: "Mock Data"
     },
@@ -49,7 +49,7 @@ export const mockTours = [
         destination: "dominican",
         price: "78 000 ₴",
         duration: 10,
-        image: "/images/destinations/dominican.jpg",
+        image: "/images/destinations/dominican.webp",
         link: "https://joinup.ua",
         source: "Mock Data"
     },
@@ -58,7 +58,7 @@ export const mockTours = [
         destination: "thailand",
         price: "52 000 ₴",
         duration: 12,
-        image: "/images/destinations/thailand.jpg",
+        image: "/images/destinations/thailand.webp",
         link: "https://joinup.ua",
         source: "Mock Data"
     },
@@ -67,7 +67,7 @@ export const mockTours = [
         destination: "mexico",
         price: "82 000 ₴",
         duration: 8,
-        image: "/images/destinations/mexico.jpg",
+        image: "/images/destinations/mexico.webp",
         link: "https://joinup.ua",
         source: "Mock Data"
     },
@@ -76,7 +76,7 @@ export const mockTours = [
         destination: "bali",
         price: "68 000 ₴",
         duration: 10,
-        image: "/images/destinations/indonesia.jpg",
+        image: "/images/destinations/indonesia.webp",
         link: "https://joinup.ua",
         source: "Mock Data"
     }

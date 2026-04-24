@@ -14,7 +14,7 @@ import {
   X,
   Navigation as NavIcon,
   Globe,
-  Instagram,
+  Share2,
   Phone,
   SendHorizontal,
   ExternalLink,
@@ -32,7 +32,7 @@ type Message = {
 const messageVariants = {
   initial: { opacity: 0, y: 10, scale: 0.98 },
   animate: { opacity: 1, y: 0, scale: 1 },
-  transition: { duration: 0.3, ease: "easeOut" }
+  transition: { duration: 0.3 }
 };
 
 export default function AIAssistantPage() {
@@ -153,27 +153,27 @@ export default function AIAssistantPage() {
         </div>
 
         {isSidebarOpen && (
-          <div className="p-4 bg-gradient-to-br from-purple-900/20 to-blue-900/20 m-4 rounded-2xl border border-purple-500/20 shrink-0">
-            <h4 className="text-[10px] font-bold text-purple-400 mb-3 uppercase tracking-[0.2em]">Прямий зв'язок</h4>
-            <div className="space-y-3">
+          <div className="p-4 bg-slate-900/50 backdrop-blur-xl m-4 rounded-3xl border border-white/5 shrink-0 shadow-2xl">
+            <h4 className="text-[10px] font-black text-purple-400 mb-4 uppercase tracking-[0.2em] px-1">Прямий зв'язок</h4>
+            <div className="space-y-4">
               <a 
                 href="https://t.me/lizazakharchenko"
                 target="_blank"
                 rel="no-referrer"
-                className="flex items-center gap-3 p-2 bg-purple-600 hover:bg-purple-500 rounded-xl transition-all group"
+                className="flex items-center gap-3 p-3 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 rounded-2xl transition-all group shadow-lg shadow-purple-900/20"
               >
-                <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
-                  <SendHorizontal size={14} className="text-white" />
+                <div className="w-9 h-9 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-md">
+                  <SendHorizontal size={16} className="text-white" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-[11px] font-bold text-white">Менеджер в Telegram</span>
-                  <span className="text-[9px] text-white/70 italic">Відповімо за 5 хв</span>
+                  <span className="text-[11px] font-bold text-white tracking-tight">Менеджер в Telegram</span>
+                  <span className="text-[9px] text-white/70 font-medium italic">Відповімо за 5 хв</span>
                 </div>
-                <ExternalLink size={10} className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                <ExternalLink size={10} className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity text-white/50" />
               </a>
-              <div className="flex items-center gap-4 px-2">
-                <a href="https://www.instagram.com/lizazakharchenko" target="_blank" className="text-slate-500 hover:text-white transition-colors"><Instagram size={16} /></a>
-                <a href="tel:+380000000000" className="text-slate-500 hover:text-white transition-colors"><Phone size={16} /></a>
+              <div className="flex items-center gap-5 px-2">
+                <a href="https://www.instagram.com/lizazakharchenko" target="_blank" className="text-slate-500 hover:text-pink-400 transition-colors transform hover:scale-110"><Share2 size={18} /></a>
+                <a href="tel:+380000000000" className="text-slate-500 hover:text-green-400 transition-colors transform hover:scale-110"><Phone size={18} /></a>
               </div>
             </div>
           </div>
@@ -189,7 +189,7 @@ export default function AIAssistantPage() {
               <div className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center border border-purple-500/30 overflow-hidden">
                 <motion.div
                   animate={{ rotate: 360 }}
-                  transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                  transition={{ duration: 10, repeat: Infinity }}
                   className="absolute inset-0 border-2 border-dashed border-purple-500/20 rounded-full"
                 />
                 <Bot size={20} className="text-purple-400 relative z-10" />

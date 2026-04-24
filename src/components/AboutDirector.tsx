@@ -27,7 +27,6 @@ export default function AboutDirector() {
                                     alt="Єлизавета Захарченко - Директор Glorious Travel"
                                     fill
                                     className="object-cover group-hover:scale-105 transition-transform duration-700"
-                                    priority
                                 />
                             </div>
 

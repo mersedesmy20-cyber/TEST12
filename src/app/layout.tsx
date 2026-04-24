@@ -3,8 +3,6 @@ import { Montserrat } from 'next/font/google'
 import './globals.css'
 import { ModalProvider } from '@/context/ModalContext'
 import Script from 'next/script'
-
-import CustomCursor from '@/components/CustomCursor'
 import BotWidget from '@/components/BotWidget'
 import CookieConsent from '@/components/CookieConsent'
 
@@ -155,7 +153,6 @@ export default function RootLayout({
       </head>
       <body className={montserrat.className}>
         <ModalProvider>
-          <CustomCursor />
           {children}
           <BotWidget />
           <CookieConsent />

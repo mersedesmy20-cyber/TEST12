@@ -104,9 +104,10 @@ export default function BotWidget() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.8, y: 20, transformOrigin: 'bottom right' }}
+            initial={{ opacity: 0, scale: 0.95, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.8, y: 20 }}
+            exit={{ opacity: 0, scale: 0.95, y: 10 }}
+            transition={{ duration: 0.2 }}
             className="bg-[#1E293B] border border-slate-700 shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-3xl w-[380px] sm:w-[420px] mb-6 overflow-hidden pointer-events-auto flex flex-col h-[600px] max-h-[80vh]"
           >
             {/* Header */}

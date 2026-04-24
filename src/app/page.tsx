@@ -5,7 +5,6 @@ import dynamic from 'next/dynamic'
 import Navigation from '@/components/Navigation'
 import Stories from '@/components/Stories'
 import Hero from '@/components/Hero'
-import InteractiveMap from '@/components/InteractiveMap'
 import VibeSection from '@/components/VibeSection'
 import AboutDirector from '@/components/AboutDirector'
 import Reviews from '@/components/Reviews'
@@ -22,6 +21,10 @@ import QuizModal from '@/components/QuizModal'
 const DestinationsLazy = dynamic(() => import('@/components/Destinations'), {
   loading: () => <div className="h-screen bg-slate-950 flex items-center justify-center text-white">Завантаження напрямків...</div>,
   ssr: true
+})
+
+const InteractiveMapLazy = dynamic(() => import('@/components/InteractiveMap'), {
+  ssr: false
 })
 
 export default function Home() {
@@ -45,7 +48,7 @@ export default function Home() {
       <Navigation />
       <Stories />
       <Hero />
-      <InteractiveMap />
+      <InteractiveMapLazy />
       <AboutDirector />
       <DestinationsLazy activeFilter={filter} onResetFilter={() => setFilter(null)} />
       <VibeSection onFilterSelect={handleFilterChange} />

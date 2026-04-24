@@ -5,6 +5,7 @@ import { ModalProvider } from '@/context/ModalContext'
 import Script from 'next/script'
 import BotWidget from '@/components/BotWidget'
 import CookieConsent from '@/components/CookieConsent'
+import SmoothScrollProvider from '@/components/SmoothScrollProvider'
 
 const montserrat = Montserrat({ subsets: ['latin', 'cyrillic'] })
 
@@ -153,9 +154,11 @@ export default function RootLayout({
       </head>
       <body className={montserrat.className}>
         <ModalProvider>
-          {children}
-          <BotWidget />
-          <CookieConsent />
+          <SmoothScrollProvider>
+            {children}
+            <BotWidget />
+            <CookieConsent />
+          </SmoothScrollProvider>
         </ModalProvider>
       </body>
     </html>

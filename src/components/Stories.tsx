@@ -34,7 +34,7 @@ export default function Stories() {
     const [selectedStory, setSelectedStory] = useState<number | null>(null)
 
     return (
-        <section className="pt-8 pb-8 px-[5%]">
+        <section className="pt-24 md:pt-28 pb-8 px-[5%] relative z-10">
             <div className="max-w-[1400px] mx-auto overflow-x-auto pb-4 scrollbar-hide">
                 <div className="flex gap-6 min-w-max px-2">
                     {stories.map((story) => (

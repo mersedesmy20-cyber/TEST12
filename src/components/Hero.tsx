@@ -7,14 +7,14 @@ import Image from 'next/image'
 import { motion, useScroll, useTransform } from 'motion/react'
 
 const bgImages = [
-  // Beach / Resort (More "Vacation" vibe)
-  'https://images.unsplash.com/photo-1573843981267-be1999ff37cd?q=80&w=2574&auto=format&fit=crop', // Maldives style
+  // Beach / Resort
+  'https://images.unsplash.com/photo-1506929113614-bb48858a9770?q=80&w=2574&auto=format&fit=crop',
   // European City
-  'https://images.unsplash.com/photo-1502602898657-3e917247a183?q=80&w=2574&auto=format&fit=crop', // Paris
+  'https://images.unsplash.com/photo-1445013021741-ce922252c88d?q=80&w=2574&auto=format&fit=crop',
   // Adventure / Mountains
-  'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2574&auto=format&fit=crop', // Mountains
-  // Luxury Pool
-  'https://images.unsplash.com/photo-1582719508461-905c673771fd?q=80&w=2525&auto=format&fit=crop'
+  'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2574&auto=format&fit=crop',
+  // Luxury Resort
+  'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=2574&auto=format&fit=crop'
 ]
 
 export default function Hero() {
@@ -88,10 +88,10 @@ export default function Hero() {
                 src={img}
                 alt="Glorious Travel Background"
                 fill
-                priority={index === 0}
+                priority={index <= 1}
                 className="object-cover scale-110"
                 sizes="100vw"
-                quality={85}
+                quality={90}
               />
             </div>
           )

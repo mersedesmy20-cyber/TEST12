@@ -14,7 +14,6 @@ import MobileStickyButton from '@/components/MobileStickyButton'
 import DestinationModal from '@/components/DestinationModal'
 import DiscountBanner from '@/components/DiscountBanner'
 import TravelUtilities from '@/components/TravelUtilities'
-import { initSmoothScroll } from '@/lib/smoothScroll'
 import { initAnimations } from '@/lib/animations'
 import QuizModal from '@/components/QuizModal'
 
@@ -32,7 +31,6 @@ export default function Home() {
   const [filter, setFilter] = useState<string | null>(null)
 
   useEffect(() => {
-    initSmoothScroll()
     initAnimations()
   }, [])
 

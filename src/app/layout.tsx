@@ -5,7 +5,6 @@ import { ModalProvider } from '@/context/ModalContext'
 import Script from 'next/script'
 import BotWidget from '@/components/BotWidget'
 import CookieConsent from '@/components/CookieConsent'
-import CustomCursor from '@/components/CustomCursor'
 import SmoothScrollProvider from '@/components/SmoothScrollProvider'
 import ScrollProgress from '@/components/ScrollProgress'
 import ScrollToTop from '@/components/ScrollToTop'
@@ -167,7 +166,6 @@ export default function RootLayout({
           <SmoothScrollProvider>
             <ScrollProgress />
             <ScrollToTop />
-            <CustomCursor />
             {children}
             <BotWidget />
             <CookieConsent />

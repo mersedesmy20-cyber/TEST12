@@ -19,7 +19,7 @@ export const destinations: Destination[] = [
       {
         name: "Собор Святої Софії (Стамбул)",
         description: "Величний символ 'Золотого віку' Візантії. Побудований у 537 році, цей храм вражає своїм куполом та мозаїками.",
-        image: "https://images.unsplash.com/photo-1545459720-aacaf509ebc3?q=80&w=600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?q=80&w=600&auto=format&fit=crop",
         icon: "🕌"
       },
       {
@@ -221,6 +221,32 @@ export const destinations: Destination[] = [
     highlights: ['Которська затока', 'Будва', 'Національні парки', 'Рафтинг'],
     tags: ['Море', 'Гори', 'Європа'],
     whatToSee: ['Которська затока', 'Старе місто Будва', 'Острів Светого Стефана', 'Національний парк Дурмітор'],
+    attractions: [
+      {
+        name: "Которська затока",
+        description: "Найпівденніший фіорд Європи. Мальовничі містечка, оточені горами, відображаються в дзеркальній воді.",
+        image: "https://images.unsplash.com/photo-1584463699057-a72c14f08d26?q=80&w=600&auto=format&fit=crop",
+        icon: "🌊"
+      },
+      {
+        name: "Старе місто Будва",
+        description: "2500 років історії. Вузькі вулички, фортеця Цитадела та найкращі пляжі Чорногорії поруч.",
+        image: "https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?q=80&w=600&auto=format&fit=crop",
+        icon: "🏰"
+      },
+      {
+        name: "Острів Свєтог Стефана",
+        description: "Розкішний острів-готель, з'єднаний з материком вузьким перешийком. Символ Чорногорії.",
+        image: "https://images.unsplash.com/photo-1592431913823-7af6b323da2b?q=80&w=600&auto=format&fit=crop",
+        icon: "🏝️"
+      },
+      {
+        name: "Національний парк Дурмітор",
+        description: "Дикі гори, каньйони та Чорне озеро. Каньйон Тари — найглибший у Європі.",
+        image: "https://images.unsplash.com/photo-1592502712628-09075a041486?q=80&w=600&auto=format&fit=crop",
+        icon: "⛰️"
+      }
+    ],
     whatToBuy: ['Пршут (м\'ясний делікатес)', 'Місцеве вино (Вранац)', 'Сир (Негушський)', 'Оливкова олія'],
     gridClass: 'large',
     bestMonths: [6, 7, 8, 9],
@@ -239,6 +265,32 @@ export const destinations: Destination[] = [
     highlights: ['Доступні ціни', 'Албанська Рів\'єра', 'Античні руїни', 'Гостинність'],
     tags: ['Море', 'Європа'],
     whatToSee: ['Саранда та пляжі', 'Берат (місто тисячі вікон)', 'Гіроокастра', 'Дуррес'],
+    attractions: [
+      {
+        name: "Саранда та пляжі",
+        description: "Кристально чиста вода Іонічного моря. Пляж Ксаміль з його бірюзовими лагунами нагадує Мальдіви.",
+        image: "https://images.unsplash.com/photo-1596436889106-be35e843f974?q=80&w=600&auto=format&fit=crop",
+        icon: "🏖️"
+      },
+      {
+        name: "Берат",
+        description: "Місто тисячі вікон. Білі османські будинки, що каскадом спускаються з гори, внесені до ЮНЕСКО.",
+        image: "https://images.unsplash.com/photo-1580380853934-93a3e8c24a98?q=80&w=600&auto=format&fit=crop",
+        icon: "🏘️"
+      },
+      {
+        name: "Гіроокастра",
+        description: "Кам'яне місто з величезною фортецею. Батьківщина Ісмаїла Кадаре та справжній музей під відкритим небом.",
+        image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=600&auto=format&fit=crop",
+        icon: "🏰"
+      },
+      {
+        name: "Блакитне око (Syri i Kaltër)",
+        description: "Природне джерело з неймовірно блакитною водою. Глибина невідома — дайвери так і не дісталися дна.",
+        image: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=600&auto=format&fit=crop",
+        icon: "💧"
+      }
+    ],
     whatToBuy: ['Ракія', 'Вишиті вироби', 'Оливкова олія', 'Традиційний одяг'],
     bestMonths: [6, 7, 8, 9],
     region: 'Europe'

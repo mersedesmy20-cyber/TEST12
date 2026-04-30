@@ -152,15 +152,29 @@ export default function DestinationModal() {
                 <span className="text-sm font-normal text-slate-400 bg-white/10 px-3 py-1 rounded-full ml-auto">Натисніть для деталей</span>
               </h3>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
                 {selectedDestination.attractions.map((attr: any, index: number) => (
                   <div
                     key={index}
                     onClick={() => setActiveAttraction(attr)}
-                    className="group h-40 bg-white/5 hover:bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-6 cursor-pointer transition-all hover:-translate-y-1 hover:border-indigo-500/30 hover:shadow-lg hover:shadow-indigo-500/10 flex flex-col items-center justify-center gap-3 text-center"
+                    className="group relative h-64 bg-slate-900 border border-white/10 rounded-3xl overflow-hidden cursor-pointer transition-all hover:-translate-y-2 hover:border-indigo-500/50 hover:shadow-2xl hover:shadow-indigo-500/20"
                   >
-                    <span className="text-5xl filter drop-shadow-lg transform transition-transform group-hover:scale-105 duration-300">{attr.icon}</span>
-                    <h4 className="text-white font-bold text-lg leading-tight group-hover:text-indigo-300 transition-colors">{attr.name}</h4>
+                    <Image
+                      src={attr.image}
+                      alt={attr.name}
+                      fill
+                      className="object-cover opacity-60 group-hover:opacity-100 transition-all duration-500 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
+                    <div className="absolute bottom-0 left-0 p-6">
+                      <div className="flex items-center gap-3 mb-2">
+                        <span className="text-3xl filter drop-shadow-lg">{attr.icon}</span>
+                        <h4 className="text-white font-bold text-xl leading-tight group-hover:text-indigo-300 transition-colors">{attr.name}</h4>
+                      </div>
+                      <p className="text-slate-300 text-sm line-clamp-2 opacity-0 group-hover:opacity-100 transition-all transform translate-y-4 group-hover:translate-y-0 duration-300">
+                        {attr.description}
+                      </p>
+                    </div>
                   </div>
                 ))}
               </div>

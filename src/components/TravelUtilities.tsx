@@ -105,8 +105,8 @@ export default function TravelUtilities() {
           <div className="flex justify-center gap-4 mt-8">
             <button 
               onClick={() => setActiveTab('calc')}
-              className={`px-6 py-3 rounded-2xl font-bold flex items-center gap-2 transition-all ${
-                activeTab === 'calc' ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/20' : 'bg-slate-900 text-slate-400 hover:bg-slate-800'
+              className={`px-6 py-3 rounded-2xl font-bold flex items-center gap-2 transition-all active:scale-95 shadow-xl ${
+                activeTab === 'calc' ? 'bg-indigo-600 text-white shadow-indigo-500/30' : 'bg-slate-900 text-slate-400 hover:bg-slate-800'
               }`}
             >
               <Coins size={18} />
@@ -114,8 +114,8 @@ export default function TravelUtilities() {
             </button>
             <button 
               onClick={() => setActiveTab('list')}
-              className={`px-6 py-3 rounded-2xl font-bold flex items-center gap-2 transition-all ${
-                activeTab === 'list' ? 'bg-purple-600 text-white shadow-lg shadow-purple-500/20' : 'bg-slate-900 text-slate-400 hover:bg-slate-800'
+              className={`px-6 py-3 rounded-2xl font-bold flex items-center gap-2 transition-all active:scale-95 shadow-xl ${
+                activeTab === 'list' ? 'bg-purple-600 text-white shadow-purple-500/30' : 'bg-slate-900 text-slate-400 hover:bg-slate-800'
               }`}
             >
               <Backpack size={18} />

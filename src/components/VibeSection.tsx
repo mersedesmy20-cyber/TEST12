@@ -73,7 +73,7 @@ function VibeCard({
         <p className="text-xl mb-8 opacity-90 text-slate-200 font-light">{description}</p>
         <button
           onClick={onClick}
-          className="glass text-white border border-white/20 px-8 py-4 rounded-full font-semibold text-lg self-start transition-all hover:bg-white/10 hover:border-white/40 hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.2)]"
+          className="glass text-white border border-white/20 px-8 py-4 rounded-full font-semibold text-lg self-start transition-all hover:bg-white/10 hover:border-white/40 hover:scale-105 active:scale-95 hover:shadow-[0_0_30px_rgba(255,255,255,0.2)]"
         >
           {buttonText}
         </button>

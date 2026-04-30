@@ -26,7 +26,7 @@ const reviews = [
         role: 'Весільна подорож (Мальдіви)',
         text: 'Це була казка! Дякуємо Glorious Travel за наш медовий місяць. Все було на найвищому рівні. Обов\'язково звернемося ще!',
         rating: 5,
-        avatar: 'https://images.unsplash.com/photo-1520223297774-8954419452f0?q=80&w=200&auto=format&fit=crop'
+        avatar: 'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?q=80&w=200&auto=format&fit=crop'
     }
 ]
 

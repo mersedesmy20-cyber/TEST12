@@ -21,7 +21,7 @@ export default function AboutDirector() {
                             <div className="absolute -inset-2 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-3xl opacity-20 group-hover:opacity-30 transition-opacity" />
 
                             {/* Image container */}
-                            <div className="relative w-[350px] h-[450px] rounded-3xl overflow-hidden border-4 border-white/10 group-hover:border-white/20 transition-all shadow-2xl">
+                            <div className="relative w-[280px] h-[360px] sm:w-[350px] sm:h-[450px] rounded-3xl overflow-hidden border-4 border-white/10 group-hover:border-white/20 transition-all shadow-2xl">
                                 <Image
                                     src="/director-photo.webp"
                                     alt="Єлизавета Захарченко - Директор Glorious Travel"

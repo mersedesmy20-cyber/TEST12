@@ -89,8 +89,7 @@ export default function Hero() {
                 alt="Glorious Travel Background"
                 fill
                 priority={index === 0}
-                unoptimized
-                className="object-cover scale-110"
+                className="object-cover"
                 sizes="100vw"
               />
             </div>
@@ -128,16 +127,8 @@ export default function Hero() {
 
       {/* Decorative Elements */}
       <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg_viewBox=%220_0_200_200%22_xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter_id=%22noiseFilter%22%3E%3CfeTurbulence_type=%22fractalNoise%22_baseFrequency=%220.65%22_numOctaves=%223%22_stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect_width=%22100%25%22_height=%22100%25%22_filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E')] opacity-[0.03] mix-blend-overlay pointer-events-none" />
-      <motion.div 
-        animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
-        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute top-1/4 -left-20 w-96 h-96 bg-indigo-600/30 rounded-full blur-[150px]" 
-      />
-      <motion.div 
-        animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
-        transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-        className="absolute bottom-1/4 -right-20 w-96 h-96 bg-purple-600/30 rounded-full blur-[150px]" 
-      />
+      <div className="absolute top-1/4 -left-20 w-96 h-96 bg-indigo-600/30 rounded-full blur-[150px] animate-blob-pulse" />
+      <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-purple-600/30 rounded-full blur-[150px] animate-blob-pulse [animation-delay:2s]" />
 
       {/* Main Content */}
       <motion.div 
@@ -177,7 +168,7 @@ export default function Hero() {
         >
           ПОДОРОЖІ, ЯКІ <br />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 via-white to-purple-300 animate-gradient-x">
-            ЗАЗАМ'ЯТОВУЮТЬСЯ
+            ЗАПАМ'ЯТОВУЮТЬСЯ
           </span>
         </motion.h1>
 

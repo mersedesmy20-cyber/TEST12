@@ -97,25 +97,37 @@ export default function Navigation() {
           }`}
       >
         <div className="px-[5%] py-8 flex flex-col gap-6">
-          {['Пошук туру', 'Країни', 'Готелі', 'Гарячі тури', 'Історії', 'Відгуки', 'Гра 🎮', 'AI Агент', 'Про нас', 'Контакти'].map((item) => (
-            <Link
-              key={item}
-              href={
-                item === 'Пошук туру' ? '/search' :
-                  item === 'Країни' ? '/countries' :
-                    item === 'Гарячі тури' ? '/seasonal' :
-                      item === 'Історії' ? '/stories' :
-                        item === 'Відгуки' ? '/reviews' :
-                          item === 'Гра 🎮' ? '/game' :
-                            item === 'AI Агент' ? '/ai-assistant' :
-                              item === 'Про нас' ? '/about' :
-                                '/#destinations'
-              }
-              className="text-lg font-semibold text-slate-200 hover:text-indigo-400 transition-colors pb-3 border-b border-white/5"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              {item}
-            </Link>
+          {[
+            { label: 'Пошук туру', href: '/search' },
+            { label: 'Тест 🧭', onClick: () => { openQuiz(); setMobileMenuOpen(false); } },
+            { label: 'Країни', href: '/countries' },
+            { label: 'Готелі', href: '/#destinations' },
+            { label: 'Гарячі тури', href: '/seasonal' },
+            { label: 'Історії', href: '/stories' },
+            { label: 'Відгуки', href: '/reviews' },
+            { label: 'Гра 🎮', href: '/game' },
+            { label: 'AI Агент', href: '/ai-assistant' },
+            { label: 'Про нас', href: '/about' },
+            { label: 'Контакти', href: '/#contact' },
+          ].map((item) => (
+            item.onClick ? (
+              <button
+                key={item.label}
+                onClick={item.onClick}
+                className="text-left text-lg font-semibold text-slate-200 hover:text-indigo-400 transition-colors pb-3 border-b border-white/5"
+              >
+                {item.label}
+              </button>
+            ) : (
+              <Link
+                key={item.label}
+                href={item.href || '#'}
+                className="text-lg font-semibold text-slate-200 hover:text-indigo-400 transition-colors pb-3 border-b border-white/5"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {item.label}
+              </Link>
+            )
           ))}
           <Link
             href="https://t.me/lizazakharchenko"

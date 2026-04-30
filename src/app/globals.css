@@ -43,6 +43,11 @@ body {
 /* Stylish cursor for interactive elements */
 a, button, .cursor-pointer, [role="button"] {
   cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="rgba(168,85,247,0.15)" stroke="rgba(168,85,247,1)" stroke-width="2.5"/><circle cx="12" cy="12" r="3" fill="rgba(168,85,247,1)"/></svg>'), pointer !important;
+  transition: transform 0.1s ease;
+}
+
+a:active, button:active, .cursor-pointer:active {
+  transform: scale(0.96) !important;
 }
 
 @layer utilities {
@@ -189,6 +194,22 @@ a, button, .cursor-pointer, [role="button"] {
 
 .animate-slideInRight {
   animation: slideInRight 0.5s ease-out;
+}
+
+@keyframes blob-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.5;
+  }
+}
+
+.animate-blob-pulse {
+  animation: blob-pulse 10s ease-in-out infinite;
+  will-change: transform, opacity;
 }
 
 /* Custom Scrollbar */

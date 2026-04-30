@@ -27,6 +27,12 @@ const stories = [
         title: "Поради",
         image: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=300&auto=format&fit=crop", // Travel items
         type: "image"
+    },
+    {
+        id: 5,
+        title: "Туреччина",
+        image: "https://images.unsplash.com/photo-1600208669687-f19af3638cb9?q=80&w=300&auto=format&fit=crop", // Pamukkale
+        type: "image"
     }
 ]
 

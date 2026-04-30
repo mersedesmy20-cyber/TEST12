@@ -31,13 +31,13 @@ export const destinations: Destination[] = [
       {
         name: "Памуккале (травертини)",
         description: "Природні басейни з термальною водою сніжно-білого кольору. Унікальне природне явище, відоме як 'Бавовняний замок'.",
-        image: "https://images.unsplash.com/photo-1622306351842-5f65a0b7774c?q=80&w=600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1600208669687-f19af3638cb9?q=80&w=600&auto=format&fit=crop",
         icon: "💧"
       },
       {
         name: "Античне місто Ефес",
         description: "Одне з найкраще збережених античних міст світу. Прогуляйтеся стародавніми вулицями та побачте бібліотеку Цельса.",
-        image: "https://images.unsplash.com/photo-1596306499300-e2bf307cb769?q=80&w=600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1566650515715-c73e35b8dbfe?q=80&w=600&auto=format&fit=crop",
         icon: "🏛️"
       }
     ],

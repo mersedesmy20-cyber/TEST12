@@ -207,7 +207,7 @@ export default function SeasonalPage() {
                 {/* Quiz Banner Teaser */}
                 <div className="mt-24 p-1 rounded-3xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
                     <div className="bg-slate-950 rounded-[22px] px-8 py-16 md:p-16 text-center relative overflow-hidden">
-                        <div className="absolute top-0 left-0 w-full h-full bg-[url('/noise.png')] opacity-20 mix-blend-overlay" />
+                        <div className="absolute top-0 left-0 w-full h-full bg-[url('data:image/svg+xml,%3Csvg_viewBox=%220_0_200_200%22_xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter_id=%22noiseFilter%22%3E%3CfeTurbulence_type=%22fractalNoise%22_baseFrequency=%220.65%22_numOctaves=%223%22_stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect_width=%22100%25%22_height=%22100%25%22_filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E')] opacity-20 mix-blend-overlay" />
 
                         <h2 className="text-3xl md:text-5xl font-black text-white mb-6 relative z-10">
                             Не знайшли свій ідеальний тур?

@@ -31,13 +31,13 @@ export const destinations: Destination[] = [
       {
         name: "Памуккале (травертини)",
         description: "Природні басейни з термальною водою сніжно-білого кольору. Унікальне природне явище, відоме як 'Бавовняний замок'.",
-        image: "https://images.unsplash.com/photo-1600208669687-f19af3638cb9?q=80&w=600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1589820296156-2454bb8a6ad1?q=80&w=600&auto=format&fit=crop",
         icon: "💧"
       },
       {
         name: "Античне місто Ефес",
         description: "Одне з найкраще збережених античних міст світу. Прогуляйтеся стародавніми вулицями та побачте бібліотеку Цельса.",
-        image: "https://images.unsplash.com/photo-1566650515715-c73e35b8dbfe?q=80&w=600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1512553776634-7ae50d0f7e43?q=80&w=600&auto=format&fit=crop",
         icon: "🏛️"
       }
     ],
@@ -90,13 +90,13 @@ export const destinations: Destination[] = [
       {
         name: "Альгамбра (Гранада)",
         description: "Шедевр маврітанської архітектури. Палаци, дворики з фонтанами та сади Хенераліфе.",
-        image: "https://images.unsplash.com/photo-1621683400760-46961a7c369e?q=80&w=600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1539799139339-50c5fe1e2b1b?q=80&w=600&auto=format&fit=crop",
         icon: "🏰"
       },
       {
         name: "Королівський палац",
         description: "Офіційна резиденція іспанської королівської родини в Мадриді. Розкішні зали та збройова палата.",
-        image: "https://images.unsplash.com/photo-1548679198-d4fa24976767?q=80&w=600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?q=80&w=600&auto=format&fit=crop",
         icon: "👑"
       }
     ],
@@ -105,7 +105,7 @@ export const destinations: Destination[] = [
       {
         name: "Хамон",
         description: "Знаменитий іспанський сиров'ялений окіст. Найкращий сувенір для гурманів.",
-        image: "https://images.unsplash.com/photo-1599321955726-e04842d6c2e7?q=80&w=600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?q=80&w=600&auto=format&fit=crop",
         icon: "🍖"
       },
       {
@@ -123,7 +123,7 @@ export const destinations: Destination[] = [
       {
         name: "Віяло (Абаніко)",
         description: "Традиційне іспанське віяло - це не просто аксесуар, а частина культури фламенко.",
-        image: "https://images.unsplash.com/photo-1627827829767-6a75f564773c?q=80&w=600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1563245372-f21724e3856d?q=80&w=600&auto=format&fit=crop",
         icon: "💃"
       }
     ],
@@ -159,19 +159,19 @@ export const destinations: Destination[] = [
       {
         name: "Санторіні",
         description: "Найромантичніший острів світу з білими будиночками, синіми дахами та вулканічними пляжами.",
-        image: "https://images.unsplash.com/photo-1613395877344-13d4c79e42d0?q=80&w=600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1555993539-1732b0258235?q=80&w=600&auto=format&fit=crop",
         icon: "🌅"
       },
       {
         name: "Метеори",
         description: "Монастирі, що ширяють у повітрі. Побудовані на вершинах гігантських скель, вони виглядають нереально.",
-        image: "https://images.unsplash.com/photo-1563720223523-49193796dd32?q=80&w=600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1586611292717-f828b167408c?q=80&w=600&auto=format&fit=crop",
         icon: "⛪"
       },
       {
         name: "Кноський палац",
         description: "Лабіринт мінотавра на острові Крит. Найдавніше місто Європи та центр мінойської цивілізації.",
-        image: "https://images.unsplash.com/photo-1628198904797-2a5b28d6c708?q=80&w=600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1534113414509-0eec2bfb493f?q=80&w=600&auto=format&fit=crop",
         icon: "🐂"
       }
     ],
@@ -180,7 +180,7 @@ export const destinations: Destination[] = [
       {
         name: "Оливкова косметика",
         description: "Натуральні креми та мило на основі оливкової олії - секрет краси гречанок.",
-        image: "https://images.unsplash.com/photo-1566737236500-4804a0da9558?q=80&w=600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?q=80&w=600&auto=format&fit=crop",
         icon: "🧴"
       },
       {
@@ -192,7 +192,7 @@ export const destinations: Destination[] = [
       {
         name: "Сир Фета",
         description: "Справжня фета, витримана в розсолі. Смакує ідеально з салатом або просто з хлібом.",
-        image: "https://images.unsplash.com/photo-1620917205168-98e945c99450?q=80&w=600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1452195100486-9cc805987862?q=80&w=600&auto=format&fit=crop",
         icon: "🧀"
       },
       {
@@ -225,7 +225,7 @@ export const destinations: Destination[] = [
       {
         name: "Которська затока",
         description: "Найпівденніший фіорд Європи. Мальовничі містечка, оточені горами, відображаються в дзеркальній воді.",
-        image: "https://images.unsplash.com/photo-1584463699057-a72c14f08d26?q=80&w=600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1467189386127-c4e5e31ee213?q=80&w=600&auto=format&fit=crop",
         icon: "🌊"
       },
       {
@@ -237,13 +237,13 @@ export const destinations: Destination[] = [
       {
         name: "Острів Свєтог Стефана",
         description: "Розкішний острів-готель, з'єднаний з материком вузьким перешийком. Символ Чорногорії.",
-        image: "https://images.unsplash.com/photo-1592431913823-7af6b323da2b?q=80&w=600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1570701564993-e00652243b61?q=80&w=600&auto=format&fit=crop",
         icon: "🏝️"
       },
       {
         name: "Національний парк Дурмітор",
         description: "Дикі гори, каньйони та Чорне озеро. Каньйон Тари — найглибший у Європі.",
-        image: "https://images.unsplash.com/photo-1592502712628-09075a041486?q=80&w=600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=600&auto=format&fit=crop",
         icon: "⛰️"
       }
     ],
@@ -318,7 +318,7 @@ export const destinations: Destination[] = [
       {
         name: "Ейфелева вежа",
         description: "Залізна леді Парижа. Символ романтики та інженерного генія Гюстава Ейфеля.",
-        image: "https://images.unsplash.com/photo-1511739001486-6bfe10ce7859?q=80&w=600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?q=80&w=600&auto=format&fit=crop",
         icon: "🗼"
       },
       {
@@ -336,7 +336,7 @@ export const destinations: Destination[] = [
       {
         name: "Лазурний берег",
         description: "Ніцца, Канни, Монако. Розкішні пляжі, яхти та атмосфера красивого життя.",
-        image: "https://images.unsplash.com/photo-1533668827798-e4b7852445cc?q=80&w=600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=600&auto=format&fit=crop",
         icon: "🌊"
       }
     ],
@@ -345,7 +345,7 @@ export const destinations: Destination[] = [
       {
         name: "Французькі парфуми",
         description: "Класика від Chanel, Dior або нішеві аромати з Грасса - парфумерної столиці світу.",
-        image: "https://images.unsplash.com/photo-1595155255428-1bfd146d9f58?q=80&w=600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1615397349754-cfa2066a298e?q=80&w=600&auto=format&fit=crop",
         icon: "🧴"
       },
       {
@@ -357,13 +357,13 @@ export const destinations: Destination[] = [
       {
         name: "Макаронс",
         description: "Знамените французьке тістечко. Ladurée або Pierre Hermé - еталон смаку.",
-        image: "https://images.unsplash.com/photo-1569864358642-9d1684040f43?q=80&w=600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1558326567-98ae2405596b?q=80&w=600&auto=format&fit=crop",
         icon: "🍩"
       },
       {
         name: "Берет",
         description: "Стереотипний, але стильний аксесуар. Додає французького шарму будь-якому образу.",
-        image: "https://images.unsplash.com/photo-1523267605499-5604130638ce?q=80&w=600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1521334726092-b509a19597c6?q=80&w=600&auto=format&fit=crop",
         icon: "👒"
       }
     ],
@@ -468,7 +468,7 @@ export const destinations: Destination[] = [
       {
         name: "Дубровник",
         description: "Королівська Гавань з 'Гри Престолів'. Величні міські стіни та червоні дахи над Адріатикою.",
-        image: "https://images.unsplash.com/photo-1555990538-179cdac6933b?q=80&w=600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1555993539-1732b0258235?q=80&w=600&auto=format&fit=crop",
         icon: "🏰"
       },
       {
@@ -480,13 +480,13 @@ export const destinations: Destination[] = [
       {
         name: "Палац Діоклетіана",
         description: "Стародавній палац у Спліті, який перетворився на живе місто з вузькими вуличками.",
-        image: "https://images.unsplash.com/photo-1605335191753-46387d853b0c?q=80&w=600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1529260830199-42c24126f198?q=80&w=600&auto=format&fit=crop",
         icon: "🏛️"
       },
       {
         name: "Амфітеатр Пули",
         description: "Один із шести найбільших збережених римських амфітеатрів світу.",
-        image: "https://images.unsplash.com/photo-1596728328657-3f82024b4579?q=80&w=600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1558169487-75284f90d5a3?q=80&w=600&auto=format&fit=crop",
         icon: "🏟️"
       }
     ],
@@ -636,7 +636,7 @@ export const destinations: Destination[] = [
       {
         name: "Пляж Ніссі",
         description: "Найпопулярніший пляж Айя-Напи з білим піском і бірюзовою водою.",
-        image: "https://images.unsplash.com/photo-1533903125219-c0ae04797072?q=80&w=600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=600&auto=format&fit=crop",
         icon: "🏖️"
       }
     ],
@@ -645,7 +645,7 @@ export const destinations: Destination[] = [
       {
         name: "Сир Халумі",
         description: "Кіпрський сир для смаження. Краще купувати вакуумований, щоб довезти.",
-        image: "https://images.unsplash.com/photo-1507590859595-585a0655a6d3?q=80&w=600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1452195100486-9cc805987862?q=80&w=600&auto=format&fit=crop",
         icon: "🧀"
       },
       {
@@ -657,13 +657,13 @@ export const destinations: Destination[] = [
       {
         name: "Лефкарітика",
         description: "Знамените мереживо з села Лефкара. Внесено до спадщини ЮНЕСКО.",
-        image: "https://images.unsplash.com/photo-1605218427306-63372c7edc5f?q=80&w=600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1617854818583-09e7f077a156?q=80&w=600&auto=format&fit=crop",
         icon: "🧶"
       },
       {
         name: "Сироп ріжкового дерева",
         description: "Корисний замінник цукру та шоколаду. 'Чорне золото' Кіпру.",
-        image: "https://images.unsplash.com/photo-1612741913164-c2c3664d60c4?q=80&w=600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1587049352846-4a222e784d38?q=80&w=600&auto=format&fit=crop",
         icon: "🍯"
       }
     ],
@@ -699,19 +699,19 @@ export const destinations: Destination[] = [
       {
         name: "Празький Град",
         description: "Найбільший замковий комплекс світу. Собор святого Віта видно звідусіль.",
-        image: "https://images.unsplash.com/photo-1563842880053-ecbe9fa1a364?q=80&w=600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1541849546-216549ae216d?q=80&w=600&auto=format&fit=crop",
         icon: "🏰"
       },
       {
         name: "Чеський Крумлов",
         description: "Казкове містечко з червоними дахами та замком, оточене річкою. Час тут зупинився.",
-        image: "https://images.unsplash.com/photo-1579417846170-c0b968532f7a?q=80&w=600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1541150424917-3b4351f7e24b?q=80&w=600&auto=format&fit=crop",
         icon: "🏘️"
       },
       {
         name: "Староміська площа",
         description: "Серце Праги з астрономічним годинником (Орлой), де фігурки рухаються щогодини.",
-        image: "https://images.unsplash.com/photo-1549526710-539da6c2c8f6?q=80&w=600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?q=80&w=600&auto=format&fit=crop",
         icon: "🕰️"
       }
     ],
@@ -720,25 +720,25 @@ export const destinations: Destination[] = [
       {
         name: "Бехеровка",
         description: "Трав'яний лікер з Карлових Вар. Лікує тіло і веселить душу.",
-        image: "https://images.unsplash.com/photo-1627447479703-a1af17b0d77d?q=80&w=600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=600&auto=format&fit=crop",
         icon: "🍾"
       },
       {
         name: "Чеський гранат",
         description: "Камінь кольору голубиної крові. Купуйте тільки з сертифікатом.",
-        image: "https://images.unsplash.com/photo-1602700345092-299696e57df5?q=80&w=600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=600&auto=format&fit=crop",
         icon: "💍"
       },
       {
         name: "Оплатки",
         description: "Тонкі хрусткі вафлі з начинкою. Найсмачніші - теплі.",
-        image: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?q=80&w=600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1558024920-b41e1887dc32?q=80&w=600&auto=format&fit=crop",
         icon: "🧇"
       },
       {
         name: "Крітек (Кріт)",
         description: "Іграшка з відомого мультфільму, яку обожнюють діти і дорослі.",
-        image: "https://images.unsplash.com/photo-1557973801-b541797c2728?q=80&w=600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=600&auto=format&fit=crop",
         icon: "🧸"
       }
     ],
@@ -783,13 +783,13 @@ export const destinations: Destination[] = [
       {
         name: "Пустельне Сафарі",
         description: "Екстремальна поїздка на джипах по барханах, вечеря під зорями та танці живота.",
-        image: "https://images.unsplash.com/photo-1451337516015-6b6fcd53e5a0?q=80&w=600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?q=80&w=600&auto=format&fit=crop",
         icon: "🚙"
       },
       {
         name: "Музей Майбутнього",
         description: "Одна з найкрасивіших будівель світу. Подорож у світ технологій та інновацій завтрашнього дня.",
-        image: "https://images.unsplash.com/photo-1652159048386-35f92275b28d?q=80&w=600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=600&auto=format&fit=crop",
         icon: "🚀"
       }
     ],
@@ -798,7 +798,7 @@ export const destinations: Destination[] = [
       {
         name: "Фініки (Bateel)",
         description: "Королівський делікатес. Фініки в шоколаді або з горіхами - це смак сходу.",
-        image: "https://images.unsplash.com/photo-1594916891040-20513e9a4e8d?q=80&w=600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1576673442511-7e39b6545c87?q=80&w=600&auto=format&fit=crop",
         icon: "🍮"
       },
       {
@@ -816,7 +816,7 @@ export const destinations: Destination[] = [
       {
         name: "Кавник Далла",
         description: "Традиційний арабський кавник - символ гостинності. Чудовий елемент декору.",
-        image: "https://images.unsplash.com/photo-1563287114-11853d969245?q=80&w=600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=600&auto=format&fit=crop",
         icon: "☕"
       }
     ],
@@ -859,13 +859,13 @@ export const destinations: Destination[] = [
       {
         name: "Храм Істини",
         description: "Гігантський храм у Паттаї, побудований повністю з дерева без жодного цвяха.",
-        image: "https://images.unsplash.com/photo-1598970891484-9547d79b2a75?q=80&w=600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1563492065599-3520f775eeed?q=80&w=600&auto=format&fit=crop",
         icon: "🪵"
       },
       {
         name: "Плавучий ринок",
         description: "Традиційна торгівля з човнів. Колоритно, галасливо і дуже смачно.",
-        image: "https://images.unsplash.com/photo-1598327733454-e7c6536b99de?q=80&w=600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1528127269322-539801943592?q=80&w=600&auto=format&fit=crop",
         icon: "🛶"
       }
     ],
@@ -880,7 +880,7 @@ export const destinations: Destination[] = [
       {
         name: "Тайський бальзам",
         description: "Легендарний 'Тигровий бальзам' від усіх хвороб. Чудово знімає біль у м'язах.",
-        image: "https://images.unsplash.com/photo-1556228720-6d8a3d5f6e80?q=80&w=600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1607619662634-3ac55ec0e216?q=80&w=600&auto=format&fit=crop",
         icon: "🐅"
       },
       {
@@ -1416,7 +1416,7 @@ export const destinations: Destination[] = [
       {
         name: "Фініки",
         description: "Сорт 'Деглет Нур' (пальці світла) - найсолодші та найпрозоріші.",
-        image: "https://images.unsplash.com/photo-1594916891040-20513e9a4e8d?q=80&w=600&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1598369263247-6abb7e2e3a2d?q=80&w=600&auto=format&fit=crop",
         icon: "🌴"
       },
       {

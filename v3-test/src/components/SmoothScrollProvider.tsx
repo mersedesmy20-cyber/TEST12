@@ -1,5 +1,3 @@
-'use client'
-
 import { ReactNode, useEffect } from 'react'
 import Lenis from '@studio-freight/lenis'
 
@@ -12,12 +10,6 @@ export default function SmoothScrollProvider({ children }: { children: ReactNode
       gestureOrientation: 'vertical',
       smoothWheel: true,
       wheelMultiplier: 0.9,
-    })
-
-    // Sync Lenis scroll position with window.scrollY so
-    // motion/react useScroll() gets correct values without jank
-    lenis.on('scroll', ({ scroll }: { scroll: number }) => {
-      document.documentElement.style.setProperty('--scroll-y', `${scroll}px`)
     })
 
     let rafId: number

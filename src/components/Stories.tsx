@@ -31,7 +31,7 @@ const stories = [
     {
         id: 5,
         title: "Туреччина",
-        image: "https://images.unsplash.com/photo-1600208669687-f19af3638cb9?q=80&w=300&auto=format&fit=crop", // Pamukkale
+        image: "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?q=80&w=300&auto=format&fit=crop", // Turkey Istanbul
         type: "image"
     }
 ]

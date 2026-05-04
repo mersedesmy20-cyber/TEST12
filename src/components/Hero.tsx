@@ -1,11 +1,9 @@
-
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion, useScroll, useTransform } from 'motion/react'
-import { QuantumTravelScene } from './QuantumTravelScene'
 
 const bgImages = [
   // Maldives Tropical
@@ -91,15 +89,10 @@ export default function Hero() {
               />
             </div>
           ))}
-        {/* Overlay Gradients */}
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/40 via-transparent to-slate-950/90" />
-        <div className="absolute inset-0 bg-black/40" />
+      {/* Overlay Gradients */}
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/60 via-transparent to-slate-950" />
+        <div className="absolute inset-0 bg-black/30" />
       </motion.div>
-
-      {/* 3D Scene Integration */}
-      <div className="absolute inset-0 z-[5]">
-        <QuantumTravelScene />
-      </div>
 
       {/* Top Info Bar (Desktop Only) */}
       <motion.div 

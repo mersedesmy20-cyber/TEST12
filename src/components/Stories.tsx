@@ -7,31 +7,31 @@ const stories = [
     {
         id: 1,
         title: "Топ Літа",
-        image: "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=300&auto=format&fit=crop", // Zanzibar / Maldives style
+        image: "https://images.unsplash.com/photo-1506929199175-f70f4c29c16a?q=80&w=300&auto=format&fit=crop", // Tropical Paradise
         type: "video"
     },
     {
         id: 2,
         title: "Акції",
-        image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=300&auto=format&fit=crop", // Hotel
+        image: "https://images.unsplash.com/photo-1540541338287-41700207dee6?q=80&w=300&auto=format&fit=crop", // Modern Hotel
         type: "image"
     },
     {
         id: 3,
         title: "Відгуки",
-        image: "https://images.unsplash.com/photo-1596436889106-be35e843f974?q=80&w=300&auto=format&fit=crop", // Happy people
+        image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=300&auto=format&fit=crop", // Happy Team
         type: "image"
     },
     {
         id: 4,
         title: "Поради",
-        image: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=300&auto=format&fit=crop", // Travel items
+        image: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=300&auto=format&fit=crop", // Travel Gear
         type: "image"
     },
     {
         id: 5,
         title: "Туреччина",
-        image: "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?q=80&w=300&auto=format&fit=crop", // Turkey Istanbul
+        image: "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?q=80&w=300&auto=format&fit=crop", // Istanbul
         type: "image"
     }
 ]

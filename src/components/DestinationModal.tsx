@@ -258,7 +258,7 @@ export default function DestinationModal() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
                 {selectedDestination.tips.map((tip, index) => (
                   <div key={index} className="bg-black/40 p-6 rounded-2xl border border-white/5 text-amber-100 italic text-lg leading-relaxed shadow-inner">
-                    " {tip} "
+                    &quot; {tip} &quot;
                   </div>
                 ))}
               </div>

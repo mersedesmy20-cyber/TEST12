@@ -115,7 +115,7 @@ export default function DiscountBanner() {
                         <form onSubmit={handleSubmit} className="p-6 space-y-4">
                             <div>
                                 <label className="text-slate-300 text-sm font-medium mb-2 block">
-                                    Ваше ім'я *
+                                    Ваше ім&apos;я *
                                 </label>
                                 <input
                                     type="text"

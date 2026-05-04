@@ -27,7 +27,7 @@ export default function PrivacyPage() {
                     <section className="mb-12 bg-white/5 backdrop-blur-xl rounded-2xl p-8 border border-white/10">
                         <h2 className="text-3xl font-bold text-white mb-4">1. Загальні положення</h2>
                         <p className="text-slate-300 leading-relaxed">
-                            Glorious Travel ("ми", "нас", "наш") поважає вашу конфіденційність. Ця Політика конфіденційності
+                            Glorious Travel (&quot;ми&quot;, &quot;нас&quot;, &quot;наш&quot;) поважає вашу конфіденційність. Ця Політика конфіденційності
                             пояснює, як ми збираємо, використовуємо, зберігаємо та захищаємо вашу особисту інформацію при
                             використанні нашого веб-сайту <strong>glorious-travel.vercel.app</strong> та наших послуг.
                         </p>
@@ -39,7 +39,7 @@ export default function PrivacyPage() {
                         <ul className="space-y-3 text-slate-300">
                             <li className="flex items-start gap-3">
                                 <span className="text-indigo-400 shrink-0">✓</span>
-                                <span><strong>Контактна інформація:</strong> ім'я, прізвище, номер телефону, Telegram username, електронна пошта</span>
+                                <span><strong>Контактна інформація:</strong> ім&apos;я, прізвище, номер телефону, Telegram username, електронна пошта</span>
                             </li>
                             <li className="flex items-start gap-3">
                                 <span className="text-indigo-400 shrink-0">✓</span>
@@ -66,7 +66,7 @@ export default function PrivacyPage() {
                             </li>
                             <li className="flex items-start gap-3">
                                 <span className="text-purple-400 shrink-0">•</span>
-                                <span>Зв'язку з вами через Telegram, телефон або email</span>
+                                <span>Зв&apos;язку з вами через Telegram, телефон або email</span>
                             </li>
                             <li className="flex items-start gap-3">
                                 <span className="text-purple-400 shrink-0">•</span>
@@ -206,7 +206,7 @@ export default function PrivacyPage() {
                     <section className="bg-gradient-to-br from-indigo-900/30 to-purple-900/30 backdrop-blur-xl rounded-2xl p-8 border border-white/10">
                         <h2 className="text-3xl font-bold text-white mb-4">📧 Контакти</h2>
                         <p className="text-slate-300 mb-4">
-                            Якщо у вас є питання щодо цієї Політики конфіденційності або ви хочете скористатися своїми правами, зв'яжіться з нами:
+                            Якщо у вас є питання щодо цієї Політики конфіденційності або ви хочете скористатися своїми правами, зв&apos;яжіться з нами:
                         </p>
                         <div className="space-y-3">
                             <div className="flex items-center gap-3">

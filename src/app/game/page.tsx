@@ -249,7 +249,7 @@ export default function GamePage() {
                     <p className="text-green-400 font-bold flex items-center justify-center gap-2">
                        <CheckCircle2 size={20} /> СПРАВЖНІЙ ТРЕВЕЛ-ГУРУ!
                     </p>
-                    <p className="text-slate-400 text-sm">Неймовірно! Ви знаєте наш світ як свої п'ять пальців.</p>
+                    <p className="text-slate-400 text-sm">Неймовірно! Ви знаєте наш світ як свої п&apos;ять пальців.</p>
                   </div>
                 ) : score >= 3 ? (
                   <div className="space-y-4">

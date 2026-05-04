@@ -154,7 +154,7 @@ export default function AIAssistantPage() {
 
         {isSidebarOpen && (
           <div className="p-4 bg-gradient-to-br from-purple-900/20 to-blue-900/20 m-4 rounded-2xl border border-purple-500/20 shrink-0">
-            <h4 className="text-[10px] font-bold text-purple-400 mb-3 uppercase tracking-[0.2em]">Прямий зв'язок</h4>
+            <h4 className="text-[10px] font-bold text-purple-400 mb-3 uppercase tracking-[0.2em]">Прямий зв&apos;язок</h4>
             <div className="space-y-3">
               <a 
                 href="https://t.me/lizazakharchenko"

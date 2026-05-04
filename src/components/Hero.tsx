@@ -160,9 +160,8 @@ export default function Hero() {
           variants={itemVariants}
           className="fade-in-up text-[clamp(2.5rem,8vw,6.5rem)] font-black text-white mb-6 leading-[1.0] tracking-tight drop-shadow-[0_0_25px_rgba(0,0,0,0.5)]"
         >
-          ПОДОРОЖІ, ЯКІ <br />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 via-white to-purple-300 animate-gradient-x">
-            ЗАПАМ'ЯТОВУЮТЬСЯ
+              ПОДОРОЖІ, ЯКІ ЗАПАМ&apos;ЯТОВУЮТЬСЯ
           </span>
         </motion.h1>
 

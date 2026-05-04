@@ -8,14 +8,14 @@ import { motion, useScroll, useTransform } from 'motion/react'
 import { QuantumTravelScene } from './QuantumTravelScene'
 
 const bgImages = [
-  // Tropical
-  'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2073&auto=format&fit=crop',
-  // Paris
-  'https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?q=80&w=2070&auto=format&fit=crop',
-  // Mountains
-  'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2070&auto=format&fit=crop',
-  // Resort
-  'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=2070&auto=format&fit=crop'
+  // Maldives Tropical
+  'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?q=80&w=2070&auto=format&fit=crop',
+  // Switzerland Mountains
+  'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070&auto=format&fit=crop',
+  // Santorini Sunset
+  'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?q=80&w=2070&auto=format&fit=crop',
+  // Luxury Resort Bali
+  'https://images.unsplash.com/photo-1537996194471-e657df975ab4?q=80&w=2070&auto=format&fit=crop'
 ]
 
 export default function Hero() {

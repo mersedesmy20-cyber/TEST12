@@ -8,6 +8,7 @@ import CookieConsent from '@/components/CookieConsent'
 import SmoothScrollProvider from '@/components/SmoothScrollProvider'
 import ScrollProgress from '@/components/ScrollProgress'
 import ScrollToTop from '@/components/ScrollToTop'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 
 const montserrat = Montserrat({ subsets: ['latin', 'cyrillic'] })
 
@@ -171,6 +172,7 @@ export default function RootLayout({
             <CookieConsent />
           </SmoothScrollProvider>
         </ModalProvider>
+        <SpeedInsights />
       </body>
     </html>
   )

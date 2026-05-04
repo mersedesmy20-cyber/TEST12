@@ -1,4 +1,5 @@
 'use client'
+import Image from 'next/image'
 
 export default function VibeSection({
   onFilterSelect,
@@ -18,7 +19,7 @@ export default function VibeSection({
           Обери свій <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">Вайб</span>
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-12">
           <VibeCard
             type="winter"
             title="Зимова казка ❄️"
@@ -57,11 +58,18 @@ function VibeCard({
   onClick: () => void
 }) {
   return (
-    <div className="vibe-card group relative h-[500px] rounded-3xl overflow-hidden cursor-pointer transition-all duration-500 shadow-lg hover:shadow-[0_0_40px_rgba(99,102,241,0.3)] hover:-translate-y-2">
-      <div
-        className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
-        style={{ backgroundImage: `url('${image}')` }}
-      />
+    <div className="vibe-card group relative h-[550px] rounded-[2rem] overflow-hidden cursor-pointer shadow-2xl transition-transform duration-500 hover:-translate-y-3">
+      <div className="absolute inset-0 transition-transform duration-1000 group-hover:scale-110">
+        <Image
+          src={image}
+          alt={title}
+          fill
+          className="object-cover"
+          sizes="(max-width: 768px) 100vw, 50vw"
+          priority={false}
+          loading="lazy"
+        />
+      </div>
       <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/50 to-transparent opacity-90" />
 
       <div className="absolute inset-0 bg-indigo-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 mix-blend-overlay" />

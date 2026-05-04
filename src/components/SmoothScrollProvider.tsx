@@ -16,8 +16,11 @@ export default function SmoothScrollProvider({ children }: { children: ReactNode
 
     // Sync Lenis scroll position with window.scrollY so
     // motion/react useScroll() gets correct values without jank
-    lenis.on('scroll', ({ scroll }: { scroll: number }) => {
-      document.documentElement.style.setProperty('--scroll-y', `${scroll}px`)
+    // Lenis handles the scroll smoothness. 
+    // Removed redundant CSS variable update that was causing performance lag.
+    lenis.on('scroll', () => {
+      // Logic for scroll-based animations could go here, 
+      // but only if using specialized performance-optimized hooks.
     })
 
     let rafId: number

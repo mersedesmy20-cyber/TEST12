@@ -9,95 +9,78 @@ export default function CustomCursor() {
     const [isVisible, setIsVisible] = useState(false)
 
     useEffect(() => {
-        // Only run on desktop/devices with hover capability
         if (typeof window === 'undefined' || window.matchMedia('(pointer: coarse)').matches) return
 
         const cursor = cursorRef.current
         const follower = followerRef.current
-
         if (!cursor || !follower) return
 
-        // Hide default cursor
         document.body.style.cursor = 'none'
         
         let mouseX = 0
         let mouseY = 0
         let followerX = 0
         let followerY = 0
+        let active = false
 
         const onMouseMove = (e: MouseEvent) => {
             mouseX = e.clientX
             mouseY = e.clientY
-
-            if (!isVisible) {
-                setIsVisible(true)
-                gsap.set([cursor, follower], { opacity: 1, scale: 1 })
+            if (!active) {
+                active = true
+                cursor.style.opacity = '1'
+                follower.style.opacity = '1'
             }
         }
 
         const render = () => {
-            // Faster follower movement (0.2 instead of 0.1)
-            followerX += (mouseX - followerX) * 0.2
-            followerY += (mouseY - followerY) * 0.2
+            followerX += (mouseX - followerX) * 0.15
+            followerY += (mouseY - followerY) * 0.15
 
-            gsap.set(cursor, {
-                x: mouseX,
-                y: mouseY
-            })
-
-            gsap.set(follower, {
-                x: followerX,
-                y: followerY
-            })
+            cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`
+            follower.style.transform = `translate3d(${followerX}px, ${followerY}px, 0)`
 
             requestAnimationFrame(render)
         }
 
-        const onMouseOver = (e: MouseEvent) => {
+        const handleHover = (e: MouseEvent) => {
             const target = e.target as HTMLElement
-            const link = target.closest('a, button, .cursor-pointer, [role="button"], input, select, textarea')
-
-            if (link) {
-                gsap.to(cursor, { scale: 0.5, opacity: 0.5, duration: 0.2 })
+            const isPointer = !!target.closest('a, button, .cursor-pointer, [role="button"], input, select, textarea')
+            
+            if (isPointer) {
+                gsap.to(cursor, { scale: 0.5, opacity: 0.5, duration: 0.2, overwrite: true })
                 gsap.to(follower, {
-                    scale: 1.5,
-                    backgroundColor: "rgba(129, 140, 248, 0.1)", // Light indigo
-                    borderColor: "rgba(129, 140, 248, 0.8)",
+                    scale: 1.8,
+                    backgroundColor: "rgba(129, 140, 248, 0.15)",
+                    borderColor: "rgba(129, 140, 248, 0.9)",
                     borderWidth: '2px',
-                    duration: 0.3
+                    duration: 0.3,
+                    overwrite: true
                 })
-            }
-        }
-
-        const onMouseOut = (e: MouseEvent) => {
-            const target = e.target as HTMLElement
-            const link = target.closest('a, button, .cursor-pointer, [role="button"], input, select, textarea')
-
-            if (link) {
-                gsap.to(cursor, { scale: 1, opacity: 1, duration: 0.2 })
+            } else {
+                gsap.to(cursor, { scale: 1, opacity: 1, duration: 0.2, overwrite: true })
                 gsap.to(follower, {
                     scale: 1,
                     backgroundColor: "transparent",
                     borderColor: "rgba(129, 140, 248, 0.4)",
                     borderWidth: '1px',
-                    duration: 0.3
+                    duration: 0.3,
+                    overwrite: true
                 })
             }
         }
 
         const animationFrame = requestAnimationFrame(render)
-        window.addEventListener('mousemove', onMouseMove)
-        document.addEventListener('mouseover', onMouseOver)
-        document.addEventListener('mouseout', onMouseOut)
+        window.addEventListener('mousemove', onMouseMove, { passive: true })
+        window.addEventListener('mouseover', handleHover)
 
         return () => {
             cancelAnimationFrame(animationFrame)
             document.body.style.cursor = 'auto'
             window.removeEventListener('mousemove', onMouseMove)
-            document.removeEventListener('mouseover', onMouseOver)
-            document.removeEventListener('mouseout', onMouseOut)
+            window.removeEventListener('mouseover', handleHover)
         }
-    }, [isVisible])
+    }, [])
 
     if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) return null
 

@@ -4,7 +4,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion } from 'motion/react'
+import { motion, useScroll, useTransform } from 'motion/react'
 import { QuantumTravelScene } from './QuantumTravelScene'
 
 const bgImages = [
@@ -22,8 +22,11 @@ export default function Hero() {
   const [currentBg, setCurrentBg] = useState(0)
   const [time, setTime] = useState('')
   const [isReturning, setIsReturning] = useState(false)
-  const [scrollY, setScrollY] = useState(0)
   const bgRef = useRef<HTMLDivElement>(null)
+
+  const { scrollY } = useScroll()
+  const parallaxY = useTransform(scrollY, [0, 800], [0, 240])
+  const textOpacity = useTransform(scrollY, [0, 400], [1, 0])
 
   // Background rotater
   useEffect(() => {
@@ -38,19 +41,11 @@ export default function Hero() {
       setTime(new Date().toLocaleTimeString('uk-UA', { hour: '2-digit', minute: '2-digit' }))
     }, 1000)
 
-    // Smooth parallax via native scroll (works with Lenis)
-    const handleScroll = () => setScrollY(window.scrollY)
-    window.addEventListener('scroll', handleScroll, { passive: true })
-
     return () => {
       clearInterval(interval)
       clearInterval(timer)
-      window.removeEventListener('scroll', handleScroll)
     }
   }, [])
-
-  const parallaxY = scrollY * 0.3
-  const textOpacity = Math.max(0, 1 - scrollY / 400)
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -76,9 +71,9 @@ export default function Hero() {
     <section className="relative h-screen min-h-[800px] flex items-center justify-center overflow-hidden text-center bg-slate-950">
 
       {/* Dynamic Background Slider */}
-      <div
+      <motion.div
         ref={bgRef}
-        style={{ transform: `translateY(${parallaxY}px)` }}
+        style={{ y: parallaxY }}
         className="absolute inset-0 overflow-hidden will-change-transform"
       >
       {bgImages.map((img, index) => (
@@ -99,7 +94,7 @@ export default function Hero() {
         {/* Overlay Gradients */}
         <div className="absolute inset-0 bg-gradient-to-b from-slate-950/40 via-transparent to-slate-950/90" />
         <div className="absolute inset-0 bg-black/40" />
-      </div>
+      </motion.div>
 
       {/* 3D Scene Integration */}
       <div className="absolute inset-0 z-[5]">

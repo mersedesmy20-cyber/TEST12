@@ -8,6 +8,8 @@ import CookieConsent from '@/components/CookieConsent'
 import SmoothScrollProvider from '@/components/SmoothScrollProvider'
 import ScrollProgress from '@/components/ScrollProgress'
 import ScrollToTop from '@/components/ScrollToTop'
+import QuizModal from '@/components/QuizModal'
+import DestinationModal from '@/components/DestinationModal'
 
 const montserrat = Montserrat({ subsets: ['latin', 'cyrillic'] })
 
@@ -167,6 +169,8 @@ export default function RootLayout({
             <ScrollProgress />
             <ScrollToTop />
             {children}
+            <QuizModal />
+            <DestinationModal />
             <BotWidget />
             <CookieConsent />
           </SmoothScrollProvider>

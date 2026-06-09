@@ -11,11 +11,9 @@ import Reviews from '@/components/Reviews'
 import Contact from '@/components/Contact'
 import Footer from '@/components/Footer'
 import MobileStickyButton from '@/components/MobileStickyButton'
-import DestinationModal from '@/components/DestinationModal'
 import DiscountBanner from '@/components/DiscountBanner'
 import TravelUtilities from '@/components/TravelUtilities'
 import { initAnimations } from '@/lib/animations'
-import QuizModal from '@/components/QuizModal'
 
 // Lazy load heavy components
 const DestinationsLazy = dynamic(() => import('@/components/Destinations'), {
@@ -56,9 +54,7 @@ export default function Home() {
       <Contact />
       <Footer />
       <MobileStickyButton />
-      <DestinationModal />
       <DiscountBanner />
-      <QuizModal />
     </main>
   )
 }

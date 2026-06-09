@@ -3,17 +3,16 @@
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion, useScroll, useTransform } from 'motion/react'
+import { motion } from 'motion/react'
+import Magnetic from './Magnetic'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 const bgImages = [
-  // Maldives Tropical
-  'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?q=80&w=2070&auto=format&fit=crop',
-  // Switzerland Mountains
-  'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070&auto=format&fit=crop',
-  // Santorini Sunset
-  'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?q=80&w=2070&auto=format&fit=crop',
-  // Luxury Resort Bali
-  'https://images.unsplash.com/photo-1537996194471-e657df975ab4?q=80&w=2070&auto=format&fit=crop'
+  'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?q=80&w=2070&auto=format&fit=crop', // Maldives
+  'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070&auto=format&fit=crop', // Mountains
+  'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?q=80&w=2070&auto=format&fit=crop', // Santorini
+  'https://images.unsplash.com/photo-1537996194471-e657df975ab4?q=80&w=2070&auto=format&fit=crop'  // Bali
 ]
 
 export default function Hero() {
@@ -21,10 +20,7 @@ export default function Hero() {
   const [time, setTime] = useState('')
   const [isReturning, setIsReturning] = useState(false)
   const bgRef = useRef<HTMLDivElement>(null)
-
-  const { scrollY } = useScroll()
-  const parallaxY = useTransform(scrollY, [0, 800], [0, 240])
-  const textOpacity = useTransform(scrollY, [0, 400], [1, 0])
+  const infoBarRef = useRef<HTMLDivElement>(null)
 
   // Background rotater
   useEffect(() => {
@@ -33,15 +29,46 @@ export default function Hero() {
 
     const interval = setInterval(() => {
       setCurrentBg(prev => (prev + 1) % bgImages.length)
-    }, 5000)
+    }, 8000)
 
     const timer = setInterval(() => {
       setTime(new Date().toLocaleTimeString('uk-UA', { hour: '2-digit', minute: '2-digit' }))
     }, 1000)
 
+    gsap.registerPlugin(ScrollTrigger)
+
+    let ctx = gsap.context(() => {
+      if (bgRef.current) {
+        gsap.to(bgRef.current, {
+          y: 240,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: bgRef.current.parentElement,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: true,
+          }
+        })
+      }
+
+      if (infoBarRef.current) {
+        gsap.to(infoBarRef.current, {
+          opacity: 0,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: bgRef.current?.parentElement,
+            start: 'top top',
+            end: '50% top',
+            scrub: true,
+          }
+        })
+      }
+    })
+
     return () => {
       clearInterval(interval)
       clearInterval(timer)
+      ctx.revert()
     }
   }, [])
 
@@ -69,15 +96,14 @@ export default function Hero() {
     <section className="relative h-screen min-h-[800px] flex items-center justify-center overflow-hidden text-center bg-slate-950">
 
       {/* Dynamic Background Slider */}
-      <motion.div
+      <div
         ref={bgRef}
-        style={{ y: parallaxY }}
         className="absolute inset-0 overflow-hidden will-change-transform"
       >
       {bgImages.map((img, index) => (
             <div
               key={img}
-              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === currentBg ? 'opacity-100' : 'opacity-0'}`}
+              className={`absolute inset-0 transition-[opacity,transform] duration-[8000ms] ease-out ${index === currentBg ? 'opacity-100 scale-105' : 'opacity-0 scale-100'}`}
             >
               <Image
                 src={img}
@@ -92,14 +118,14 @@ export default function Hero() {
       {/* Overlay Gradients */}
         <div className="absolute inset-0 bg-gradient-to-b from-slate-950/60 via-transparent to-slate-950" />
         <div className="absolute inset-0 bg-black/30" />
-      </motion.div>
+      </div>
 
       {/* Top Info Bar (Desktop Only) */}
       <motion.div 
+        ref={infoBarRef}
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1 }}
-        style={{ opacity: textOpacity }}
         className="absolute top-28 left-[5%] right-[5%] z-20 flex justify-between items-center hidden xl:flex pointer-events-none"
       >
         <div className="flex gap-8">
@@ -180,42 +206,46 @@ export default function Hero() {
           variants={itemVariants}
           className="flex flex-col md:flex-row gap-4 md:gap-6 justify-center w-full md:w-auto"
         >
-          <Link
-            href="#search"
-            onClick={() => {
-              if (typeof window !== 'undefined' && (window as any).gtag) {
-                (window as any).gtag('event', 'hero_search_click', {
-                  event_category: 'navigation',
-                  event_label: 'find_tour'
-                })
-              }
-            }}
-            className="group relative px-10 py-5 bg-white text-slate-950 rounded-2xl font-bold text-lg overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(255,255,255,0.4)] flex items-center justify-center gap-2"
-          >
-            <span className="relative z-10 group-hover:text-indigo-900 transition-colors">
-              {isReturning ? 'Продовжити пошук' : 'Знайти тур'}
-            </span>
-            <svg className="w-5 h-5 relative z-10 group-hover:text-indigo-900 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
-          </Link>
+          <Magnetic pull={0.4}>
+            <Link
+              href="#search"
+              onClick={() => {
+                if (typeof window !== 'undefined' && (window as any).gtag) {
+                  (window as any).gtag('event', 'hero_search_click', {
+                    event_category: 'navigation',
+                    event_label: 'find_tour'
+                  })
+                }
+              }}
+              className="group relative px-10 py-5 bg-white text-slate-950 rounded-2xl font-bold text-lg overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(255,255,255,0.4)] flex items-center justify-center gap-2"
+            >
+              <span className="relative z-10 group-hover:text-indigo-900 transition-colors">
+                {isReturning ? 'Продовжити пошук' : 'Знайти тур'}
+              </span>
+              <svg className="w-5 h-5 relative z-10 group-hover:text-indigo-900 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </Link>
+          </Magnetic>
 
-          <Link
-            href="https://t.me/lizazakharchenko"
-            target="_blank"
-            onClick={() => {
-              import('@/lib/gtag').then(gtag => {
-                gtag.trackTelegramClick()
-                gtag.trackGoogleAdsConversion()
-              })
-            }}
-            className="group px-10 py-5 rounded-2xl font-bold text-lg border border-white/30 bg-white/10 backdrop-blur-md text-white hover:bg-white/20 transition-all hover:scale-105 flex items-center justify-center gap-2"
-          >
-            <span>Написати менеджеру</span>
-            <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-            </svg>
-          </Link>
+          <Magnetic pull={0.4}>
+            <Link
+              href="https://t.me/lizazakharchenko"
+              target="_blank"
+              onClick={() => {
+                import('@/lib/gtag').then(gtag => {
+                  gtag.trackTelegramClick()
+                  gtag.trackGoogleAdsConversion()
+                })
+              }}
+              className="group px-10 py-5 rounded-2xl font-bold text-lg border border-white/30 bg-white/10 backdrop-blur-md text-white hover:bg-white/20 transition-all hover:scale-105 flex items-center justify-center gap-2"
+            >
+              <span>Написати менеджеру</span>
+              <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+              </svg>
+            </Link>
+          </Magnetic>
         </motion.div>
       </motion.div>
 

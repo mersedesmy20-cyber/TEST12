@@ -6,7 +6,6 @@ import Footer from '@/components/Footer'
 import Image from 'next/image'
 import { destinations } from '@/data/destinations'
 import { useModal } from '@/context/ModalContext'
-import DestinationModal from '@/components/DestinationModal'
 
 export default function CountriesPage() {
     const { openModal } = useModal()
@@ -27,7 +26,6 @@ export default function CountriesPage() {
     return (
         <main className="min-h-screen bg-slate-950 text-white">
             <Navigation />
-            <DestinationModal />
 
             <div className="pt-32 pb-20 px-[5%] relative">
                 {/* Background Elements */}

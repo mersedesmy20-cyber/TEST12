@@ -2,37 +2,42 @@
 
 import { ReactNode, useEffect } from 'react'
 import Lenis from '@studio-freight/lenis'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 export default function SmoothScrollProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
+    if (typeof window === 'undefined') return
+
+    gsap.registerPlugin(ScrollTrigger)
+
     const lenis = new Lenis({
-      duration: 1.1,
+      duration: 1.2,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 0.9,
+      wheelMultiplier: 1.0,
+      touchMultiplier: 1.5,
     })
 
-    // Sync Lenis scroll position with window.scrollY so
-    // motion/react useScroll() gets correct values without jank
-    // Lenis handles the scroll smoothness. 
-    // Removed redundant CSS variable update that was causing performance lag.
-    lenis.on('scroll', () => {
-      // Logic for scroll-based animations could go here, 
-      // but only if using specialized performance-optimized hooks.
-    })
+    // Sync Lenis and ScrollTrigger
+    lenis.on('scroll', ScrollTrigger.update)
 
-    let rafId: number
-    function raf(time: number) {
-      lenis.raf(time)
-      rafId = requestAnimationFrame(raf)
+    // Use GSAP's ticker for animation frames
+    const updatePhysics = (time: number) => {
+      lenis.raf(time * 1000)
     }
-    rafId = requestAnimationFrame(raf)
+    gsap.ticker.add(updatePhysics)
+    gsap.ticker.lagSmoothing(0)
+
+    // Expose lenis globally for components to trigger programmatic scrolls
+    ;(window as any).lenis = lenis
 
     return () => {
-      cancelAnimationFrame(rafId)
+      gsap.ticker.remove(updatePhysics)
       lenis.destroy()
+      delete (window as any).lenis
     }
   }, [])
 

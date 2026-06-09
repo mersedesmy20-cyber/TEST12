@@ -5,8 +5,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
-import DestinationModal from '@/components/DestinationModal'
-import QuizModal from '@/components/QuizModal'
 import { useModal } from '@/context/ModalContext'
 import { destinations } from '@/data/destinations'
 
@@ -225,8 +223,6 @@ export default function SeasonalPage() {
                 </div>
             </div>
 
-            <DestinationModal />
-            <QuizModal />
             <Footer />
         </main>
     )

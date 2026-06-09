@@ -13,7 +13,7 @@ export default function Navigation() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50)
     }
-    window.addEventListener('scroll', handleScroll)
+    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
@@ -24,7 +24,7 @@ export default function Navigation() {
           }`}
       >
         <div className="max-w-[1400px] mx-auto px-[5%] py-5 flex justify-between items-center">
-          <Link href="/" className="flex items-center gap-2 group relative z-50">
+          <Link href="/" className="flex items-center gap-2 group relative z-50 flex-shrink-0">
             <div className="w-10 h-10 bg-gradient-to-tr from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-500/20 group-hover:rotate-12 transition-transform duration-300">
               <span className="text-2xl font-black text-white">G</span>
             </div>
@@ -34,7 +34,7 @@ export default function Navigation() {
             </div>
           </Link>
 
-          <div className="hidden lg:flex items-center gap-6">
+          <div className="hidden lg:flex items-center gap-2 xl:gap-6 lg:gap-3.5 relative z-50 flex-shrink-0">
             {[
               { label: 'Пошук туру', href: '/search' },
               { label: 'Тест 🧭', href: '#', onClick: () => openQuiz() },

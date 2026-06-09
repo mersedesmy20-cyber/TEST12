@@ -1,7 +1,9 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { Destination } from '@/types/destination'
+import { getWeatherForCountry, getWeatherEmoji } from '@/utils/weather'
 
 interface DestinationCardProps {
     destination: Destination
@@ -12,6 +14,21 @@ export default function DestinationCard({
     destination,
     onClick,
 }: DestinationCardProps) {
+    const [weather, setWeather] = useState<{ temp: number; emoji: string } | null>(null)
+
+    const handleMouseEnter = () => {
+        if (!weather) {
+            getWeatherForCountry(destination.id).then((data) => {
+                if (data) {
+                    setWeather({
+                        temp: Math.round(data.temperature),
+                        emoji: getWeatherEmoji(data.weathercode)
+                    })
+                }
+            })
+        }
+    }
+
     return (
         <div
             className={`destination-card group relative bg-slate-900/50 backdrop-blur-md border border-white/5 rounded-3xl overflow-hidden cursor-pointer transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(99,102,241,0.2)] ${destination.gridClass === 'large'
@@ -19,6 +36,7 @@ export default function DestinationCard({
                 : 'h-[400px]'
                 }`}
             onClick={onClick}
+            onMouseEnter={handleMouseEnter}
         >
             <div className="h-full relative overflow-hidden transition-all duration-700 bg-slate-900">
                 <Image
@@ -37,6 +55,15 @@ export default function DestinationCard({
                 >
                     {destination.flag}
                 </div>
+
+                {/* Weather Badge */}
+                {weather && (
+                    <div className="absolute top-4 left-4 rounded-xl border border-white/20 shadow-lg backdrop-blur-md bg-black/40 px-3 py-1.5 flex items-center gap-2 text-white z-10 animate-fadeIn">
+                        <span className="text-lg">{weather.emoji}</span>
+                        <span className="font-bold text-sm">{weather.temp}°C</span>
+                        <span className="text-[10px] text-white/50 uppercase tracking-wider ml-1">Зараз</span>
+                    </div>
+                )}
 
                 {/* Content */}
                 <div className="absolute inset-x-0 bottom-0 p-6 flex flex-col justify-end z-10">

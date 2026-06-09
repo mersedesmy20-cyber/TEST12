@@ -3,11 +3,9 @@
 import { useState, useEffect } from 'react'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
-import DestinationModal from '@/components/DestinationModal'
 import DestinationCard from '@/components/DestinationCard'
 import { destinations } from '@/data/destinations'
 import { useModal } from '@/context/ModalContext'
-import { initSmoothScroll } from '@/lib/smoothScroll'
 
 const months = [
     {
@@ -104,7 +102,6 @@ export default function CalendarPage() {
     const [selectedMonth, setSelectedMonth] = useState<number>(1)
 
     useEffect(() => {
-        initSmoothScroll()
         setSelectedMonth(new Date().getMonth() + 1)
     }, [])
 
@@ -203,7 +200,6 @@ export default function CalendarPage() {
                 )}
             </div>
 
-            <DestinationModal />
             <Footer />
 
             <style jsx global>{`

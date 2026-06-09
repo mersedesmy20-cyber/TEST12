@@ -163,6 +163,7 @@ export default function DestinationModal() {
                       src={attr.image}
                       alt={attr.name}
                       fill
+                      unoptimized
                       className="object-cover opacity-60 group-hover:opacity-100 transition-all duration-500 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
@@ -315,6 +316,7 @@ export default function DestinationModal() {
                     src={activeAttraction.image}
                     alt={activeAttraction.name}
                     fill
+                    unoptimized
                     className="object-cover"
                     onError={(e) => {
                       // Fallback if image fails to load

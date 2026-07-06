@@ -21,8 +21,8 @@ export function middleware(request: NextRequest) {
         // Get everything after the first ':' as the password
         const pwd = parts.slice(1).join(':')
 
-        // Default password is now AAAaaa111
-        const correctPassword = process.env.DASHBOARD_PASSWORD || 'AAAaaa111'
+        const rawPassword = process.env.DASHBOARD_PASSWORD || 'AAAaaa111'
+        const correctPassword = rawPassword.replace(/^['"]|['"]$/g, '')
 
         if (pwd === correctPassword) {
           return NextResponse.next()

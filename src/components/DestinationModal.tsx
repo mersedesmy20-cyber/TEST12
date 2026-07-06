@@ -159,13 +159,17 @@ export default function DestinationModal() {
                     onClick={() => setActiveAttraction(attr)}
                     className="group relative h-64 bg-slate-900 border border-white/10 rounded-3xl overflow-hidden cursor-pointer transition-all hover:-translate-y-2 hover:border-indigo-500/50 hover:shadow-2xl hover:shadow-indigo-500/20"
                   >
-                    <Image
-                      src={attr.image}
-                      alt={attr.name}
-                      fill
-                      unoptimized
-                      className="object-cover opacity-60 group-hover:opacity-100 transition-all duration-500 group-hover:scale-110"
-                    />
+                    {attr.image ? (
+                      <Image
+                        src={attr.image}
+                        alt={attr.name}
+                        fill
+                        unoptimized
+                        className="object-cover opacity-60 group-hover:opacity-100 transition-all duration-500 group-hover:scale-110"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 bg-gradient-to-br from-indigo-950/45 via-slate-900 to-purple-950/45 group-hover:scale-105 transition-all duration-500" />
+                    )}
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
                     <div className="absolute bottom-0 left-0 p-6">
                       <div className="flex items-center gap-3 mb-2">

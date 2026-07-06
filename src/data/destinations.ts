@@ -19,25 +19,25 @@ export const destinations: Destination[] = [
       {
         name: "Собор Святої Софії (Стамбул)",
         description: "Величний символ 'Золотого віку' Візантії. Побудований у 537 році, цей храм вражає своїм куполом та мозаїками.",
-        image: "https://image.pollinations.ai/prompt/%D0%A1%D0%BE%D0%B1%D0%BE%D1%80%20%D0%A1%D0%B2%D1%8F%D1%82%D0%BE%D1%97%20%D0%A1%D0%BE%D1%84%D1%96%D1%97%20%D0%A1%D1%82%D0%B0%D0%BC%D0%B1%D1%83%D0%BB%20travel%20location%20tourist%20attraction%20realistic%20professional%20photography%20high%20quality?width=600&height=400&nologo=true",
+        image: "https://images.unsplash.com/photo-1545459720-aacaf509ebc3?q=80&w=600&auto=format&fit=crop",
         icon: "🕌"
       },
       {
         name: "Каппадокія (повітряні кулі)",
         description: "Казковий ландшафт, де сотні повітряних куль злітають у небо на світанку. Це враження, яке неможливо забути.",
-        image: "https://image.pollinations.ai/prompt/%D0%9A%D0%B0%D0%BF%D0%BF%D0%B0%D0%B4%D0%BE%D0%BA%D1%96%D1%8F%20%D0%BF%D0%BE%D0%B2%D1%96%D1%82%D1%80%D1%8F%D0%BD%D1%96%20%D0%BA%D1%83%D0%BB%D1%96%20travel%20location%20tourist%20attraction%20realistic%20professional%20photography%20high%20quality?width=600&height=400&nologo=true",
+        image: "https://images.unsplash.com/photo-1641128324972-af3212f0f6bd?q=80&w=600&auto=format&fit=crop",
         icon: "🎈"
       },
       {
         name: "Памуккале (травертини)",
         description: "Природні басейни з термальною водою сніжно-білого кольору. Унікальне природне явище, відоме як 'Бавовняний замок'.",
-        image: "https://image.pollinations.ai/prompt/%D0%9F%D0%B0%D0%BC%D1%83%D0%BA%D0%BA%D0%B0%D0%BB%D0%B5%20%D1%82%D1%80%D0%B0%D0%B2%D0%B5%D1%80%D1%82%D0%B8%D0%BD%D0%B8%20travel%20location%20tourist%20attraction%20realistic%20professional%20photography%20high%20quality?width=600&height=400&nologo=true",
+        image: "https://images.unsplash.com/photo-1622306351842-5f65a0b7774c?q=80&w=600&auto=format&fit=crop",
         icon: "💧"
       },
       {
         name: "Античне місто Ефес",
         description: "Одне з найкраще збережених античних міст світу. Прогуляйтеся стародавніми вулицями та побачте бібліотеку Цельса.",
-        image: "https://image.pollinations.ai/prompt/%D0%90%D0%BD%D1%82%D0%B8%D1%87%D0%BD%D0%B5%20%D0%BC%D1%96%D1%81%D1%82%D0%BE%20%D0%95%D1%84%D0%B5%D1%81%20travel%20location%20tourist%20attraction%20realistic%20professional%20photography%20high%20quality?width=600&height=400&nologo=true",
+        image: "https://images.unsplash.com/photo-1596306499300-e2bf307cb769?q=80&w=600&auto=format&fit=crop",
         icon: "🏛️"
       }
     ],
@@ -78,25 +78,25 @@ export const destinations: Destination[] = [
       {
         name: "Саграда Фамілія",
         description: "Величний храм Антоніо Гауді, який будується вже понад 100 років. Неймовірна гра світла та архітектурних форм.",
-        image: "https://image.pollinations.ai/prompt/%D0%A1%D0%B0%D0%B3%D1%80%D0%B0%D0%B4%D0%B0%20%D0%A4%D0%B0%D0%BC%D1%96%D0%BB%D1%96%D1%8F%20travel%20location%20tourist%20attraction%20realistic%20professional%20photography%20high%20quality?width=600&height=400&nologo=true",
+        image: "https://images.unsplash.com/photo-1583422409516-2895a77efded?q=80&w=600&auto=format&fit=crop",
         icon: "⛪"
       },
       {
         name: "Парк Гуель",
         description: "Казковий парк з пряниковими будиночками та мозаїчною ящіркою. Відкриває найкращу панораму на Барселону.",
-        image: "https://image.pollinations.ai/prompt/%D0%9F%D0%B0%D1%80%D0%BA%20%D0%93%D1%83%D0%B5%D0%BB%D1%8C%20travel%20location%20tourist%20attraction%20realistic%20professional%20photography%20high%20quality?width=600&height=400&nologo=true",
+        image: "https://images.unsplash.com/photo-1523531294919-4bcd7c65e216?q=80&w=600&auto=format&fit=crop",
         icon: "🦎"
       },
       {
         name: "Альгамбра (Гранада)",
         description: "Шедевр маврітанської архітектури. Палаци, дворики з фонтанами та сади Хенераліфе.",
-        image: "https://image.pollinations.ai/prompt/%D0%90%D0%BB%D1%8C%D0%B3%D0%B0%D0%BC%D0%B1%D1%80%D0%B0%20%D0%93%D1%80%D0%B0%D0%BD%D0%B0%D0%B4%D0%B0%20travel%20location%20tourist%20attraction%20realistic%20professional%20photography%20high%20quality?width=600&height=400&nologo=true",
+        image: "https://images.unsplash.com/photo-1621683400760-46961a7c369e?q=80&w=600&auto=format&fit=crop",
         icon: "🏰"
       },
       {
         name: "Королівський палац",
         description: "Офіційна резиденція іспанської королівської родини в Мадриді. Розкішні зали та збройова палата.",
-        image: "https://image.pollinations.ai/prompt/%D0%9A%D0%BE%D1%80%D0%BE%D0%BB%D1%96%D0%B2%D1%81%D1%8C%D0%BA%D0%B8%D0%B9%20%D0%BF%D0%B0%D0%BB%D0%B0%D1%86%20travel%20location%20tourist%20attraction%20realistic%20professional%20photography%20high%20quality?width=600&height=400&nologo=true",
+        image: "https://images.unsplash.com/photo-1548679198-d4fa24976767?q=80&w=600&auto=format&fit=crop",
         icon: "👑"
       }
     ],

@@ -37,6 +37,7 @@ export default function Navigation() {
           <div className="hidden lg:flex items-center gap-2 xl:gap-6 lg:gap-3.5 relative z-50 flex-shrink-0">
             {[
               { label: 'Пошук туру', href: '/search' },
+              { label: 'Панель 📊', href: '/dashboard' },
               { label: 'Тест 🧭', href: '#', onClick: () => openQuiz() },
               { label: 'Країни', href: '/countries' },
               { label: 'Готелі', href: '/#destinations' },
@@ -99,6 +100,7 @@ export default function Navigation() {
         <div className="px-[5%] py-8 flex flex-col gap-6">
           {[
             { label: 'Пошук туру', href: '/search' },
+            { label: 'Панель 📊', href: '/dashboard' },
             { label: 'Тест 🧭', onClick: () => { openQuiz(); setMobileMenuOpen(false); } },
             { label: 'Країни', href: '/countries' },
             { label: 'Готелі', href: '/#destinations' },

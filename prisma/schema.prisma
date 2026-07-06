@@ -1,0 +1,33 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Tour {
+  id            String   @id @default(uuid()) @db.Uuid
+  clientName    String   @map("client_name")
+  destination   String
+  departureDate DateTime @map("departure_date")
+  source        String   // "web" or "telegram"
+  createdAt     DateTime @default(now()) @map("created_at")
+  tasks         Task[]
+
+  @@map("tours")
+}
+
+model Task {
+  id           String   @id @default(uuid()) @db.Uuid
+  tourId       String   @map("tour_id") @db.Uuid
+  taskType     String   @map("task_type") // "insurance", "payment", "documents"
+  taskName     String   @map("task_name")
+  deadlineDate DateTime @map("deadline_date")
+  status       String   @default("PENDING") // "PENDING", "COMPLETED"
+  isNotified   Boolean  @default(false) @map("is_notified")
+  tour         Tour     @relation(fields: [tourId], references: [id], onDelete: Cascade)
+
+  @@map("tasks")
+}

@@ -17,13 +17,14 @@ export function middleware(request: NextRequest) {
         const auth = authHeader.split(' ')[1]
         // Use web-native atob for edge runtime compatibility
         const decoded = atob(auth)
-        const [user, pwd] = decoded.split(':')
+        const parts = decoded.split(':')
+        // Get everything after the first ':' as the password
+        const pwd = parts.slice(1).join(':')
 
-        const correctUser = process.env.DASHBOARD_USER || 'admin'
-        // Default password if env variable is not set
-        const correctPassword = process.env.DASHBOARD_PASSWORD || 'glorious2026'
+        // Default password is now AAAaaa111
+        const correctPassword = process.env.DASHBOARD_PASSWORD || 'AAAaaa111'
 
-        if (user === correctUser && pwd === correctPassword) {
+        if (pwd === correctPassword) {
           return NextResponse.next()
         }
       } catch (e) {
